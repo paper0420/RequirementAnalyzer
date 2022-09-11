@@ -1,9 +1,0 @@
-<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PMG_030</h1></br><li>7.2.1.3 SYR_PMG_030: detect and handle wakeup via CAN</br></li><li>7.2.1.3.1 Description</br></li><li>7.2.1.3.1.0-1 Brief description:</br></li><li>7.2.1.3.1.0-2 The CAN wakeup can be requested by “CAN activity” or “CAN wakeup line”. Depending on  current system-state the processing of wake-up events is different.
- 
-This UC does NOT describe the application-communication itself, it just describe the wake up / shut down of CCU.
-If the CCU has no communication demand/request, it will enter “sleep-mode”.
-This UC will handle the CAN-wake up event (discrete line and/or CAN-wakeup) and bring the CCU into a state which enables the software to operate these communication lines.
-
-1.1.	SYR_PMG040 detect and handle wakeup via EVSE
-This UC will handle the wakeup via discrete lines from EVSE. These lines can be the “Pilot-Line” for IEC 62196 or the “start of charging” line for CHAdeMO.
-In normal case the CCU is already running, caused by other reason (e.g. Flap opening), but in some </br></li><li>7.2.1.3.1.0-3 Preconditions: CAN bus is sleeping (if CPU is running or not is NOT focus of this UC)</br></li><li>7.2.1.3.1.0-4 Trigger: dominant level on CAN-Lines (change to)</br></li><li>7.2.1.3.1.0-5 Input data: none</br></li><li>7.2.1.3.1.0-6 Description of behaviour: CAN bus will wake up and start operation</br></li><li>7.2.1.3.1.0-7 Timing Requirements: <150ms between wake-up signal and "receive possible"</br></li><li>7.2.1.3.1.0-8 Output data: CAN messages defined in ECU-extract</br></li><li>7.2.1.3.1.0-9 Postconditions: none</br></li><li>7.2.1.3.1.0-10 Descriptions of exceptions: none</br></li><li>7.2.1.3.1.0-11 Dependencies and interactions: none</br></li><li>7.2.1.3.2 Differences to CRS</br></li><li>7.2.1.3.2.0-1 none</br></li><li>7.2.1.3.3 Questions and Answers</br></li><li>7.2.1.3.3.0-1 none</br></li>

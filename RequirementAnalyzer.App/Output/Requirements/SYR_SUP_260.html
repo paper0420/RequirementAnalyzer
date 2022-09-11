@@ -1,7 +1,0 @@
-<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SUP_260</h1></br><li>7.4.2.27 SYR_SUP_260: Entropy Source in UDS Seed Request</br></li><li>7.4.2.27.1 Description</br></li><li>7.4.2.27.1.0-1 Brief description: CCU shall use a non-deterministic process for the DSC_SecurityAccess's Seed generation.</br></li><li>7.4.2.27.1.0-2 Preconditions: 
-1. Ecu in Security Level 0.</br></li><li>7.4.2.27.1.0-3 Trigger: The DID: (Securityaccess - Indicated) – 0x27 11 in SoftwareDownload sequence.</br></li><li>7.4.2.27.1.0-4 Input data:None.</br></li><li>7.4.2.27.1.0-5 Description of behaviour:
-CCU shall use the HSM's TRNG for the Seed generation, thus, avoding the possiblity of Seed repeition in at least counts of 200 and more.
-
-If the HSM is in an unresponsive state, the CCU shall use an alternative method to generate the seed independant of the HSM, which is allowed to have lesser entropy than the TRNG.</br></li><li>7.4.2.27.1.0-6 Timing Requirements:None.</br></li><li>7.4.2.27.1.0-7 Output data: 
-CCU shall provide a unique seed in the +ve DSC response in Challengebytes.</br></li><li>7.4.2.27.1.0-8 Postconditions:None.</br></li><li>7.4.2.27.1.0-9 Descriptions of exceptions:None.</br></li><li>7.4.2.27.1.0-10 Dependencies and interactions:
-Dependency on HSM's TRNG.</br></li><li>7.4.2.27.2 Differences to CRS</br></li><li>7.4.2.27.2.0-1 xxx</br></li><li>7.4.2.27.3 Questions and Answers</br></li><li>7.4.2.27.3.0-1 xxx</br></li>
