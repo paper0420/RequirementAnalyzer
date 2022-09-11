@@ -66,17 +66,17 @@ Console.WriteLine($"{string.Join("\n", testCasesAffectedByKlh)}");
 
 
 
-//var spec = new SpecForCheckingBaseline(
-//    testCases: completeExecutedTCs,
-//    syrs: completeSYRs,
-//    deltaSyrs: completeDeltaSYRs,
-//    klh: currentKLHs,
-//    originalSYRs:syrs);
+var spec = new SpecForCheckingBaseline(
+    testCases: completeExecutedTCs,
+    syrs: completeSYRs,
+    deltaSyrs: completeDeltaSYRs,
+    klh: currentKLHs,
+    originalSYRs: syrs);
 
 
-//HtmlIndexPage.GenerateTraceAbilityPage(spec);
-//HtmlTCAndReqPage.GenerateTestCaseAndRequirementPage(spec);
-//HtmlSYRPage.GenerateSYR(spec);
+HtmlIndexPage.GenerateTraceAbilityPage(spec);
+HtmlTCAndReqPage.GenerateTestCaseAndRequirementPage(spec);
+HtmlSYRPage.GenerateSYR(spec);
 
 
 

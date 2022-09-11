@@ -34,15 +34,24 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 spec,
                 testCase);
 
+            string header = $"<html>" +
+                            $"<head>" +
+                            $"<style>" +
+                            $"p {{color: grey;}}" +
+                            $"</style>" +
+                            $"</head>";
+
+            string end = "</html>";
+
             string testCaseDetail =
                 $"<a href='./index.html'>Home</a>" +
                 $"<h1>{testCase.ID}</h1>\n" +
-                $"[{testCase.ItemClass1}],[{testCase.ItemClass2}],[{testCase.ItemClass3}]" +
+                $"<p>[{testCase.ItemClass1}],[{testCase.ItemClass2}],[{testCase.ItemClass3}]</p>" +
                 $"</br>" +
                 $"Test Objective: {testCase.Objective}<br>\n" +
                 $"<h2>Requirements</h2>" +
                 $"{requirementsHtml}";
-            return testCaseDetail;
+            return header+testCaseDetail+end;
 
         }
 
