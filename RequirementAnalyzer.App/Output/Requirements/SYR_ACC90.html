@@ -1,0 +1,23 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC90</h1></br><li>2.1.10 SYR_ACC90: Component protection -Detect and handle errors: AC/DC-Over/Under-Voltage/Current and overtemperature</br></li><li>2.1.10.1 Description</br></li><li>2.1.10.1.0-1 Brief description:</br></li><li>2.1.10.1.0-2 Detect and handle one of the following errors upon arising
+- Undervoltage AC
+- Undervoltage DC-HV
+- Overvoltage AC
+- Overvoltage DC-HV
+- Maximum current AC
+- Maximum current DC-HV
+- Hardware failure (e.g. short-circuit)
+- Overtemperature</br></li><li>2.1.10.1.0-3 Preconditions:</br></li><li>2.1.10.1.0-4 DCDC in Standby/Precharge ready/Charge (target/active state)</br></li><li>2.1.10.1.0-5 Trigger:</br></li><li>2.1.10.1.0-6 Surpasing the respective treshhold values</br></li><li>2.1.10.1.0-7 Input data:</br></li><li>2.1.10.1.0-8 Sensor measuraments from:
+  - Current
+  - Voltage
+  - Temperature
+sensors</br></li><li>2.1.10.1.0-9 Description of behaviour:</br></li><li>2.1.10.1.0-10 This use case should serve as parent usecase for the different component protection usecases.
+
+Upon detection of an error. I.e. One of the limits is surpased, the DC/DC shall stop working and change to error mode.
+Register the respective DTCs on the fault memory</br></li><li>2.1.10.1.0-11 Timing Requirements:</br></li><li>2.1.10.1.0-12 " such that the hardware is not damaged" --> clarify/specify with BMW. Different timings apply to the specific component protection.</br></li><li>2.1.10.1.0-13 Output Data:</br></li><li>2.1.10.1.0-14 trigger Error mode</br></li><li>2.1.10.1.0-15 Postconditions:</br></li><li>2.1.10.1.0-16 none</br></li><li>2.1.10.1.0-17 Descriptions of exceptions:</br></li><li>2.1.10.1.0-18 * the  function must trigger a
+operating mode change to the status "Error" when a protection condition is present.
+* If a self protective emergency shutdown occurs, an entry must be stored in the fault memory.</br></li><li>2.1.10.1.0-19 Dependencies and interactions:</br></li><li>2.1.10.1.0-20 Other modules/components
+Diagnostic - LDK
+customer requirements  [18392]  
+Usecases
+SYR_PMG130 and SYR_PMG140  (Power Management)
+SYR_ACC50 , SYR_ACC60, SYR_ACC70, SYR_ACC80</br></li><li>2.1.10.2 Differences to CRS</br></li><li>2.1.10.3 Questions and Answers</br></li><li>2.1.10.3.0-1 MiL/HiL test</br></li>

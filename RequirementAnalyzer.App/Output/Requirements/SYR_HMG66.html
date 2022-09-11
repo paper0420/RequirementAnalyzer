@@ -1,0 +1,25 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG66</h1></br><li>3.1.10 SYR_HMG66:AKKS - Stop Test Closed</br></li><li>3.1.10.1 Description</br></li><li>3.1.10.1.0-1 Brief description: the CCU has to be able to execute a special test which is used for the learning of the low stop of the flap, i.e. the flap position at which the active grill will be completely closed. 
+This test will be part of the initialization procedure of the AKKS, i.e. it will be executed at the beginning of each driving cycle (more in detail every time the AKKS will send an INIT Request)</br></li><li>3.1.10.1.0-2 Preconditions: LIN Wake-Up, INIT procedure successfully executed</br></li><li>3.1.10.1.0-3 Trigger: successful end of the INIT Procedure, diagnostic Job (plant system test)</br></li><li>3.1.10.1.0-4 Input data: (coming from the AKKS)
+- current position of the AKKS (SMOT_PO_AVL_AKKS_LIN);
+- blockage detection bit (ST_BLK_AKKS_LIN);             </br></li><li>3.1.10.1.0-5 Description of behaviour: As soon as the INIT Procedure has been successfully executed:
+1. the flap will be moved to an applicable low position ----> currently it has been agreed SMOT_PO_AKKS_LIN=5000;
+2. as soon as the AKKS will detect a blockade of the flap (ST_BLK_AKKS_LIN=1), then the CCU will set the AKKS in Stop-Mode (CTR_SMOT_MOD_AKKS_LIN=2) and send a Carry-Over (SMOT_PO_COOV_AKKS_LIN=1) to a fixed value ----> currently it has been agreed SMOT_PO_AKKS_LIN=9950;
+3. after the correct execution of the step 2., the AKKS will set its current position to the carry-over position, i.e. 9950;
+4. after the AKKS will set its current position to the same value of the target position, the carry-over will be unset and the AKKS will be re-set back to Normal Mode (CTR_SMOT_MOD_AKKS_LIN=0);
+5. after the correct execution of the step 5., the flap will be moved 50 LIN-Steps more, i.e. to the target position 10000 in order to not have an excessive mechanical tension at the low limit</br></li><li>3.1.10.1.0-6 Timing Requirements: Referring to the section "Description of behaviour":
+- Steps 1.-2. : the timing of the Blockade detection after the starting of the movement of the flap will depend on its initial position ;
+- Step 2. : as soon the blockade has been detected, the CCU has to immediately set the AKKS in Stop-Mode , i.e. starting from the next LIN-Cycle, in order to not have mechanical tension on the flap ----> after 400ms (strict constraint);
+- Step 2. : as soon as the blockade has been detected, the CCU has to immediately send a Carry-over, i.e. starting from the next LIN-Cycle ----> after 400ms, but a certain tolerance on this requirement is acceptable (no strict constraint);
+- Step 3. : the Carry-Over will be set to 1 for a calibratable number n of LIN-Cycles (for Meta.1751 it has been set n=7)</br></li><li>3.1.10.1.0-7 Output data: the relevant output data sent by the CCU are the following LIN-Signals:
+- SMOT_PO_AKKS_LIN
+- TURN_V_AKKS_LIN (fixed to 3 during the Stop-Test Closed, i.e. HighSpeed/InitTorque)
+- CTR_SMOT_MOD_AKKS_LIN
+- SMOT_TORQ_AKKS_LIN (fixed to 1 during the Stop-Test Closed, i.e. 75% Torque)
+- SMOT_PO_COOV_AKKS_LIN</br></li><li>3.1.10.1.0-8 Postconditions: 
+- SMOT_PO_AKKS_LIN=ST_SMOT_AVL_PO_AKKS_LIN==9950;
+- SMOT_PO_COOV_AKKS_LIN=0;
+- CTR_SMOT_MOD_AKKS_LIN=0;</br></li><li>3.1.10.1.0-9 Descriptions of exceptions:
+- if the blockade has been not detected during the Stop-Test Closed, a DTC has to be set (TBD by BMW);
+- if during the carry-over (3.) the current position cannot be set to the target position, then it should be startet a recovery procedure (to be agreed with BMW);
+
+AKKS1 is not mounted for SP21 car lines.</br></li><li>3.1.10.1.0-10 Dependencies and interactions: main dependency is on the AKKS and on its mechanical interface: ( see section above "Descriptions of exceptions"</br></li><li>3.1.10.2 Differences to CRS</br></li><li>3.1.10.2.0-1 xxx</br></li><li>3.1.10.3 Questions and Answers</br></li><li>3.1.10.3.0-1 xxx</br></li>

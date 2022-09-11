@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_230</h1></br><li>6.1.25 SYR_LvDCDC_F_230: Stop energy transfer in normal case</br></li><li>6.1.25.1 Description</br></li><li>6.1.25.1.0-1 Brief description:</br></li><li>6.1.25.1.0-2 The LvSupplySystem stops the energy transfer when standby is the target operating mode.</br></li><li>6.1.25.1.0-3 Preconditions:</br></li><li>6.1.25.1.0-4 Current_Operating_State=Buck or Standby,
+RUNLEVEL >= 30,
+No error</br></li><li>6.1.25.1.0-5 Trigger:</br></li><li>6.1.25.1.0-6 Target_Operating_State  = Standby</br></li><li>6.1.25.1.0-7 Input data:</br></li><li>6.1.25.1.0-8 Target_Operating_State  = Standby,
+Target_U_LV = 15V,
+Measured_U_LV = 14V
+Measured_U_HV = 380V
+Min_Permitted_HV_Voltage = 300V,
+Max_Permitted_HV_Power (Leistung_DCDC-Wandler_Hochvoltteil_maximal_Grenze) = 3100 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = 35°C</br></li><li>6.1.25.1.0-9 Description of behaviour:</br></li><li>6.1.25.1.0-10 The LvSupplySystem stopps the energy transmission when the target operating state = standby is received. The LvSupplySystem shows the readiness of the standby mode by reducing the output current to 0A and with the signals Current_Operating_State = standby, the Measured_LVcurrent = 0A and the Measured_Hvcurrent = 0A.</br></li><li>6.1.25.1.0-11 Timing Requirements:</br></li><li>6.1.25.1.0-12 within 2ms.</br></li><li>6.1.25.1.0-13 Output Data:</br></li><li>6.1.25.1.0-14 Current_Operating_State = Standby,
+Measured_LVcurrent = 0 A,
+Measured_Hvcurrent = 0 A,
+Measured_U_HV = 380V,
+Measured_LVvoltage = 14V,
+Max_Available_Lvcurrent = 0A,
+Current_Workload = 0 percent
+Other values to be reported: Yes
+Measured_Critical_Temperature,
+Measured_Coolant_Temperature,
+Current_Derating_Status</br></li><li>6.1.25.1.0-15 Postconditions:</br></li><li>6.1.25.1.0-16 Descriptions of exceptions:</br></li><li>6.1.25.1.0-17 Crash, Error</br></li><li>6.1.25.1.0-18 Dependencies and interactions:</br></li><li>6.1.25.1.0-19 Other components/modules
+Customer requirements 14507, 14512, 14526
+EPIC CCU-98, META 1715
+Usecases 
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.25.2 Differences to CRS</br></li><li>6.1.25.3 Questions and Answers</br></li>

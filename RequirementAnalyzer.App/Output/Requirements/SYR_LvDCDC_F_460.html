@@ -1,0 +1,28 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_460</h1></br><li>6.1.60 SYR_LvDCDC_F_460: LvDCDC is derating due to maximium LV limit of 18V</br></li><li>6.1.60.1 Description</br></li><li>6.1.60.1.0-1 Brief description:</br></li><li>6.1.60.1.0-2 The LvDCDC must reduce the output current to 0 A if 16 V are exceeded. The LvDCDC must not exceed a maximum LV voltage of 18V.</br></li><li>6.1.60.1.0-3 Preconditions:</br></li><li>6.1.60.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.60.1.0-5 Trigger:</br></li><li>6.1.60.1.0-6 The electronic DC load  voltage is adjusted to 18V.
+Measured_U_LV = increased up to 18,0V</br></li><li>6.1.60.1.0-7 Input data:</br></li><li>6.1.60.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V
+Measured_U_LV = increased up to 18,0V
+Measured_U_HV = 380V
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 3100 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = between -26°C and 70°C.</br></li><li>6.1.60.1.0-9 Description of behaviour:</br></li><li>6.1.60.1.0-10 All functional measures have to fulfilled up to 18V. The sensors and controllers shall be operable without any problems. The LvDCDC power output is 0.0W.</br></li><li>6.1.60.1.0-11 Timing Requirements:</br></li><li>6.1.60.1.0-12 Output Data:</br></li><li>6.1.60.1.0-13 Current_Operating_State = Error
+Measured_LVcurrent=  0A
+Measured_U_LV = 18V
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = 0A
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist > 0,
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist = 0,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 0
+A LV overvoltage DTC is to be stored in the primary error memory.</br></li><li>6.1.60.1.0-14 Postconditions:</br></li><li>6.1.60.1.0-15 Current_Operating_State = Error
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = 0A
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist > 0,
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist = 0,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 0
+A LV overvoltage DTC is stored in the primary error memory.</br></li><li>6.1.60.1.0-16 Descriptions of exceptions:</br></li><li>6.1.60.1.0-17 Dependencies and interactions:</br></li><li>6.1.60.1.0-18 Other components/modules
+Customer requirements: 21909
+Usecases 
+EPIC : CCU-498
+Safety requirements ASIL-B
+Technical Safety requirements:FTZ = 10ms</br></li><li>6.1.60.2 Differences to CRS</br></li><li>6.1.60.3 Questions and Answers</br></li>

@@ -1,0 +1,9 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG89</h1></br><li>3.1.25 SYR_HMG89:Control of the speed of the electric Waterpumps (EWP23,EWP22)</br></li><li>3.1.25.1 Description</br></li><li>3.1.25.1.0-1 Brief description: CCU has to control the Waterpumps EWP23 and EWP22</br></li><li>3.1.25.1.0-2 Preconditions: Kl30 ON, Ignition ON</br></li><li>3.1.25.1.0-3 Trigger: LIN Wake-Up</br></li><li>3.1.25.1.0-4 Input data: from the BMW interface ---> BMW_pct_CtlEwp1 for EWP23, BMW_pct_CtlEwp2 for EWP22 </br></li><li>3.1.25.1.0-5 Description of behaviour: 
+1- The CCU has to control the speed of the Waterpump EWP23 (P1/130W) via the LIN signal CTR_EWP23_LIN .TARVL_RPM_EWP23_LIN ---> value range [0..254] 255 indicates an invalid value
+2- The CCU has to control the  speed of theWaterpump EWP22 (P2/80W) via the LIN signal  CTR_EWP22_LIN  .TARVL_RPM_EWP22_LIN  ---> value range [0..254] 255 indicates an invalid value
+3- When CCU goes to sleep the pump needs to be deactivated by sending all LIN-Slaves to sleep (Std-LIN-behaviour).</br></li><li>3.1.25.1.0-6 Timing Requirements:</br></li><li>3.1.25.1.0-7 Output data:</br></li><li>3.1.25.1.0-8 Postconditions:</br></li><li>3.1.25.1.0-9 Descriptions of exceptions:
+1.TARVL_RPM_EWP23_LIN=0xFF (signal not valid)
+2.TARVL_RPM_EWP22_LIN=0xFF (signal not valid)</br></li><li>3.1.25.1.0-10 Dependencies and interactions:
+EPIC# ----> CCU-1466 (EWP23)
+EPIC# ----> CCU-1465 (EWP22)
+</br></li><li>3.1.25.2 Differences to CRS</br></li><li>3.1.25.2.0-1 xxx</br></li><li>3.1.25.3 Verification Measure</br></li><li>3.1.25.3.0-1 xxx</br></li><li>3.1.25.4 Questions and Answers</br></li><li>3.1.25.4.0-1 xxx</br></li><li>3.1.25.5 Verification Criteria</br></li><li>3.1.25.5.0-1 xxx</br></li>

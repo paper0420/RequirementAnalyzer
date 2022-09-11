@@ -1,0 +1,14 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_600</h1></br><li>8.1.57 SYR_CIN_600 : Connect PDU INFO_DT_TARO_SLT_2 to coding Parameter SRAHardware</br></li><li>8.1.57.1 Description</br></li><li>8.1.57.1.0-1 Brief description:
+Coding parameter ‘SRAHardware’ will indicate the presence of MRR hardware ( MRR HW mounted or not mounted)
+When the hardware is mounted the RX PDU group INFO_DT_TARO_SLT_2 shall be activated or else it shall be deactivated. 
+Corresponding timeout DTC ‘0xD794D8 ‘ shall not be logged if the PDU is deactivated .
+</br></li><li>8.1.57.1.0-2 Preconditions: SRAHardware coding parameter value is available </br></li><li>8.1.57.1.0-3 Trigger: NA</br></li><li>8.1.57.1.0-4 Input data: CAF file , FA file</br></li><li>8.1.57.1.0-5 Description of behaviour:
+  when coding parameter 'SRAHarware' >0 
+DU  INFO_DT_TARO_SLT_2  IN PDU group is activated  & if PDU  INFO_DT_TARO_SLT_2 is not received in time , DTC 0xD794D8 shall be set
+when coding parameter 'SRAHarware' = 0  
+ IN PDU group is deactivated & if PDU  INFO_DT_TARO_SLT_2 is not received  , DTC 0xD794D8 shall NOT be set
+</br></li><li>8.1.57.1.0-6 <Picture></br></li><li>8.1.57.1.0-7 Timing Requirements: NA</br></li><li>8.1.57.1.0-8 Output data: DTC 0x D794D8 status depending on the coding parameter SRAHardware value  & Reception of INFO_DT_TRO_SLT_2</br></li><li>8.1.57.1.0-9 Postconditions: NA</br></li><li>8.1.57.1.0-10 Descriptions of exceptions: NA</br></li><li>8.1.57.1.0-11 Dependencies and interactions: Please refer to below picture 
+ </br></li><li>8.1.57.1.0-12 <Picture></br></li><li>8.1.57.2 Differences to CRS</br></li><li>8.1.57.2.0-1 Coding parameter SRAHardware is available & implemented In G26 & I20 SW .
+PDU - INFO_DT_TARO_SLT_2 is a Rx pdu is available & implemented in G26 & I20 SW 
+no MRR mounted in G26. , 
+SRAHardware’ will indicate the presence of MRR hardware. When Hardware is mounted PDU group INFO_DT_TARO_SLT_2  shall be activated.</br></li><li>8.1.57.3 Questions and Answers</br></li><li>8.1.57.3.0-1 NA</br></li>

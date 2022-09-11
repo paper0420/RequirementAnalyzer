@@ -1,0 +1,107 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SUP_250</h1></br><li>7.4.2.1 SYR_SUP_250 : Adapt CIF Flash Concept to CIF_Flash_Concept_Master_to_Slave_ver2_10</br></li><li>7.4.2.1.1 Description</br></li><li>7.4.2.1.1.0-1 Brief description:
+CCU shall fullfill the New specification updated and available in the CIF_Flash_Concept_Master_to_Slave_ver2_10.pdf. Previously CCU as followed CIF_Flash_Concept_Master_to_Slave_ver2_8.pdf. The delta requirements need to be supported or Fullfilled.
+
+Below is the identified requirement.
+RequestDownload In case of ILD Flashing: 
+CCU must not implement the functionality of Download data size check. As in future there might be the changes in ILD SW size and therefore flashing procedure could fail because of download data size check of CCU in RequestDownload service</br></li><li>7.4.2.1.1.0-2 Preconditions:
+iLD-Software Update is ongoing</br></li><li>7.4.2.1.1.0-3 Trigger:
+ESYS intends to update the iLD
+</br></li><li>7.4.2.1.1.0-4 Input data:
+"request download" / "transfer data"
+</br></li><li>7.4.2.1.1.0-5 Description of behaviour:
+
+CCU shall not checck any Data size. As in future there might be the changes in ILD SW size and therefore flashing procedure could fail because of download data size check of CCU in RequestDownload service
+</br></li><li>7.4.2.1.1.0-6 Timing Requirements: NA</br></li><li>7.4.2.1.1.0-7 Output data:  modified size of data / modified data to be flashed
+</br></li><li>7.4.2.1.1.0-8 Postconditions: None</br></li><li>7.4.2.1.1.0-9 Descriptions of exceptions: 
+NA</br></li><li>7.4.2.1.1.0-10 Dependencies and interactions: 
+BAC Modules and Diagnostic services</br></li><li>7.4.2.1.2 Differences to CRS</br></li><li>7.4.2.1.2.0-1 xxx</br></li><li>7.4.2.1.3 Questions and Answers</br></li><li>7.4.2.1.3.0-1 xxx</br></li><li>7.4.2.24 SYR_SUP_250: SWFK Cross Variant Flashing Detection/Prevention in Btld</br></li><li>7.4.2.24.1 Description</br></li><li>7.4.2.24.1.0-1 Brief description: CCU shall not allow cross carline variant flashing of SWFK while in EcuMode: FieldMode.</br></li><li>7.4.2.24.1.0-2 Preconditions: 
+1. Ecu in FieldMode.
+2. Carline variant has been assigned by BMW by patching the Calibration-SWFK, and modifying the Q-word Parameter with designated value, that is non-default value.</br></li><li>7.4.2.24.1.0-3 Trigger: The RID: (CheckMemory - Indicated) – 0x31 01 02 02 12 in SoftwareDownload sequence.</br></li><li>7.4.2.24.1.0-4 Input data: SWFK file + Q-word parameter.</br></li><li>7.4.2.24.1.0-5 Description of behaviour:
+Obj_001	1. Qword Format	Header
+Obj_002	Starting Meta2233, SWFK calibration file shall contain a Qword indicating it's dedicated carline.	Req
+Obj_003	All below requirements shall apply to Calibration SWFK only and shall not apply to Slave device's Appls.	info
+Obj_004	The Qword shall be added by Microfuzzy DevTeam and maintained by BMW.	Req
+Obj_005	The Qword shall be updated by BMW to the desired carline variant using CRETA.	Req
+Obj_006	The Resident Engineers of Microfuzzy shall support BMW as the "Owner" of the Qword parameter.	Req
+Obj_007	The a2l file of the SWFK shall be updated to include information on the new parameter: Qword.	non-func
+Obj_008	A Sys level document illustrating each field's bytes shall be created for supporting CRETA Patches	non-func
+Obj_009	The Qword shall have a dedicated fixed address, defined by ENG.4.	Req
+Obj_010	The first two words shall be the fixed MagicWord: 0x5357464B that reads as "SWFK" in Ascii.	Req
+Obj_011	Second two words shall be designated as follows:	Req
+ 	1. First word shall be a NBID	 
+ 	2. Second word shall be VariantID.	 
+Obj_012	The Qword's default value shall be:	Req
+ 	1. MagicWord: "SWFK".	 
+ 	2. NBID: 0x00	 
+ 	3. VariantID: 0x00	 
+Obj_013	2. Prevention Mechanism	Header
+Obj_014	2.1 Record Lookup Step	
+Obj_015	2.1.1 Default UseCase: HSM Record Available	Req
+Obj_016	When requested to flash a SWFK file:	Req
+ 	The BTLD shall lookup the current system Qword for the requested file's logistik in the HSM before performing the Erase Operation of the DSC: Erase Request.	 
+Obj_017	2.1.2 Exceptional UseCase: No HSM Record AND Flashed File Record available	Header
+Obj_018	If there is no preceding record in the HSM:	Req
+ 	The BTLD shall lookup the Qword directly in the Flash, if a valid Qword is found:	 
+ 	1. Then a backup will be written to the HSM.	 
+ 	2. The BTLD shall await the HSM's CSAI's +ve response before performing the Erasing in the DSC: Erase Request.	 
+ 	3. If writing the Qword to the HSM is erroneous, the BTLD shall reject the Erase Request with a -ve response.	 
+ 	  3.1 The BTLD shall report the error code 0x7 in the routines: CheckMemoryAddressed AND EraseMemoryIndicated	 
+Obj_019	2.1.3 Exceptional UseCase: No HSM Record AND No Flashed File Record	Header
+Obj_020	If there is no preceding record in the HSM AND no valid Qword is found:	Req
+ 	The BTLD shall proceed with the typical SWFK flashing process with no Cross SWFK prevention mechanism.	 
+Obj_021	2.2 New File Validation Step	Req
+Obj_022	After flashing the SWFK file, during the CheckMemoryAddressed step, the BTLD shall compare the new file's Qword with lookedup value from previous step.	Req
+ 	1. If (File_VariantID == HSM_VariantID) AND (File_NBID >= HSM_NBID):	 
+ 	 the BTLD shall:	 
+ 	 1.1 Validate the file.	 
+ 	 1.2 Update HSM record with new Qword value.	 
+ 	2. Else	 
+ 	2.1 The BTLD shall invalidate the file.	 
+ 	2.2 The BTLD shall report the error code 0x7 in the routines: CheckMemoryAddressed AND EraseMemoryIndicated	 
+Obj_023	3. EcuMode Exceptions	Header
+Obj_024	3.1 UseCase: FieldMode	Header
+Obj_025	When EcuMode is FieldMode, the CrossSWFK prevention shall be enforced.	Req
+Obj_026	3.2 UseCase: PlantMode || EngineeringMode	Header
+Obj_027	When EcuMode is PlantMode or EngineeringMode:	Req
+ 	1. The CrossSWFK prevention shall be bypassed	 
+ 	2. HSM record shall be updated if a valid Qword exists in the new file.	 
+Obj_028	4. SFA Token Exception	Header
+Obj_029	The CCU shall support the token ID: ID 0x005553, dedicated for Cross SWFK Prevention Bypass.	Req
+Obj_030	4.1 UseCase: Token AND FieldMode	Header
+Obj_031	When EcuMode is FieldMode AND SFA token : 0x005553 is present and valid:	Req
+ 	1. The CrossSWFK prevention shall be bypassed.	 
+ 	2. HSM record shall be updated if a valid Qword exists in the new file.	 
+ 	3. SFA token: 0x005553 number of execution counter shal be reduced to 0 (Token invalidated), irrespective of new file's VariantID. 	 
+Obj_032	4.2 UseCase: Token AND (PlantMode || EngineeringMode)	Header
+Obj_033	When EcuMode is PlantMode or EngineeringMode AND SFA token : 0x005553 is present and valid:	Req
+ 	1. The CrossSWFK prevention shall be bypassed.	 
+ 	2. HSM record shall be updated if a valid Qword exists in the new file.	 
+ 	3. SFA token: 0x005553 number of execution counter shal be reduced to 0 (Token invalidated), irrespective of new file's VariantID. 	 
+Obj_034	The SFA token: 0x005553 shall have a valid number of executions of 1. 	info
+Obj_035	In Usecase 4.1 and 4.2, the BTLD shall reduce the number of execution counts in both cases of:	Req
+ 	1. New SWFK was of different VariantID.	 
+ 	2. New SWFK was of same VariantID.	 
+Obj_036	The token:0x005553 execution's count shall be decremented after the SWFK File's validation.	Req
+ 	This means the Token's execution count shall be Decremented/invalidated when the file is successfully flashed.	 
+Obj_037	4.3 Token's Execution Count Communication between BTLD and Appl	Header
+Obj_038	When the token:0x005553 is installed, the Appl shall create an HSM variable, consisting of a flag indicating the token's installation. set as TRUE.	Req
+Obj_039	The BTLD shall consider the token valid when the HSM's flag is TRUE.	Req
+Obj_040	The BTLD shall set the HSM flag as FALSE upon using the token (See: Obj_036).	Req
+	The Appl shall call the Bs API: NotifyFeatureExecuted  when the HSM flag is passed as FALSE from the BTLD.	Req
+	The Appl shall reset the Flag as TRUE if the Bs reevaluates the token as still valid.	Req
+Obj_041	5. Default Qword Value Exception	Header
+Obj_042	If the current SWFK's Qword is in default values (Whether HSM Record, or Flashed File Record or both):	Req
+ 	The BTLD shall allow Cross SWFK flashing as a first time exception.	 
+Obj_043	This usecase is added to accommodate the possibility of an unpatched Qword forgotten in Default state.	info
+</br></li><li>7.4.2.24.1.0-6 Timing Requirements:None.</br></li><li>7.4.2.24.1.0-7 Output data: 
+In case of failure: CCU shall indicate the failure in the +ve resp of the RID: CheckMemory - Indicated w/0x7.
+In case of success: Successful flashing procedure and confirmed validity flags.</br></li><li>7.4.2.24.1.0-8 Postconditions:
+In case of failure: CCU shall be in bootmode.
+In case of success: CCU shall be in Applmode.</br></li><li>7.4.2.24.1.0-9 Descriptions of exceptions:
+CCU shall not excercise this behaviour when the EcuMode is:
+1. In PlantMode.
+2. In EngineeringMode.
+3. Default Q-word value.
+4. Feature-Token Installed.
+(See above for details)</br></li><li>7.4.2.24.1.0-10 Dependencies and interactions:
+Dependency on HSM v2.7.8.r0 and SWFK's Q-word parameter value.</br></li><li>7.4.2.24.2 Differences to CRS</br></li><li>7.4.2.24.2.0-1 xxx</br></li><li>7.4.2.24.3 Questions and Answers</br></li><li>7.4.2.24.3.0-1 xxx</br></li>

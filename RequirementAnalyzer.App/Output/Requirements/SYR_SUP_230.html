@@ -1,0 +1,52 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SUP_230</h1></br><li>7.4.2.25 SYR_SUP_230: Host's PFlash Lock via HSMv2.x</br></li><li>7.4.2.25.1 Description</br></li><li>7.4.2.25.1.0-1 Brief description: Prograammable memory blocks shall be protected by a FlashController Password for HW protection.</br></li><li>7.4.2.25.1.0-2 Preconditions: Pflash password has been written in DCF.</br></li><li>7.4.2.25.1.0-3 Trigger: Pflash shall be wirrten in Pana End of Line. Bootloader SWC shall unlock it in SoftwareDownload sequence.</br></li><li>7.4.2.25.1.0-4 Input data:None.</br></li><li>7.4.2.25.1.0-5 Description of behaviour:
+1	Password Details	Header
+1.1	Pflash password is used for direct protection of the unit's memory, especially for HW based attack/ memory injection.	Info
+1.2	Pflash password shall be set for the entirety of flash memory space.	Requirement
+1.3	A single plock register, plock0 as an example, shall be used for the designated memory blocks definition for a single password lock.	Requirement
+1.4	The password shall be stored in the HSM for recalling and unlocking the memory blocks by the btld, and while this does not protect against malecious SW using it, it shall protect against HW hacking and the SW protection aspect is handled by the
+signed files and secure boot/RTMD.	Info
+2	Production Supplier Session RID	Header
+2.1	A random password shall be generated in production per unit and written via RID to the DCF/plock.	Info
+2.2	The RID services"WritePflashPassword" and "ReadPflashPassword" shall be supported in Appl SWC.	Requirement
+2.3	The RID services"WritePflashPassword" and "ReadPflashPassword" shall be supported in SupplierSession 0x10 0x61.	Requirement
+2.4	When the RID: "WritePflashPassword" is executed, the CCU shall:
+1. Write the plock0 register bits with corresponding flash blocks.
+2. Write the Password in Datafield in DCF (PG1/2/3)
+3. Write the Password in HSM Dflash	Requirement
+2.5	When the above sequence is done successfully, the RID "WritePflashPassword" Resp shall send the Result field as 0x00 (OK).	Requirement
+2.6	The RID "WritePflashPassword" Resp shall have by default the Result field as 0x01 (NOK).	Requirement
+2.7	When the RID: "ReadPflashPassword" is executed, the CCU shall:
+1. Readout the Password Data from DCF
+2. Compare the read Password Data from DCF with the Password Data from HSM
+3. If the DCF Password matches the one from HSM, the Password will be reported in Resp Data field
+4. If the DCF Password does not match the one from HSM, the HSM Password will be overwritten with the one from DCF, and then the Password will be reported in the Resp Data field
+5. Return 0x22 (Condition not correct) in case of LC matured (OEM_Production), as the password cannot be read after LC matured
+6. Return 0x10 (General Reject) in case of HSM storage failure (the execution of ReadPflashPassword command must be retried)	Requirement
+3	Btld Unlocking	Header
+3.1	The btld shall query the Pflash password from HSM and unlock the memory blocks when an active flashing process is 
+ongoing and the MemoryErase request is being processed.	Requirement
+
+3.2	In case of HSM SW update, the btld shall use a default/constant password, that is stored in PG0, in order to avoid the HSM self-dependency. This password is only used for the HSM update scenario and is only stored/accessible SW internally.	Requirement
+3.3	In case of flash failure or other error: PFLASH is also re-locked by BL.	Requirement
+3.4	After successful flashing and before reset, BL locks the PFLASH.	Requirement
+</br></li><li>7.4.2.25.1.0-6 Timing Requirements:None.</br></li><li>7.4.2.25.1.0-7 Output data:None.</br></li><li>7.4.2.25.1.0-8 Postconditions: successful Flashing .</br></li><li>7.4.2.25.1.0-9 Descriptions of exceptions:None.</br></li><li>7.4.2.25.1.0-10 Dependencies and interactions: HSM, BL</br></li><li>7.4.2.25.2 Differences to CRS</br></li><li>7.4.2.25.2.0-1 xxx</br></li><li>7.4.2.25.3 Questions and Answers</br></li><li>7.4.2.25.3.0-1 xxx</br></li><li>7.4.2.26 SYR_SUP_240: XCP on CAN-FD - obsolete</br></li><li>7.4.2.26.1 Description</br></li><li>7.4.2.26.1.0-1 Brief description:
+Function dropped for I20 as per linked epic CCU-25011. Hence set as obsolete
+-----------------------------------------------------------------------
+
+Currently  XCP messages  0x610 and 0x611 both in XCP and CAN-FD channels.
+ 0x610 and 0x611 configuration in CAN-FD has to be removed (they shall exist only in XCP CAN).
+
+The CCU shall be able to send the new XCP messages via CAN-FD to enable the failure analysis in the production.
+Size of the 5 messages will still be 8 Bytes also in NK33 (no change from NK25)
+Bytesize should be 8 as defined in the NK
+
+Only the new IDs have to configured for the CAN-FD
+ XCPCCURequest
+XCPCCUResponse
+XCPCCUDAQ1
+XCPCCUDAQ2
+XCPCCUDAQ3
+
+For the 4 DAQ lists:
+2 DAQ lists to be transmit in XCPCCUDAQ1 And remaining will be transmitted XCPCCUDAQ2 and XCPCCUDAQ3.
+  </br></li><li>7.4.2.26.1.0-2 Preconditions:None</br></li><li>7.4.2.26.1.0-3 Trigger:None</br></li><li>7.4.2.26.1.0-4 Input data:None</br></li><li>7.4.2.26.1.0-5 Description of behaviour:None</br></li><li>7.4.2.26.1.0-6 Timing Requirements:None</br></li><li>7.4.2.26.1.0-7 Output data:None</br></li><li>7.4.2.26.1.0-8 Postconditions:None</br></li><li>7.4.2.26.1.0-9 Descriptions of exceptions:None</br></li><li>7.4.2.26.1.0-10 Dependencies and interactions:None</br></li><li>7.4.2.26.2 Differences to CRS</br></li><li>7.4.2.26.2.0-1 xxx</br></li><li>7.4.2.26.3 Questions and Answers</br></li><li>7.4.2.26.3.0-1 xxx</br></li>

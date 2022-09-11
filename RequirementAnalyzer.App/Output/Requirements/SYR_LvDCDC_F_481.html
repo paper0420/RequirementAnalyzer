@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_481</h1></br><li>6.1.64 SYR_LvDCDC_F_481: Maximum peak to peak ripple HV current of 20A</br></li><li>6.1.64.1 Description</br></li><li>6.1.64.1.0-1 Brief description:</br></li><li>6.1.64.1.0-2 The LvDCDC must ensure a max. peak to peak ripple of the consumed HV current of max 20A at maximum power conversion.</br></li><li>6.1.64.1.0-3 Preconditions:</br></li><li>6.1.64.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.64.1.0-5 Trigger:</br></li><li>6.1.64.1.0-6 Target_Operating_State = Buck,
+Target_U_LV = 14V,
+Measured_U_HV = 200V
+The electronic DC load  power is adjusted  
+to 4050W for 10s and 3450W for 50s [14132].
+The electronic DC load current is adjusted to 289 A
+The electronic DC load  voltage is adjusted to 14V
+Test time = 10s</br></li><li>6.1.64.1.0-7 Input data:</br></li><li>6.1.64.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV =
+Measured_U_HV = 200V,
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 4500 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+HV Test voltage ripples = 24Vpp of 10 Hz to kHz + 6Vpp of 10 kHz bis 30 kHz + 1Vpp of 50 kHz bis 200 kHz => 0V to 31V HV test voltage ripple 
+=> HV Test voltage range = 200V to 261V.
+Coolant temperature = 70°C
+Temperature of the device at test start = 85°C
+Coolant volume = 6 L/min</br></li><li>6.1.64.1.0-9 Description of behaviour:</br></li><li>6.1.64.1.0-10 The LvDCDC shall not take the HV current with a higher current ripples than 20A at maximum power conversion at special environment and operation conditions like HV voltages at the low limit or extreme cooling conditions. The test setup is explained according the chapter [6545].</br></li><li>6.1.64.1.0-11 Timing Requirements:</br></li><li>6.1.64.1.0-12 Output Data:</br></li><li>6.1.64.1.0-13 Postconditions:</br></li><li>6.1.64.1.0-14 Descriptions of exceptions:</br></li><li>6.1.64.1.0-15 Dependencies and interactions:</br></li><li>6.1.64.1.0-16 Other components/modules
+Customer requirements: 9979, 6545 (following)
+Usecases 
+EPIC: CCU-1207
+Safety requirements NONE
+Technical Safety requirements NONE</br></li><li>6.1.64.2 Differences to CRS</br></li><li>6.1.64.3 Questions and Answers</br></li>

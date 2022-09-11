@@ -1,0 +1,16 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_430</h1></br><li>6.1.57 SYR_LvDCDC_F_430: LvDCDC is derating due to maximium HV power limit</br></li><li>6.1.57.1 Description</br></li><li>6.1.57.1.0-1 Brief description:</br></li><li>6.1.57.1.0-2 The power transfer must be limited to the maximum permitted HV power.</br></li><li>6.1.57.1.0-3 Preconditions:</br></li><li>6.1.57.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.57.1.0-5 Trigger:</br></li><li>6.1.57.1.0-6 Max_Permitted_HV_Power = 3500W, 2700W, 1900W, 1500W, 750W, 300W, 150W, 0W and increased to 150W, 300W, 750W, 1500W, 1900W, 2700W, 3500W.
+The Max_Permitted_HV_Power is the internal CCU signal g_dcdcinput_max_permitted_hv_power. </br></li><li>6.1.57.1.0-7 Input data:</br></li><li>6.1.57.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = according LV battery voltage.
+Measured_U_HV = 380V,
+Min_Permitted_HV_Voltage = 300V,
+Max_Permitted_HV_Power = see Trigger
+p_DCDC_CONTINUOUS_I_LV = according regulation [250A, 0A]</br></li><li>6.1.57.1.0-9 Description of behaviour:</br></li><li>6.1.57.1.0-10 The LvDCDC shall read in the maximum permitted high-voltage power from the BMW power management. If the value is lower than the actual input power the LvDCDC must reduce the output accordingly. This could mean that the current is reduced and the traget voltage could not be reached any mode. As long a the power is reduced by the derating status word contains an information about the reduction by the max. commanded HV power (0x0001).</br></li><li>6.1.57.1.0-11 Timing Requirements:</br></li><li>6.1.57.1.0-12 tbd. for update the parameter: 1s</br></li><li>6.1.57.1.0-13 Output Data:</br></li><li>6.1.57.1.0-14 g_dcdcoutput_derating_status (bit 0x0001: Max commanded HV power) = True.
+actual HV Power <= g_dcdcinput_max_permitted_hv_power
+actual LV power <= g_dcdcinput_max_permitted_hv_power * actual efficiency.</br></li><li>6.1.57.1.0-15 Postconditions:</br></li><li>6.1.57.1.0-16 Descriptions of exceptions:</br></li><li>6.1.57.1.0-17 Dependencies and interactions:</br></li><li>6.1.57.1.0-18 Other components/modules
+Customer requirements: 14445, 18172
+Usecases 
+EPIC: CCU-498
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.57.2 Differences to CRS</br></li><li>6.1.57.3 Questions and Answers</br></li>

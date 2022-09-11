@@ -1,0 +1,19 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_420</h1></br><li>8.1.46 SYR_CIN_420: Wildcard for LIN Master Request</br></li><li>8.1.46.1 Description</br></li><li>8.1.46.1.0-1 Brief description: If the supplier ID and/or the function ID is not known, the wildcard(s) shall be used. </br></li><li>8.1.46.1.0-2 Preconditions: CCU is running and LIN wake-up happens.</br></li><li>8.1.46.1.0-3 Trigger: After LIN wake-up, master request for each slave shall be sent on bus in between LIN run_main execution.</br></li><li>8.1.46.1.0-4 Input data: Data for creating LIN master request for each slave.</br></li><li>8.1.46.1.0-5 Description of behaviour: 
+Some LIN Slaves are not responding to the master Request as the supplier Id and function Id are defined specifically to one waterpump supplier.
+
+With this change, the target is to introduce the Wildcard as per Lin specification for:
+  set supplied ID : 0x7FFF
+  set function ID : 0xFFFF
+
+Change shall be done for all request type defined for only water-pump slaves EWP22 & EWP23 (i.e. Seriennummer, Produktionsdatum, BMW-Teilenummer, Software-Referenznummer, Hardware-Referenznummer, LIN-Identification data, Firmware-Referenznummer (not in scope) & Variantenindex (not in scope))
+
+Refer sheet for data required for LIN master request:
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Documentation/Thermal_Mgmt/LIN_Meta_Data_Requests.xlsx
+
+[Out of scope] 
+Firmware-Referenznummer (no such request is sent by CCU):
+    EWP22: 5A 06 B2 2C FF 7F FF FF
+    EWP23: 4B 06 B2 2C FF 7F FF FF
+Variantenindex (no such request is sent by CCU):
+    EWP22: 5A 06 B2 2D FF 7F FF FF
+    EWP23: 4B 06 B2 2C FF 7F FF FF</br></li><li>8.1.46.1.0-6 Timing Requirements: none</br></li><li>8.1.46.1.0-7 Output data: LIN slave shall respond correctly to Master Request.</br></li><li>8.1.46.1.0-8 Postconditions: LIN sensor ident. lesen job shall provide data for waterpump slaves and LIN RTE interfaces (if any) shall be updated. </br></li><li>8.1.46.1.0-9 Descriptions of exceptions: none</br></li><li>8.1.46.1.0-10 Dependencies and interactions: Autosar stack which are involved in the LIN\CAN Communication</br></li><li>8.1.46.2 Differences to CRS</br></li><li>8.1.46.2.0-1 xxx</br></li><li>8.1.46.3 Questions and Answers</br></li><li>8.1.46.3.0-1 xxx</br></li>

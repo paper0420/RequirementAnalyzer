@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC155</h1></br><li>2.1.17 SYR_ACC155: Component protection - overtemperature protection</br></li><li>2.1.17.1 Description</br></li><li>2.1.17.1.0-1 Brief description:</br></li><li>2.1.17.1.0-2 Detect and handle overtemperature on the charger</br></li><li>2.1.17.1.0-3 Preconditions:</br></li><li>2.1.17.1.0-4 in every operating state</br></li><li>2.1.17.1.0-5 Trigger:</br></li><li>2.1.17.1.0-6 Input data:</br></li><li>2.1.17.1.0-7 * Board_Temperature_PFC
+* Board_Temperature_DCDC</br></li><li>2.1.17.1.0-8 Description of behaviour:</br></li><li>2.1.17.1.0-9 Failure criteria :
+* Board_Temperature_PFC > Threshold_Board_Temperature_PFC
+* Board_Temperature_DCDC > Threshold_Board_Temperature_DCDC
+respect timing requirements
+implementation hint
+Debounce count : 10count</br></li><li>2.1.17.1.0-10 Timing Requirements:</br></li><li>2.1.17.1.0-11 Monitoring cycle : 100msec</br></li><li>2.1.17.1.0-12 Output Data:</br></li><li>2.1.17.1.0-13 * error signal:
+Grund_Betriebsart-Fehler_Ladegerät-
+AC/DC-1_Ist</br></li><li>2.1.17.1.0-14 Postconditions:</br></li><li>2.1.17.1.0-15 Descriptions of exceptions:</br></li><li>2.1.17.1.0-16 * Stop AC Charging / Stop operation
+* Set error status word "Abschaltung aufgrund Übertemperatur "</br></li><li>2.1.17.1.0-17 Dependencies and interactions:</br></li><li>2.1.17.1.0-18 Other components/modules
+Diagnostic - HVPM - LDK
+Usecases: SYR_ACC85
+Customer requirements:[18429, 18430,18431]
+Safety requirements:
+EPIC: Implemented in sprint 1705 EPIC: CCU-287</br></li><li>2.1.17.2 Differences to CRS</br></li><li>2.1.17.2.0-1 tbc</br></li><li>2.1.17.3 Questions and Answers</br></li><li></br></li>

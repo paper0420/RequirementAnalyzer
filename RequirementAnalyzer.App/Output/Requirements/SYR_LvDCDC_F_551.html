@@ -1,0 +1,20 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_551</h1></br><li>6.1.72 SYR_LvDCDC_F_551: Error handling in case of undervoltage of KL_30 measurement for longer 500ms</br></li><li>6.1.72.1 Description</br></li><li>6.1.72.1.0-1 Brief description:</br></li><li>6.1.72.1.0-2 Error state and DTC needed in case of LvDCDC undervoltage at output pins for longer 500ms</br></li><li>6.1.72.1.0-3 Preconditions:</br></li><li>6.1.72.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.72.1.0-5 Trigger:</br></li><li>6.1.72.1.0-6 Measured_KL_30 < 6V for more than 500ms.</br></li><li>6.1.72.1.0-7 Input data:</br></li><li>6.1.72.1.0-8 Description of behaviour:</br></li><li>6.1.72.1.0-9 When the LvDCDC stops the buck mode due to the KL_30 undervoltage the error state is set accordingly and a DTC is generated. The LvDCDC is in the error operation mode as long as the error condition is present. If the undervoltage condition is finished, the LvDCDC is in standby operation mode. The buck operation mode cannot be started without HVPM.</br></li><li>6.1.72.1.0-10 Timing Requirements:</br></li><li>6.1.72.1.0-11 500 ms</br></li><li>6.1.72.1.0-12 Output Data:</br></li><li>6.1.72.1.0-13 PBR meeting 14.11.2017:
+1st Implementation without E/E power management:
+FS: DTC 0x030F8D DCDC converter - LV voltage sensor - lower threshold value deceeded
+g_dcdcoutput_error_status_dcdc = 0x0800: Other reasons
+Current_Operating_State = Betriebsart_DCDC-Wandler_Ist = Error
+Output current: Measured_LVcurrent=  0A
+later implementation with working E/E power management:
+FS: filled by E/E. The DTC 0x030F8D in this KL_30 event will be not generated.
+g_dcdcoutput_error_status_dcdc = 0x0800: Other reasons
+Current_Operating_State = Betriebsart_DCDC-Wandler_Ist = Error
+Output current: Measured_LVcurrent=  0A.</br></li><li>6.1.72.1.0-14 Postconditions:</br></li><li>6.1.72.1.0-15 When  E_U_KL_30 > 6V:
+g_dcdcoutput_error_status_dcdc is 0 if there are no other errors: 
+Current_Operating_State = g_dcdcoutput_dcdc_operating_state = Standby
+Measured_LVcurrent=  0A</br></li><li>6.1.72.1.0-16 Descriptions of exceptions:</br></li><li>6.1.72.1.0-17 Dependencies and interactions:</br></li><li>6.1.72.1.0-18 Other components/modules
+Customer requirements: 21873, 18173, 18177, 9999
+Usecases 
+EPIC: CCU-1206
+Safety requirements : ASIL-A
+Technical Safety requirements: SF-03</br></li><li>6.1.72.2 Differences to CRS</br></li><li>6.1.72.3 Questions and Answers</br></li>

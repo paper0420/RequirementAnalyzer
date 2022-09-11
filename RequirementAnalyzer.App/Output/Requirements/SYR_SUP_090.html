@@ -1,0 +1,21 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SUP_090</h1></br><li>7.4.2.10 SYR_SUP_090: Supply identification data</br></li><li>7.4.2.10.1 Description</br></li><li>7.4.2.10.1.0-1 Brief description:</br></li><li>7.4.2.10.1.0-2 At any time (e.g. main application OR bootloader OR bootloader-update are running) /any internal state (which will not prevent CAN-Communication) the CCU is able to supply identification data via diagnosis-communication interface via UDS.
+This data are:
+- ReadDataByIdentifier ActiveDiagnosticSession
+- ReadDataByIdentifier ActiveSessionState
+- ReadDataByIdentifier EnergyMode
+- ReadDataByIdentifier ExtendedMode
+- ReadDataByIdentifier FlashTimingParameter
+- ReadDataByIdentifier ReadGWRoutingStatus
+- ReadDataByIdentifier MemorySegmentationTable
+- ReadDataByIdentifier Programming-Counter
+- ReadDataByIdentifier Programming-Counter-Max-Value
+- ReadDataByIdentifier ReadMemoryAddress
+- ReadDataByIdentifier SVK (SVK-Aktuell, SVK-System - Supplier, SVK-Werk) (Steugeräteverbaukennung)
+ 
+This data is used by the diagnosis-tester to check:
+-	If update is possible (newer SWEs are available)
+-	Device is in valid mode to execute an update
+-	Which flashing parameters are to be used
+-	Logical structure of flash-layout
+-	Statistics about flashing
+</br></li><li>7.4.2.10.1.0-3 Preconditions: none</br></li><li>7.4.2.10.1.0-4 Trigger: request by EDIABAS</br></li><li>7.4.2.10.1.0-5 Input data: UDS service identifier</br></li><li>7.4.2.10.1.0-6 Description of behaviour: requested service/information will be executed/supplied</br></li><li>7.4.2.10.1.0-7 Timing Requirements: none</br></li><li>7.4.2.10.1.0-8 Output data: result of UDS service</br></li><li>7.4.2.10.1.0-9 Postconditions: none</br></li><li>7.4.2.10.1.0-10 Descriptions of exceptions: none</br></li><li>7.4.2.10.1.0-11 Dependencies and interactions: none</br></li><li>7.4.2.10.2 Differences to CRS</br></li><li>7.4.2.10.2.0-1 none</br></li><li>7.4.2.10.3 Questions and Answers</br></li><li>7.4.2.10.3.0-1 none</br></li>

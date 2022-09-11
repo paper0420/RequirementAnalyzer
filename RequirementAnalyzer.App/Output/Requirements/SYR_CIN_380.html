@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_380</h1></br><li>8.1.42 SYR_CIN_380: Write MAC-Addresses at PANA production</br></li><li>8.1.42.1 Description</br></li><li>8.1.42.1.0-1 Brief description: This use case describes that MAC addresses must be written at production to enable ETH/PLC communication in Vehicle.</br></li><li>8.1.42.1.0-2 Preconditions: CCU Initialization and Start-up</br></li><li>8.1.42.1.0-3 Trigger: Diagnostic Service Routine</br></li><li>8.1.42.1.0-4 Input data: Define unique MAC address for each communication unit</br></li><li>8.1.42.1.0-5 Description of behaviour:
+
+This SYR implementation refers LH: ETH_SYS_DE_PA_933 
+While during normal operation there shall be no way to change the MAC address, there needs to be a way to write the MAC address one single time in production. 
+
+CCU expectation
+Each CCU unit shall have 3 (three) individiual MAC-address required for setting-up Ethernet/PLC communication:
+
+1) PLC QCA-Chip (PIB-File).
+2) PLC-Application (Vector-SCC-Stack) / Host-Controller.
+3) OABR-Communication (Eth-MAC for in-vehicle communication). 
+
+These MAC-addresses shall be written in NVM memory at factory via Panasonic production executing diagnostic services routine.
+
+6 Byte for each MAC, Total 18 bytes shall be received in the NVM.</br></li><li>8.1.42.1.0-6 Timing Requirements: NA		</br></li><li>8.1.42.1.0-7 Output data: NA</br></li><li>8.1.42.1.0-8 Postconditions: MAC addresses shall be readable from NVM location.</br></li><li>8.1.42.1.0-9 Descriptions of exceptions: NA	</br></li><li>8.1.42.1.0-10 Dependencies and interactions: PANA Factory commands and response.</br></li><li>8.1.42.2 Differences to CRS</br></li><li>8.1.42.2.0-1 xxx</br></li><li>8.1.42.3 Questions and Answers</br></li><li>8.1.42.3.0-1 xxx</br></li>

@@ -1,0 +1,44 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-47-0001-0003#</h1>
+[Charging],[Mode_Management],[Operating_Mode]</br>Test Objective: Charger transition confirmation
+  INIT -> Error
+  Standby-> Error
+  Precharge -> Error
+  Precharge Ready -> Error
+  Charge -> Error
+  Interrupt -> Error
+  Derating -> Error
+  Error -> Standby<br>
+<h2>Requirements</h2><ul><li><strong>22046</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)Review][Information]</div>Figure: State transitions with conditions</li>
+<li><strong>11159</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Information]</div>The following operating states are target operating states and are specified by the function "Ladekoordinator":
+·	Standby
+·	Precharge
+·	Charge</li>
+<li><strong>23344</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>A power outage (i.e. mains voltage failure) shall be detected by the charger and shall result in a charging interruption.</li>
+<li><strong>23348</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>In the "Error" operating state, the power electronics of the charging electronics shall be deactivated immediately.</li>
+<li><strong>11183</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from any operating mode to the "Error" operating mode if one of the following charging electronics errors occurs:
+• Hardware error including sensor defect, cable break, short circuit
+• Timer for the operating mode "Interrupt" elapsed (AC-undervoltage, N-line disconnected, no power output)
+• Overvoltage AC
+• Overcurrent AC
+• Undervoltage DC
+• Overvoltage DC
+• Overcurrent DC
+• Temperature
+• Communication failure
+• Target operating mode not possible
+• Efficiency too low and target power not possible
+• Other causes</li>
+<li><strong>17477</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from the "Precharge ready" operating mode to the "Error" operating mode if one of the following conditions is met:
+Timeout in the "Precharge Ready" operating mode (default 2 min.; parameterizable)
+A charging electronics error is reported</li>
+<li><strong>17480</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from the "Charge" operating mode to the "Error" operating mode if one of the following conditions is fulfilled:
+·	The target charging power is less than minimum operating power for a time T_max (120 s; parameterizable)
+·	A charging electronics error is reported.</li>
+<li><strong>17483</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from the "Derating" operating mode to the "Error" operating mode if one of the following conditions is met:
+- The target charging power is less than minimum operating power for a time T_max (120 s; parameterizable)
+- A charging electronics error is reported.</li>
+<li><strong>17486</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from the "Interrupt" operating mode to the "Error" operating mode if one of the following conditions is met:
+• A charging electronics error is reported.
+• Timeout in the "Interrupt" operating mode (default: 120 s; parameterizable)
+</li>
+</ul></html>

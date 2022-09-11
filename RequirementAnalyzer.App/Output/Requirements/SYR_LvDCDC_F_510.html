@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_510</h1></br><li>6.1.67 SYR_LvDCDC_F_510: LvDCDC interrupts for self-protection due to too high HV-DC current</br></li><li>6.1.67.1 Description</br></li><li>6.1.67.1.0-1 Brief description:</br></li><li>6.1.67.1.0-2 LvDCDC interrupts for self-protection due to too high HV-DC current</br></li><li>6.1.67.1.0-3 Preconditions:</br></li><li>6.1.67.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.67.1.0-5 Trigger:</br></li><li>6.1.67.1.0-6 Measured_I_HV > 22,5 for more than 10s
+Measured_I_HV > 20A (continously)</br></li><li>6.1.67.1.0-7 Input data:</br></li><li>6.1.67.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = 14V
+Measured_U_HV =  300V
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 4000 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = 35°C</br></li><li>6.1.67.1.0-9 Description of behaviour:</br></li><li>6.1.67.1.0-10 The LvDCDC shall trigger the self-protection mechanism if the high-voltage currents exceed value p_DCDC_HV_CURRENT_MAX_ALLOWED and can damage the DC/DC converter. After a definable time, the LvDCDC shall deactivate the self-protection mechanism after a deac-tivation due to a HV overcurrent event and activate the converter again. According to the KLH [14562] a secondary DTC shall be stored. As long as the counter p_DCDC_REPEAT_CURRENT_HIGH_CHECK is not exceeded the LvDCC shall not switch into the error state. The a primary DTC shall be stored.</br></li><li>6.1.67.1.0-11 Timing Requirements:</br></li><li>6.1.67.1.0-12 tbd. with p_DCDC_REPEAT_CURRENT_HIGH_CHECK</br></li><li>6.1.67.1.0-13 Output Data:</br></li><li>6.1.67.1.0-14 As long as the counter p_DCDC_REPEAT_CURRENT_HIGH_CHECK exceeds not its threshold:
+Current_Operating_State = Buck
+Measured_LVcurrent=  0A
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = 0 A
+Measured_U_LV > 6V
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist = as measured 
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist = 0A,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 200 V and < 460V
+A DTC for the info memory shall be triggered.</br></li><li>6.1.67.1.0-15 Postconditions:</br></li><li>6.1.67.1.0-16 As long as the counter p_DCDC_REPEAT_CURRENT_HIGH_CHECK exceeds not its threshold:
+Current_Operating_State = Buck
+Measured_LVcurrent>  0
+Measured_U_LV > 6V
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar > 0 A
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist = as measured 
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 0A,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 200 V and < 460V</br></li><li>6.1.67.1.0-17 Descriptions of exceptions:</br></li><li>6.1.67.1.0-18 Dependencies and interactions:</br></li><li>6.1.67.1.0-19 Other components/modules
+Customer requirements: 14533, 18151, 18152, 18153, 18154, 18155, 18156, 14562
+Usecases 
+EPIC: CCU-113.
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.67.2 Differences to CRS</br></li><li>6.1.67.3 Questions and Answers</br></li><li>6.1.67.3-1 Q: When there is not limit needed due to HW restrictions of the LvDCDC, is then the usecase needed?</br></li>

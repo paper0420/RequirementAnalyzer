@@ -1,0 +1,30 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_100</h1></br><li>6.1.3 SYR_LvDCDC_100: Provide thermal load factor value to BMW Component (eTMC), via RTE interface BMW_pct_ILoadDcdc</br></li><li>6.1.3.1 Description</br></li><li>6.1.3.1.0-1 Brief description:
+The thermal load factor(actual_lv_current/available_continouus_current (temperature)) should be provided via RTE interface to BMW from LvDCDC component.
+Where:
+- "actual_lv_current" is the measured lv current
+- "available_continouus_current (temperature))" is the available continouus current calculated by taking all temperature deratings into account (WJ as well as component temperature deratings)
+- The thermal load factor should be limited by a calibration parameter.</br></li><li>6.1.3.1.0-2 Preconditions: 
+CCU is running and LvDCDC is operating in Buck Mode</br></li><li>6.1.3.1.0-3 Trigger: None</br></li><li>6.1.3.1.0-4 Input data: 
+1) Limited Continuous LV current when Board Temperature derating is active:
+-Limited_LVcurrent_byBoardTemp_cont 
+2) Limited Continuous LV current when Water Jacket Temperature derating is active:
+-Limited_LVcurrent_byCoolantTemp_cont
+3) Measured LV current
+-Measured_LVCurrent_Total</br></li><li>6.1.3.1.0-5 Description of behaviour:
+Thermal load factor value shall be provided to BMW Component (eTMC) via RTE interface BMW_pct_ILoadDcdc.
+
+Thermal load factor value shall be calculated using below formula:
+BMW_pct_ILoadDcdcTDer_rc = 
+Measured_LVCurrent_Total/Min(Limited_LVcurrent_byBoardTemp_cont, Limited_LVcurrent_byCoolantTemp_cont)
+Where:
+-Limited_LVcurrent_byBoardTemp_cont => Calculated using CONTINUOUS_LV_CURR and Derating Factor table for Board temerature(Value: All set to 100%)
+-Limited_LVcurrent_byCoolantTemp_cont => Calculated using CONTINUOUS_LV_CURR  and Derating Factor Table for Water Jacket Temperature
+-Measured_LVCurrent_Total => LV current value measured from the sensors
+
+Thermal load factor value shall be determined in percentage.
+Thermal load factor shall be limited to a value defined by calibration parameter, for which the default value shall be set to 100%.
+
+For interface BMW_pct_ILoadDcdc, signal qualifier values of OK(0) and INVALID(15)  shall be sent from LvDCDC.
+
+In case of invalid measurement of 'Measured LV current', value of 0% shall be sent over interface BMW_pct_ILoadDcdc.</br></li><li>6.1.3.1.0-6 Timing Requirements: NA</br></li><li>6.1.3.1.0-7 Output data: 
+BMW_pct_ILoadDcdc</br></li><li>6.1.3.1.0-8 Postconditions: NA</br></li><li>6.1.3.1.0-9 Descriptions of exceptions: NA</br></li><li>6.1.3.1.0-10 Dependencies and interactions: NA</br></li><li>6.1.3.2 Differences to CRS</br></li><li>6.1.3.2.0-1 Waiting for CR to approve and update to be provided in KLH</br></li><li>6.1.3.3 Questions and Answers</br></li><li>6.1.3.3.0-1 NA</br></li>

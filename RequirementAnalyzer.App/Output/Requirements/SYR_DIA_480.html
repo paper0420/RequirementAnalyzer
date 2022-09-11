@@ -1,0 +1,32 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_480</h1></br><li>7.5.1.49 SYR_DIA_480: Reading "Typprüfnummer" via Diagnostic Job</br></li><li>7.5.1.49.1 Description</br></li><li>7.5.1.49.1.0-1 Brief description: Diagnositc Job 0xAA9A - STATUS_TYPPRUEFNR is used to retrieve the "Typprüfnummer" information of the drive control unit.</br></li><li>7.5.1.49.1.0-2 Preconditions: Diagnositc Session  must be one of the following:  DEFAULT_SESSION APP, 
+EXTENDED_DIAGNOSTIC_SESSION APP.
+
+ECU Security Mode must be one of the following:
+Engineering,
+Plant,
+Field.</br></li><li>7.5.1.49.1.0-3 Trigger: Execution of Diagnostic Job 0x22 AA 9A</br></li><li>7.5.1.49.1.0-4 Input data: No argument is required for this diag job.
+
+</br></li><li>7.5.1.49.1.0-5 Description of behaviour:
+New Diagjob to read the "Typpruefnummer" is introduced in Zedis v24.
+
+Note: in G08 version v20.1 is used which does not support this job, therefore manual configuration must be done in the SW to enable basis-SW (DCM, StdDiag) to respond to this job.
+
+This Job is a 0x22 Status lesen DiagJob reading the 32-bits Typpruefnummer.
+
+DID : 0xAA9A.
+
+This job shall be executed in all modes (engineering, plant, production).
+
+The 32-bits Typpruefnummer should be calibratable in Creta. Initial value will be invalid (0xFFFFFFFF). The value of the "Typprüfnummer" is written into a memory location by a calibration parameter and later that memory area should be readible by this diagnostic job.
+
+BMW_uint32_Typpruefnummer is a new calibration parameter that must be available in a2l and that will be modified in BMW CRETA tooling depending on SW and vehicle variant.
+The value of this parameter will be provided by BMW over TPL-EE
+Calibration Update in Creta shall be done by Panasonic by request of BMW.
+This parameter shall be defined as a 32 bits (unsigned long) – 4 Bytes
+
+The "Typprüfnummer" 4 Bytes will be provided by Calibration parameter and according to Zedis the same value will be send 4Bytes + 4Bytes twice as 8 Bytes in total to the Tester. On the tester side, the value will be shown as Decimal (4Bytes) and Hexadecimal(4Bytes).
+
+ </br></li><li>7.5.1.49.1.0-6 Timing Requirements: none</br></li><li>7.5.1.49.1.0-7 Output data:
+Result:
+-32 Bits Typprüfnummer
+-32 Bits Typprüfnummer as HEX</br></li><li>7.5.1.49.1.0-8 Postconditions: none</br></li><li>7.5.1.49.1.0-9 Descriptions of exceptions: none</br></li><li>7.5.1.49.1.0-10 Dependencies and interactions: none</br></li><li>7.5.1.49.2 Differences to CRS</br></li><li>7.5.1.49.2.0-1 none</br></li><li>7.5.1.49.3 Questions and Answers</br></li><li>7.5.1.49.3.0-1 none</br></li>

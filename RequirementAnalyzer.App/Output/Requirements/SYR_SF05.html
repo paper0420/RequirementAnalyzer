@@ -1,0 +1,34 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SF05</h1></br><li>7.11.2.7 SYR_SF05 Control flow monitoring</br></li><li>7.11.2.7.1 Description</br></li><li>7.11.2.7.1.0-1 Brief description: 
+
+Logical program flow monitoring of SW-Cs and CDD modules to be implemented by using Watchdog Manager.
+
+Logical monitoring of the execution sequence of a program enables the detection of errors that cause a divergence from the valid program sequence during the error-free execution of the application. An incorrect program flow occurs if one or more program instructions are processed either in an incorrect sequence or not even processed at all.
+
+During runtime the component for Logical Monitoring of Program Sequence uses this model to supervise or monitor the proper execution of program sequences. To reduce the overhead caused by logical monitoring of program sequence, it is recommended to restrict the definition of Supervised Entities (SE) to safety-related tasks/runnables. At least those have to be monitored but non safety-related tasks can be monitored as well.
+
+Control flow analysis shall be perfromed at architectural level, and based on control flow analysis safety analysis to be perfromed to identify the monitoring entity.
+
+Control flow monitoring shall monitor the TASK for all following failures 
+ 
+Incomplete execution due to unexpected termination	   
+Execution timing incorrect, executes too slow or too fast or too early or late, incorrect frequency   
+No execution	   
+Non-terminating calculation	
+
+Supervised Entities (At least one in each safety task) 2. One or more check points for each Supervised Entities based on mechanisms used  ( Deadline Supervision, Alive Supervision or Logical Supervision )
+
+Requirements: 
+   
+    Cyclic Task - 1 checkpoint = alive monitoring
+    Cyclic Task chain - 2 checkpoints; one at beginning one at end of chain - alive monitoring.
+    Event triggered - 2 checkpoints (event and reaction) = deadline monitoring
+    Note, that the number of checkpoints per task increases if the time domain's cycle time exceeds the defined FTT (currently 50 ms; 30 ms requested by BMW via CR).
+    Checkpoints have to be called frequently enough to meet the required FTT
+ WDG window te be with in the FTTI time whcih is 50 ms 
+
+Dead line monitoring and flow monitoring is only needed based on specific requirement to reduce the CPU load and no need configure it unless it is not specifed 
+
+Safe State:
+
+In case a divergence is detected the system shall perfrom a functional reset.
+</br></li><li>7.11.2.7.1.0-2 Preconditions: NA</br></li><li>7.11.2.7.1.0-3 Trigger: NA</br></li><li>7.11.2.7.1.0-4 Input data: NA</br></li><li>7.11.2.7.1.0-5 Description of behaviour: NA</br></li><li>7.11.2.7.1.0-6 Timing Requirements:50 ms</br></li><li>7.11.2.7.1.0-7 Output data:NA</br></li><li>7.11.2.7.1.0-8 Postconditions:NA</br></li><li>7.11.2.7.1.0-9 Descriptions of exceptions:NA</br></li><li>7.11.2.7.1.0-10 Dependencies and interactions:NA</br></li><li>7.11.2.7.2 Differences to CRS</br></li><li>7.11.2.7.2.0-1 xxx</br></li><li>7.11.2.7.3 Questions and Answers</br></li><li>7.11.2.7.3.0-1 xxx</br></li>

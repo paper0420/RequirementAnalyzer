@@ -1,0 +1,25 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SF02</h1></br><li>7.11.2.4 SYR_SF02 FFI: System MPU Partioning </br></li><li>7.11.2.4.1 Description</br></li><li>7.11.2.4.1.0-1 Brief description:
+To achieve freedom of interference between cores SMPU shall be configured. With a system MPU other potential bus masters (Example: DMA, FlexRay) can be isolated. The system MPU to be initialized once during startup of the OS and it shall never reprogrammed during runtime.
+
+SMPU to be configured for the follows access control
+
+InterCore SRAM Access Control
+Cache Control
+Flash Memory Control
+
+ 
+
+Flash Memory: Need only read access 
+RAM Write :Write access to RAM may produce memory corruptions, thereby affecting the behavior of the software. hence write access to be restricted between cores 
+Peripheral : Read, write and Execute permission shall be controlled for all the peripherals. All the access(R/RW/M) should be restricted between peripherals. FFI analysis should also perfrom to ensure the required independence.
+
+Assignment of BSW software modules to partitions => Detailed concept and partition are are available in following svn: https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.03_SystemArchitecturalDesign/ENG.03_FS_SafetyConcept/ENG.03_AdditionalDocuments/CCU-6246 FFI SW ASIL Partitioning/
+
+Addtional Requirements:
+
+SMPU driver to be developed as MICROSAR OS does NOT support SMPU configuration. 
+SMPU to be develpoed as ASIL-C component and to be exicuted from CORE-0
+All other master Peripherals which are not listed above to be accessed from all the cores and can have RW access
+But access should be restricted between the Peripherals 
+
+ </br></li><li>7.11.2.4.1.0-2 Preconditions:</br></li><li>7.11.2.4.1.0-3 Trigger:</br></li><li>7.11.2.4.1.0-4 Input data:</br></li><li>7.11.2.4.1.0-5 Description of behaviour:</br></li><li>7.11.2.4.1.0-6 Timing Requirements:</br></li><li>7.11.2.4.1.0-7 Output data:</br></li><li>7.11.2.4.1.0-8 Postconditions:</br></li><li>7.11.2.4.1.0-9 Descriptions of exceptions:</br></li><li>7.11.2.4.1.0-10 Dependencies and interactions:NA</br></li><li>7.11.2.4.2 Differences to CRS</br></li><li>7.11.2.4.2.0-1 xxx</br></li><li>7.11.2.4.3 Questions and Answers</br></li><li>7.11.2.4.3.0-1 xxx</br></li>

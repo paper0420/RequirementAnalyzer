@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SF19</h1></br><li>7.11.1.2 SYR_SF19 PFM alive monitoring tolerance reduction</br></li><li>7.11.1.2.1 Description</br></li><li>7.11.1.2.1.0-1 Brief description: 
+
+    1. Configure WDG “Failed alive Supervision” configuration parameter to “0” for ASIL TASK
+
+    2. Set WDG Max Margin and Min Margin configuration within "0%" for ASIL TASK(Any tolerance devaition in ASIL TASK need to be justified with Safety impact analysis and agreement with BMW and Panasonic FuSa)
+
+    3. If the above configuration causing WDG RESET, revisit the current TASK scheduling and TASK priority
+
+
+It is highly risky to have any tolerance in FuSa TASK as this may impact fault tolerance time- FTT, safe state and which may leads to safety goal violation.
+   
+
+ </br></li><li>7.11.1.2.1.0-2 Preconditions: Before Safety application start 
+</br></li><li>7.11.1.2.1.0-3 Trigger: Safety TASK
+</br></li><li>7.11.1.2.1.0-4 Input data: NA</br></li><li>7.11.1.2.1.0-5 Description of behaviour: Safe state : Immediate Reset </br></li><li>7.11.1.2.1.0-6 Timing Requirements: 50 ms</br></li><li>7.11.1.2.1.0-7 Output data: NA</br></li><li>7.11.1.2.1.0-8 Postconditions: Immediate Reset </br></li><li>7.11.1.2.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.1.2.1.0-10 Dependencies and interactions: NA</br></li><li>7.11.2 Functional System Requirements (Generic for BEV21 and G08)</br></li>

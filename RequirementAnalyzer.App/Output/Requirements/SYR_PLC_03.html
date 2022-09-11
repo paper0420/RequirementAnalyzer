@@ -1,0 +1,64 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PLC_03</h1></br><li>1.1.30.3 SYR_PLC_03: provide software for PLC interface functionality</br></li><li>1.1.30.3.1 Description</br></li><li>1.1.30.3.1.0-1 Brief description: PLC interface is used for more than one function:
+1. Charging protocol via PLC interface
+2. Internet service for backend client via PLC interface. (condition EVSE must allow internet service) (this is TBD with customer)
+3. Diagnostic sevice for measurement purpose or PLC dumping ( we would need PLC interface with data link established )
+
+Pansonic software should perform following activities to provide interface:
+- PLC Chip initialisation (SPI based configuration)
+- PLC firmware update (via HOST or via External FLASH connected to PLC CHIP) (Note: SW developer please contact SE for more detail)
+- provision to update External FLASH with latest firmware and PIB (parameter in block) via HOST (hint. configure GPIO pins of qca chip)
+- Establish physical link (communication with PLC chip via MME ethertype frames)
+- Establish data link (communication possible via Ethernet Frames not specific to MME ethertype)
+
+In normal operation, PLC chip should boot from External FLASH by configuring boot option via QCA GPIO. PLC chip shall be boot from HOST. 
+under factory or production operation, PLC should provide choice for booting option.
+
+</br></li><li>1.1.30.3.1.0-2 Preconditions: PLC Hardware available. Coding parameter configured to provide PLC interface.</br></li><li>1.1.30.3.1.0-3 Trigger: 
+- coding parameter to provide PLC interface for CCU.
+- sigPreparePLCHardware (00 disable, 01 enable)
+- sigEstablishPLCDataChannel (00 Disable, 01 Enable) 
+- PLC Matching state = unMatched</br></li><li>1.1.30.3.1.0-4 Input data: BMW SW interface</br></li><li>1.1.30.3.1.0-5 Description of behaviour:
+- When Coding parameter request PLC interface, at initialisation CCU will init PLC Chip.
+- Panasonic software prepare the PLC interface, when customer software request it by sigPreparePLCHardware (01 enable)
+  - PLC interface preparation consist check if PLC chipset is turn-on(GPIO), check for firmware with PLC chip, 
+	if (no firmware in qca chip)
+		update it via HOST 
+		reboot plc chip 
+		check firmware version
+	else
+ 		check firmware version
+- PLC chip is ready with firmware, validated it by checking firmware version. after confrimation Declare Physical link establishment to customer software via stsPHYLink(00 nolink, 01 link established)
+- Customer software request sigPreparePLCHardware (00 disable), deactivate PLC interface.
+
+- When customer software request panasonic software to establish data link via sigEstablishPLCDataChannel (00 Disable, 01 Enable) following action to be performed.
+	- perform SLAC (matching) processes  (success of this process PLC Matching state = Matched)
+	- request customer software for toggle pilot line via sigToggleRequest
+	- customer software should provide status after completing toggling process via stsToggleRequest
+	- after the SLAC process is completed (exchange of NID, NMK with EVSE), PLC state should be assigned matched 	state
+	- local PLC chip is configured with received NID and NMK to join AVLN (qualcomm logical network)
+	- once local plc chip enter AVLN, panasonic software should declare establishment of Datalink via stsDLink (00 nolink, 01 link established)
+
+- Customer software can report error in data link via sigDlink_Error, Panasonic software will terminate the data link and restart the matching (hint. process by a control pilot transition through state E detected by customer software)
+- Customer software can request panasonic software to pause data link and enter a power saving mode. While being in this mode, the state will be kept to “Matched”.
+- Customer software can request to terminate Data Link, in this mode link should be terminated and mode should be set as unmachted. New link will require restart matching process (SLAC).
+
+Below figure (plc scope: marked in grey dotted line box) should be scope of this uscase
+Panasonic confluence link: https://confluence-pais.eu.panasonic.com/display/BMWCCU/ChargingMethods+%3A+Combo+Charging+Function
+Customer confluence link: https://asc.bmw.com/wiki/pages/viewpage.action?pageId=357547825
+EA model: ENG.3 shall be update soon.
+Signal Discription from BMW: provided by customer
+arxml: provided by customer
+ 
+</br></li><li>1.1.30.3.1.0-6 Timing Requirements:
+Timing behaviour need to be decided.
+- restirction 
+-- minimium time between sigPreparePLCHardware and sigEstablishPLCDataChannel should be define (TBD: please provide timeout values configurable/calibratable)
+-> update : no expectation from customer. We have to prepare for worst and take ISO15118-3 timing table with consideration the BMW Sw will consume some time.
+-- minimium time to between request need to be define in general with plc interface (TBD: please provide timeout values configurable/calibratable) 
+(hint. time = time need to perform request + QCA settling time + tolerance)
+-> update : no expectation from customer. We have to prepare for worst and take ISO15118-3 timing table with consideration the BMW Sw will consume some time.</br></li><li>1.1.30.3.1.0-7 Output data: PLCCP Sw interface</br></li><li>1.1.30.3.1.0-8 Postconditions:
+PLC interface is working. Customer software can use this interface for different function.</br></li><li>1.1.30.3.1.0-9 Descriptions of exceptions: NA</br></li><li>1.1.30.3.1.0-10 Dependencies and interactions: NA</br></li><li>1.1.30.3.2 Differences to CRS</br></li><li>1.1.30.3.2.0-1 CRS has only requested to implement ISO15118-3 Req. Details for PLC circuit design consideration is not available.
+CODICO supplier has provided some documents for PLC design consideration for Qualcomm Chipset which could be used to provide robust design.
+https://downloads.codico.com/misc/customer/Panasonic_H4Y19N5FZB8XD358IT77S4J3ZEO433FQ 
+Access is password protected, please use username / password: customer / JLpjxS3W
+</br></li><li>1.1.30.3.3 Questions and Answers</br></li><li>1.1.30.3.3.0-1 NA</br></li>

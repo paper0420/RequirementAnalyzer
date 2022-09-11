@@ -1,0 +1,8 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_06</h1></br><li>1.1.31.10 SYR_CCS_06: provide support to store charging History of CCU</br></li><li>1.1.31.10.1 Description</br></li><li>1.1.31.10.1.0-1 Brief description:
+BMW application will collect all the parameters related to create the chraging history of Vehicle. This will also be communicated in last call to Backend whenever it is possible.
+PANA shall provide E/E support to access memory locaiton for read/write/delete content.</br></li><li>1.1.31.10.1.0-2 Preconditions: </br></li><li>1.1.31.10.1.0-3 Trigger: Trigger will be provided by BMW Application	</br></li><li>1.1.31.10.1.0-4 Input data: Memory Block with charging history [size of block is TBD]</br></li><li>1.1.31.10.1.0-5 Description of behaviour:
+- BMW application collect all parameter for creating charging history
+- BMW application request to access memory block (Pana shall provide the memory address)
+- BMW application shall use services provide by PANA E/E to wirte / read / delete</br></li><li>1.1.31.10.1.0-6 Timing Requirements: </br></li><li>1.1.31.10.1.0-7 Output data: Memory location shall be updated</br></li><li>1.1.31.10.1.0-8 Postconditions: Diag service or Backend communication shall be able to retrive this data</br></li><li>1.1.31.10.1.0-9 Descriptions of exceptions:
+memory handling expections shall be considered.</br></li><li>1.1.31.10.1.0-10 Dependencies and interactions:
+BMW shall specify how much memory they need?</br></li><li>1.1.31.10.2 Differences to CRS</br></li><li>1.1.31.10.2.0-1 NA</br></li><li>1.1.31.10.3 Questions and Answers</br></li><li>1.1.31.10.3.0-1 NA</br></li>

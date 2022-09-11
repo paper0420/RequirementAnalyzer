@@ -1,0 +1,29 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-99-0001-0005#</h1>
+[Functional_Safety],[Functional_Safety],[Functional_Safety]</br>Test Objective: HVDC output current is limited to limit value
+(3 phase)
+*) Details
+Calibration value of over current threshold is 45 A
+FTT 1s
+inform BMW SW<br>
+<h2>Requirements</h2><ul><li><strong>23666</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>While AC charging, the CCU shall limit the output current on HVDC (H_I_LT4) as follows:
+- 17A for 3,5KW charger
+- 33A for 7KW charger
+- 52A for 11KW charger
+- 52A for 15KW charger
+- 70A for 22KW charger (Calibratable)
+
+FTT: 1000ms
+Safe state: Disable the AC charging and inform BMW SW
+
+Note: It is assumed that no loads are present on the CCU (LT5,LT7 and DC/DC current consumption equal to 0A), then above values refer to AC/DC converter
+
+Note: The current limit is depends on cables rated current value (Relaxed for 22KW)
+</li>
+<li><strong>18395</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Komponentenschutz und Derating" function shall stop operation of the charging electronics when a protection condition is present.</li>
+<li><strong>18397</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Komponentenschutz und Derating" function shall trigger an operating mode change to the "Error" state when a protection condition is present.
+</li>
+<li><strong>18399</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>If a self-protection emergency deactivation takes place, an entry shall be made in the error memory clearly identifying the cause of the error.</li>
+<li><strong>18422</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>If a DC overcurrent is detected, the function "Komponentenschutz und Derating" shall set the "Abschaltung Maximalstrom DC-HV" bit in the error status word.</li>
+<li><strong>18423</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The diagnostics for DC-HV overcurrent diagnostics shall be performed in every operating state.
+</li>
+</ul></html>

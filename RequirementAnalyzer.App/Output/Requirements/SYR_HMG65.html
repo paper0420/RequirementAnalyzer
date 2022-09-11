@@ -1,0 +1,24 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG65</h1></br><li>3.1.9 SYR_HMG65: AKKS - Emergency Run</br></li><li>3.1.9.1 Description</br></li><li>3.1.9.1.0-1 Brief description: CCU has to be able to set the AKKS-actuator in the Emergency Mode status AND to be able to detect that the AKKS-actuator is running in Emergency Mode 	</br></li><li>3.1.9.1.0-2 Preconditions: Kl30 ON</br></li><li>3.1.9.1.0-3 Trigger: AKKS has switched to Emergency Mode due to LIN Timeout or due to a another reason (tbd)</br></li><li>3.1.9.1.0-4 Input data: in case of Emergency mode running due to a LIN Timeout the Input data comes from the signal Status_Diagnose_OBD_16_Antriebsstrang_LIN_AKKS.Diagnose_Status_OBD_16_Antriebsstrang_7_LIN;
+other inputs---> in case of Application Switch for one or both AKKS set to 'deactivated', then the corresponding deactivated AKKS\s will be set in Emergency Run (in order to fully open the flaps)</br></li><li>3.1.9.1.0-5 Description of behaviour:
+1- If the AKKS  detects no activity on the LIN Bus (LIN short circuit or open circuit for a time t > 1,3 s) in this case, the actuator will move the flaps in the full open position with full torque and max speed. 
+The bus time-out flag is also activated if one of the following conditions is fulfilled:
+SMOT_PO_AKKS_LIN/SMOT_PO_AKKS_2_LIN = 0 or  0x7FFF     OR 
+SMOT_PO_COOV_AKKS_LIN/SMOT_PO_COOV_AKKS_2_LIN = 3      OR 
+CTR_SMOT_MOD_AKKS_LIN/CTR_SMOT_MOD_AKKS_2_LIN= 3      OR
+CTR_PRGG_AKKS_LIN/CTR_PRGG_AKKS_2_LIN = 0xF . 
+A running Emergency Mode on the AKKS can be detected through the LIN Signals
+ a. Status_Diagnose_OBD_16_Antriebsstrang_LIN_AKKS.Diagnose_Status_OBD_16_Antriebsstrang_7_LIN (AKKS1);
+ b.  Status_Diagnose_OBD_20_Antriebsstrang_LIN_AKKS.Diagnose_Status_OBD_20_Antriebsstrang_7_LIN (AKKS2) .
+Both of them will assume in Emergency Mode one of the following values:
+- 0x1A ----> Emergency Run active on this
+power cycle;
+- 0x1E ----> Emergency Run active
+. 
+As soon as a valid message is received the actuator leaves the emergency run state.</br></li><li>3.1.9.1.0-6 Timing Requirements:</br></li><li>3.1.9.1.0-7 Output data: the CCU will output one of these signals 
+SMOT_PO_AKKS_LIN/SMOT_PO_AKKS_2_LIN = 0 or  0x7FFF     OR 
+SMOT_PO_COOV_AKKS_LIN/SMOT_PO_COOV_AKKS_2_LIN = 3      OR 
+CTR_SMOT_MOD_AKKS_LIN/CTR_SMOT_MOD_AKKS_2_LIN= 3      OR
+CTR_PRGG_AKKS_LIN/CTR_PRGG_AKKS_2_LIN = 0xF in case of Emergency Mode triggered by Pana\BMW SW (tbd)</br></li><li>3.1.9.1.0-8 Postconditions: After the deactivation all the values have to set to INIT values</br></li><li>3.1.9.1.0-9 Descriptions of exceptions: The emergency run function (emergency operation) is not executed in the event of a bus timeout in service mode (degraded or not).
+
+AKKS1 is not mounted for SP21 car lines.</br></li><li>3.1.9.1.0-10 Dependencies and interactions:
+EPIC# -->  CCU-1470</br></li><li>3.1.9.2 Differences to CRS</br></li><li>3.1.9.2.0-1 xxx</br></li><li>3.1.9.3 Verification Measure</br></li><li>3.1.9.3.0-1 xxx</br></li><li>3.1.9.4 Questions and Answers</br></li><li>3.1.9.4.0-1 xxx</br></li><li>3.1.9.5 Verification Criteria</br></li><li>3.1.9.5.0-1 xxx</br></li>

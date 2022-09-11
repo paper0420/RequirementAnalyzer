@@ -1,0 +1,37 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_550</h1></br><li>7.5.1.57 SYR_DIA_550: Secoc DTC</br></li><li>7.5.1.57.1 Description</br></li><li>7.5.1.57.1.0-1 Brief description: 
+
+Newly Added DTC's(0xBA00A3, 0xBA00A4,0xBA00A5,0xBA00A6,0xBA00A7,0xBA00A8,0xBA00A9) can be enabled in G60 and G70 software.
+</br></li><li>7.5.1.57.1.0-2 Preconditions: 
+- CCU shall be in running state
+- Secoc Certificate shall be installed
+- Secoc Bypass Mode shall be OFF and trigger Reset(Soft\Hard)
+- Monitoring shall start after 1 sec(Startup of the ECU or Network mangment change)
+</br></li><li>7.5.1.57.1.0-3 Trigger: 
+Secoc will trigger DEM based upon the MAC verification of protected recieved PDUs fails. </br></li><li>7.5.1.57.1.0-4 Input data: 
+Zedis document</br></li><li>7.5.1.57.1.0-5 Description of behaviour: 
+-> Preconditions for the DTC "SecOC security error"   is that the PWF sate (Parken Wohnen Fahren) is "FAHREN" or “PRÜFEN_ANALYSE_DIAGNOSE”.
+-> If the MAC verification of the protected receiving messages fails, this shall be monitored to display the Secoc Errors may be in the following conditions.
+1) Failure in MAC calculations.
+2) Failure in Freshnes values
+2)  Latency and jitter of the secoc messages. 
+
+-> CCU shall activiate these new DTCs after monitoring of 1sec. In case of startup of the ECU or Partial network change.
+-> If the secoc messge is avialble and MAC caluation is failed after monitoring 1 sec, the DTC shall be entered "SecOC-Verification-failed Message[message-name]" after the error has been debounced.
+-> Debounce counter values shall be avilable in zedis doccument.
+
+-> The maximum debounce counter value shall be 3.
+
+-> While in the debounce time, if the secoc verifaction the Pdu is succesful. The debounce counter value shall be reset to 0.
+
+-> Example of debouncing the DTC "SecOC-Verification-failed Message[message-name]":
+ 
+
+-> If a SecOC protected PDU is not available due to a failed SecOC verification. Along with the MAC verfication DTC, the timeout DTC (message is missing) will also gets logged.
+
+-> If the Secure PDU is not available then Secoc MAC verification DTC shall not set. Only Timeout DTC will get set. 
+</br></li><li>7.5.1.57.1.0-6 Timing Requirements: None</br></li><li>7.5.1.57.1.0-7 Output data: None</br></li><li>7.5.1.57.1.0-8 Postconditions: none</br></li><li>7.5.1.57.1.0-9 Descriptions and exceptions: none</br></li><li>7.5.1.57.1.0-10 Dependencies and interactions: 
+
+Below are the interacted modules :
+1) Secoc
+2) DEM
+</br></li><li>7.5.1.57.2 Differences to CRS</br></li><li>7.5.1.57.2.0-1 None</br></li><li>7.5.1.57.3 Questions and Answers</br></li><li>7.5.1.57.3.0-1 None</br></li>

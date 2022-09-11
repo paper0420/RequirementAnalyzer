@@ -1,0 +1,20 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_364</h1></br><li>6.1.49 SYR_LvDCDC_F_364: At 6V ensure peak current of 100A for at least 10s and 50A for the following 3600s</br></li><li>6.1.49.1 Description</br></li><li>6.1.49.1.0-1 Brief description:</br></li><li>6.1.49.1.0-2 The maximum provided current is 100A at 6V for at least 10s with a reduction to 50A for the following 3600s.</br></li><li>6.1.49.1.0-3 Preconditions:</br></li><li>6.1.49.1.0-4 Current_Operating_State=Buck or Standby,
+RUNLEVEL >= 30,
+No error</br></li><li>6.1.49.1.0-5 Trigger:</br></li><li>6.1.49.1.0-6 Target_Operating_State = Buck,
+Target_U_LV = 14V,
+The electronic DC load  power is adjusted  to 700 W
+The electronic DC load current is adjusted to 100A for 10s and 50A for 3600s.
+The electronic DC load  voltage is adjusted to 6V.
+The regulation mode of the electronic DC load shall be constant curent.
+The coolant temperature shall be adjusted between -26°C and 70°C.</br></li><li>6.1.49.1.0-7 Input data:</br></li><li>6.1.49.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = Measured_U_LV = 8V
+Measured_U_HV = 380V
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 3100 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = between -26°C and 70°C.</br></li><li>6.1.49.1.0-9 Description of behaviour:</br></li><li>6.1.49.1.0-10 The LvDCDC must supply 100A current at 6V for minimum 10s, followed by 50A for the next 3600s. Tcool is between [-26°C, 70°C]. If Tcool is lower or higher than the output current could be limited. At -40°C and 80°C the output current will be zero.</br></li><li>6.1.49.1.0-11 Timing Requirements:</br></li><li>6.1.49.1.0-12 Output Data:</br></li><li>6.1.49.1.0-13 Postconditions:</br></li><li>6.1.49.1.0-14 Descriptions of exceptions:</br></li><li>6.1.49.1.0-15 Dependencies and interactions:</br></li><li>6.1.49.1.0-16 Other components/modules
+Customer requirements: 14123
+Usecases 
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.49.2 Differences to CRS</br></li><li>6.1.49.3 Questions and Answers</br></li>

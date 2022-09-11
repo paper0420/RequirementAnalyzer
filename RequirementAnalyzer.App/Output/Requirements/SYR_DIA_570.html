@@ -1,0 +1,119 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_570</h1></br><li>7.5.1.59 SYR_DIA_570: Diagnostic Job "ANALYSE_COP"</br></li><li>7.5.1.59.1 Description</br></li><li>7.5.1.59.1.0-1 Brief description: 
+a new Diagnostic Job „ANALYSE_COP“ DID 0x78E2 will be added newly in Zedis V33 Meta.2217.
+The new Diag Job will read out the legally required Measures (45x application Measurement Signals) and will be used on production vehicles while driving to proof the conformity of production (COP)</br></li><li>7.5.1.59.1.0-2 Preconditions: 
+CCU shall be flashed, coded and running in application</br></li><li>7.5.1.59.1.0-3 Trigger: 
+Read Data By Identifier Diagnostic Job 0x22 78 E2</br></li><li>7.5.1.59.1.0-4 Input data: 
+ZEDIS V33 Database
+BMW Libs ARXMLs</br></li><li>7.5.1.59.1.0-5 Description of behaviour: 
+
+Diagnostic Job DID 0x78E2 "ANALYSE_COP" will be added to ZEDIS v33 and newly implemented in Meta2217.
+The new DID 0x78E2 can be triggered by Tester as routine 0x22 (Read Data By Identifier) 
+
+Job Details are below:
+DID-ID: 0x78E2
+DID/RID Name: ANALYSE_COP
+Name: STATUS_ANALYSE_COP 
+
+The new DID 0x78E2 should always give positive response to tester with correct data 
+A response with Condition Not Correct (CNC) to tester is not expected, since no dependencies with Plant/Field/Engineering Mode and speed_threshold.
+The new DID 0x78E2 will read out 48x application XCP Measurement Signal values into respective 48x Job Argument Results
+
+
+The list of all 48x Argument Results can be taken from the Diag Job Implementation Excel Sheet "Diag_Job_0x78E2_Analyse_COP.xlsx“, which is maintained in below MF SVN Link:
+
+MF SVN:
+ https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2307/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/Req_Spec/Diag/Zedis_Export/ZEDIS_Extract_Analyse_COP/Diag_Job_0x78E2_Analyse_COP.xlsx
+
+
+The interpretation of the relevant columns of in above referred Excel sheet is as follows:
+
+Column A = Diagnoseauftragsnamen = Name of Diagnostic Job  
+Column I = Arg/Erg Name = Name of Argument Result  
+Column M = Datentyp = Datatype of Argument result (datatype of DCM Receiver Port)
+Column N = Einheit = Unit of Argument results 
+Column O = Label = Application XCP Measurement label, which value will be read out by DID 0x78E2
+Column T = Min (minimal value, which Arg Result can have)
+Column U = Max (maximal value, which Arg Result can have)
+Column W = Application Layer of the data Sender Port (MF ASW or BMW Appl) 
+Column X = If Sender Port existing 
+Column Z = Datatype of Application Sender Port  
+Column AD = Substitube XCP Calibration Variable 
+Column AE = XCP Calibration Switch 
+Column AF = Rx CAN/LIN Input BNE Signal
+Column AG = Tx CAN/LIN Output BNE Signal
+Column AH = PDU Name
+
+
+
+Diag Job DID 0x78E2 will response to tester with same actual physical value of the repective XCP Measurement Label as per Column O.
+For Tx Output BNE Signals, Tester should have the possibility to control the application sender Ports via xcp calibration Switches and Substitube XCP Calibration Variables.
+For Rx Input Signals, Tester Tester should have the possibility to control the application sender Ports via Rx BNE Input Signals.
+For DCDC related Signals, Tester should have the possiblity to control the application sender Ports via specific DCDC Usecases/Scenarios.
+Tester should validate the triggered test value with XCP Measurement Label (in Column O) and with Diag_Job response.
+If Control of Application sender Ports is not possible, Tester should only validate the measured actual value of the XCP Label (in Column O) with Diag Job Response. 
+New Stub SW with additional XCP calibration variables to be created for ENG08 System Test purpose, to allow injecting values directly into BMW Apllication RTE Ports (30x BMW Signals)
+
+Below 2x Exceptions must be considered:
+
+Exception #1: Below 5x Argument Results will be filled with given dummy values in Diag_SWC
+
+Argument Result Name	Expected Response (Dummy Value)
+STAT_KRIECHMOMENT_UNGEFILTERT_WERT	0xFFFF
+STAT_MAX_LADELEISTUNG_FAHRLADEN_WERT	0xFF
+STAT_AKTUELL_ENTLADBARE_ENERGIE_HVS_WERT	0xFFFF
+STAT_SOLL_POSITION_AKKS1_LIN_SCHRITTE_WERT	0xFFFF
+STAT_SOLL_POSITION_AKKS2_LIN_SCHRITTE_WERT	0xFFFF
+
+
+Exception #2: Below 3x Argument Results are not relevant for implementation and DCM Ports will remain unconnected. 
+
+Argument Result Name	Expected Response 
+STAT_SOLL_POS_GRAD_AKKS_1_HYBRID_WERT	0x00
+STAT_SOLL_POS_GRAD_AKKS_2_HYBRID_WERT	0x00
+STAT_STATUS_ANSTEUERUNG_AKKS_WERT	0x00
+
+</br></li><li>7.5.1.59.1.0-6 Timing Requirements: None</br></li><li>7.5.1.59.1.0-7 Output data: Positive Response to Tester with correct expected data (Service 0x22 78 E2)</br></li><li>7.5.1.59.1.0-8 Postconditions: none</br></li><li>7.5.1.59.1.0-9 Descriptions and exceptions: none</br></li><li>7.5.1.59.1.0-10 Dependencies and interactions: 
+
+Below are the interacted modules:
+
+1) DCM
+2) Diag_SWC
+3) Diag_JP (ASW)
+4) SLE SWC (ASW)
+5) BMW Appl RTE Receiver Ports
+
+• BSW E/E
+- Port connections between Diag_SWC and Dcm will be established (45x Signals)
+- Port Connections between Diag_SWC and Diag_JP will be established (10x ASW Signals)
+- Port Connection between Diag_SWC and BMW Appl RTE R-Ports (30x BMW Signals)
+- Data Conversion from physical value into code value as per Resolution table in ZEDIS SGBD file should be considered
+- 5x BMW Signals will be filled with dummy values in Diag_SWC (4x given in Zedis and 1x missing BMW Appl Ports)
+- New Stub SW with additional XCP calibration variables to be created for ENG08 System Test purpose, to allow injecting values directly into BMW Apllication RTE Ports (30x BMW Signals) 
+
+• MF Application SW (ASW)
+- New s/r Port to be created in Diag_JP and connected to SLE SWC (1x ASW Signal)
+- Data Conversion from physical value into code value of all MF ASW Signals will be considered in Diag_JP as per given Zedis datatypes and resolution table (10x Signal) 
+- ENG10 Testing must have the possibilty to calibrate all 10x ASW Signals, via XCP varibales or specefic test scenarios.
+ 
+
+</br></li><li>7.5.1.59.2 Differences to CRS</br></li><li>7.5.1.59.2.0-1 In CR-1084_Integration_of_Diagjob_ANALYSE_COP (Epic CCU-31172)
+
+Below 2x Arg Results were filled with dummy values:
+
+Arg Result : STAT_IST_HV_ENERGIEVERBRAUCH_EXT_VERBRAUCHER_WERT   Filled with Dummy values since no RTE Port available for Appl Signal BMWhvpwr_pwr_AuxCnrCnsAct_sw 
+
+Arg Result : STAT_ENTLADBARE_NUTZENERGIE_HVS_BERECHNET_WERT  Filled with Dummy values since no RTE Port available for Appl BMW_e_DchaHvsStndEstd_rc.BMW_e_DchaHvsPretStndEstd
+
+In [CR-1384] Integration of Diagjob ANALYSE_COP - adding signal for auxiliary devices (Epic CCU-32761)
+
+Below 2x Arg Results were connected to below new XCP Measurement Signals:
+
+Arg result : STAT_IST_HV_ENERGIEVERBRAUCH_EXT_VERBRAUCHER_WERT   connected with new Appl Signal BMW_pwr_AuxCnrCnsFild
+
+Arg result : STAT_ENTLADBARE_NUTZENERGIE_HVS_BERECHNET_WERT   connected with new Appl Signal BMW_e_DchaHvsStdnEstd_rc.BMSignalW_e_DchaHvsPretStdnEstd
+
+</br></li><li>7.5.1.59.3 Questions and Answers</br></li><li>7.5.1.59.3.0-1 None</br></li><li>7.5.2 Non-functional System Requirements </br></li><li>7.5.2.0-1 In this chapter all non-functional system requirements which are valid for software, hardware and mechanic sections are listed.
+
+Note: All non-functional customer requirements in CSR shall at least be linked to one SYR_NF for the section in charge of it.
+
+Note: For clarification with owner of CRS you can temporary use the sub-chapters “Differences to CRS” and “Questions and Answers” but in final release clear judgment is mandatory.</br></li>

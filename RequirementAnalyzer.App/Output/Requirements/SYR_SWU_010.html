@@ -1,0 +1,22 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SWU_010</h1></br><li>7.4.1.20 SYR_SWU_010: update main-application</br></li><li>7.4.1.20.1 Description</br></li><li>7.4.1.20.1.0-1 Brief description:</br></li><li>7.4.1.20.1.0-1.0-1 The bootloader will receive UDS service requests by Ethernet/CAN related to software-update. The executed protocol will request:
+-	Identification of device
+-	Deletion of application memory (config data / application program)
+-	Verification of data to be flashed (validity/authenticity)
+-	Flashing of new application
+-	Verification of written data
+-	Start of new application
+The data which will be flashed can be located in “system CPU” itself OR in any external attached component (DSP, PIC, SPI-Flash of QCA7005)
+Depending of meta-data, the bootloader will distribute the data to addressed target.
+
+If flashing was completed successfully, the bootloader will request start of “main application” to “boot manager”
+
+The bootloader is able to process UDS-flash-update procedure.
+
+The bootloader will store logging data in “config data” memory for tracing while flash-process is ongoing.
+(This is independent of additional DLT (Diagnosis Log and Trace) activities, which are not issue of this document)
+
+In case of flash-failure the bootloader will stay active until affected, valid application was flashed successfully.
+
+In this case the bootloader will execute limited network-powermanagement to prevent standby-current issues.
+The external busses are allowed to enter “sleep-mode”, but a wakeup of any bus will cause re-activation of bootloader to be able to start new flash-try</br></li><li>7.4.1.20.1.0-2 Preconditions:</br></li><li>7.4.1.20.1.0-2.0-1 The device is in one of the following system states:
+SOC is powered and BootManager decided to start bootloader.</br></li><li>7.4.1.20.1.0-3 Trigger:</br></li><li>7.4.1.20.1.0-3.0-1 Boot-manager decision</br></li><li>7.4.1.20.1.0-4 Input data:</br></li><li>7.4.1.20.1.0-4.0-1 Data to be flashed</br></li><li>7.4.1.20.1.0-5 Description of behaviour:</br></li><li>7.4.1.20.1.0-6 Timing Requirements:</br></li><li>7.4.1.20.1.0-7 Output data:</br></li><li>7.4.1.20.1.0-8 Postconditions:</br></li><li>7.4.1.20.1.0-9 Descriptions of exceptions:</br></li><li>7.4.1.20.1.0-10 Dependencies and interactions:</br></li><li>7.4.1.20.2 Differences to CRS</br></li><li>7.4.1.20.3 Questions and Answers</br></li>

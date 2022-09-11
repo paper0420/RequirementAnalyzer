@@ -1,0 +1,24 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-13-0001-0004#</h1>
+[Charging],[14V_DCDC],[DCDC_Measurement_Accuracy]</br>Test Objective: Confirmation of LV current measurement value
+(Activation from AC charge)<br>
+<h2>Requirements</h2><ul><li><strong>23932</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>The mean current value (over last 100ms) present on H_I_DCDC shall be sent over signal "LV_DCDC_I_Sig" with following accuracy
+
+LV_DCDC_I_Sig < 500A:   +/- 5A
+
+Safe State : Respective Qualifier set to not valid, LV_DCDC_I_Sig_qi equal to "Invalid"
+FTT: 100ms
+</li>
+<li><strong>18119</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>In addition to the requirements described here, the "DC/DC" function (DC/DC conversion) shall comply with all the functionally relevant requirements for the DC/DC converter from section 5.4.1. in the requirements specification "Hochvoltpowermanagement Client (HVPM)" [LH 1023 1491:V01].</li>
+<li><strong>18241</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "DC/DC" function (DC/DC conversion) shall comply with the values described in the Table "Accuracy parameters for output variables" to ensure the accuracy of the output variables.
+
+</li>
+<li><strong>18242</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)][Requirement]</div>"Accuracy parameters for output variables" 
+ 
+Output variable	x	d	   
+Actual voltage on HV-side	1 %	0.5 V	   
+Actual current on HV-side	1 %	0.1 A	   
+Actual voltage on NV-side	1 %	0.05 V	   
+Actual current on NV-side	<6 %	1 A	 
+x: Relative  accuray in per cent (+/-) of the physical value
+d: Maximal inaccuray (+/-)  independent from the measured value</li>
+</ul></html>

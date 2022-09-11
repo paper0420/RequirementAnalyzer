@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_617</h1></br><li>8.1.73 SYR_CIN_617: Coding parameter for AC China ILD (AP2-B) and CCS ILD (AP2-C) (As per AP2C removal Epic this is strike trough)</br></li><li>8.1.73.1 Description</br></li><li>8.1.73.1.0-1 Brief description:
+Existing coding parameter (InletTypeAC_CCS) is updated with new coding values to detect new AC China Inlet and new CCS Inlet.  Coding parameter should be updated in CAF file. 
+
+The coding parameter is used by BMW appl. (SfHvCha, HvCha, Cif, Ldk) and in MF SW (SVK Adapter, BSW modules (BswM)).</br></li><li>8.1.73.1.0-2 Preconditions:
+NA</br></li><li>8.1.73.1.0-3 Trigger:
+InletTypeAC_CCS has coding values 1000, 1001, 1002.
+Switch Enable/Disable</br></li><li>8.1.73.1.0-4 Input data:
+Integration of CAF 012_001_012 into 2041.230 (SP18 2211)
+Integration of CAF 011_001_012 into 2041.150 (SP21 2207)
+Integration of CAF 010_001_015 into 2041.150 (SP18 2207)
+Integration of CAF 014_001_008 into 2137.100 (G70 2137.100)
+Integration of CAF 012_001_012 into 2041.250 (SP18 2211)
+Integration of CAF 014_001_008 into 2137.120 (G70 2137.120)
+updated FA file, signal interface (BMWcod_st_VehInletTypAC), "InletTypeAC_CCS" switch value (ON/OFF), "InletTypeAC_CCS" Calibration Variable.</br></li><li>8.1.73.1.0-5 Description of behaviour:
+Charging socket HW is changing and minimum functional scope of the charging socket for charging will be considered. Therefore, new inlet types will be installed in vehicle.  
+For AC Charging China (called as AP2-B): Charging socket is w/o electronics, w/o private CAN.
+For ECE/US variant (called as AP2-C): Charging socket is with monitoring of CC1/CC2 pins, w/o private CAN.
+
+To detect new inlets in CCU, existing coding parameter (InletTypeAC_CCS) is updated with new coding values. 
+New value 1000 : AC-GBT w/o Electronic (AP2-B CN)
+New value 1001 : CCS1 (AP2-C CCS US)
+New value 1002 : CCS2 (AP2-C CCS ECE)
+
+In addition to this, a switch (ON or OFF) has to be implemented to overwrite the "InletTypeAC_CCS" in SWC Coding Adapter. If switch is OFF, value for "InletTypeAC_CCS" should be taken from coding (read from coding parameter) and provide it to the components in BMW Appl. and MF SW via RTE port interface. If Switch is ON, value should be taken from calibration variable. The coding parameter value (InletTypeAC_CCS) is used by BMW appl. (SfHvCha, HvCha, Cif, Ldk) and in MF SW (SVK Adapter, BSW modules (BswM)).
+</br></li><li>8.1.73.1.0-6 Timing Requirements: NA</br></li><li>8.1.73.1.0-7 Output data: 
+BMWcod_st_VehInletTypAC signal interface to BMW SWC that has the physical value as per the coding parameter 'InletTypeAC_CCS' or Swtich Calib Var. 
+RTE interface port for InletTypeAC_CCS</br></li><li>8.1.73.1.0-8 Postconditions: NA</br></li><li>8.1.73.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.73.1.0-10 Dependencies and interactions:
+BAC Coding, SWC Coding Wrapper, RTE, SVK Adapter, BswM, BMW Appl. 
+
+
+ </br></li><li>8.1.73.2 Differences to CRS</br></li><li>8.1.73.2.0-1 xxx</br></li><li>8.1.73.3 Questions and Answers</br></li><li>8.1.73.3.0-1 xxx</br></li>

@@ -1,0 +1,10 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_110</h1></br><li>7.7.1.10 SYR_SEC_110: Change from Testkeys to Hotkeys</br></li><li>7.7.1.10.1 Description</br></li><li>7.7.1.10.1.0-1 Brief description: Change from Testkeys to Hotkeys for BEV21 and BEV18-G26.
+The System must integrate Hotkeys for I20 meta 2017 and for G26 meta 2025.
+keys are same for I20 and G26: SGBM number for Bootloader must be "00008831" for both carlines. This is valid until Meta.2033.
+
+ With CR-872, keys are set differently between G08 and I20/G26: 
+G08: SGBM number for Bootloader still “00008831”
+I20/G26: SGBM number for Bootloader must be “0000979C”
+
+With CR-894, due to integration of BAC 4.3.34 Crypto and BS modules in G08, SGBM number for G08 Bootloader must be 00009B37. In G08, SGBM keys are used to ensure a sw rollback prevention mechanism (G08 SOP 21-03 I-470, from 1943.110 onwards).</br></li><li>7.7.1.10.1.0-2 Preconditions: CCU is flashed with testkeys</br></li><li>7.7.1.10.1.0-3 Trigger: flash request with special PDX to switch to hotkeys</br></li><li>7.7.1.10.1.0-4 Input data: none</br></li><li>7.7.1.10.1.0-5 Description of behaviour: none</br></li><li>7.7.1.10.1.0-6 Timing Requirements: none</br></li><li>7.7.1.10.1.0-7 Output data: none</br></li><li>7.7.1.10.1.0-8 Postconditions: CCU flashed and using hotkeys are installed and operational</br></li><li>7.7.1.10.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.10.1.0-10 Dependencies and interactions: none</br></li><li>7.7.1.10.2 Differences to CRS</br></li><li>7.7.1.10.2.0-1 CR-872 for I20 is changing SGBM Nummer for Bootloader across carlines.
+CR-894 for G08 is changing SGBM Nummer for Bootloader starting from G08 SOP 21-03 (sw 1943.110 onwards)</br></li><li>7.7.1.10.3 Questions and Answers</br></li><li>7.7.1.10.3.0-1 xxx</br></li>

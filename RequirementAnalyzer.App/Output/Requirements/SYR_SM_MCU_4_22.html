@@ -1,0 +1,10 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SM_MCU_4_22</h1></br><li>7.10.1.1.168 SYR_SM_MCU_4_22</br></li><li>7.10.1.1.168.1 Description</br></li><li>7.10.1.1.168.1.0-1 Brief description:Normal application automatically satisfies this requirement hence no addtional action required in this SM
+
+Feedback from ST:
+In there RAM there are locations that we call All-X. For these locations, the codeword with all bit set to 0b or to 1b is a valid codeword. 
+The ECC logic assesses the codeword to correct or to detect bit error in RAM. If the codeword is valid, there is not bit flip in the data.
+
+Typically in the RAM, these All-X locations are periodically placed in the array and there is one All-X location every 255 normal locations.
+
+The requirement asks NOT to read only All-X locations in each FTTI. But a real application - which has a stack, a heap and other data in RAM - doesn't read only All-X locations. As a consequence, a normal application automatically satisfies this requirement. 
+You must confirm that you don't have a weird application that jumps from one All-X location to another All-X location without reading normal locations.</br></li><li>7.10.1.1.168.1.0-2 Preconditions:</br></li><li>7.10.1.1.168.1.0-3 Trigger:</br></li><li>7.10.1.1.168.1.0-4 Input data:</br></li><li>7.10.1.1.168.1.0-5 Description of behaviour:</br></li><li>7.10.1.1.168.1.0-6 Timing Requirements:</br></li><li>7.10.1.1.168.1.0-7 Output data:</br></li><li>7.10.1.1.168.1.0-8 Postconditions:</br></li><li>7.10.1.1.168.1.0-9 Descriptions of exceptions:</br></li><li>7.10.1.1.168.1.0-10 Dependencies and interactions:</br></li><li>7.10.1.1.168.2 Differences to CRS</br></li><li>7.10.1.1.168.2.0-1 xxx</br></li><li>7.10.1.1.168.3 Questions and Answers</br></li><li>7.10.1.1.168.3.0-1 xxx</br></li>

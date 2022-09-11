@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC250</h1></br><li>2.1.29 SYR_ACC250: Switch Matrix - transmit switch matrix configuration</br></li><li>2.1.29.1 Description</br></li><li>2.1.29.1.0-1 Brief description:</br></li><li>2.1.29.1.0-2 send curent switch matrix configuration to the function "Ladekoordinator"</br></li><li>2.1.29.1.0-3 Preconditions:</br></li><li>2.1.29.1.0-4 Conected to the EVSE</br></li><li>2.1.29.1.0-5 Trigger:</br></li><li>2.1.29.1.0-6 Input data:</br></li><li>2.1.29.1.0-7 *Signal:
+Soll_Modus_Schaltmatrix</br></li><li>2.1.29.1.0-8 Description of behaviour:</br></li><li>2.1.29.1.0-9 * verify current configuration of the switch matrix (SM)
+* transmit current SM status to the LDK with the required frequency
+implementation hint
+send data with the following structure
+0: Initial
+1: 1 phase charging mode
+3: 3 phase charging mode
+11: Error, stuck in 1 phase charging mode
+13: Error, stuck in 3 phase charging mode
+14: Overvoltage, charging stopped
+15: Global Error, charging stopped
+Initially SLE shall always send sm status WITHOUT STUCK ERROR. That means
+1. If the initial sm configuration is 1 or 11, SLE shall send 1
+2. If the initial sm configuration is 3 or 13, SLE shall send 3
+(this allows for a faster detection of the last configuration and allows for a faster charging inizializatuion)</br></li><li>2.1.29.1.0-10 Timing Requirements:</br></li><li>2.1.29.1.0-11 send signal in a 10ms cycle</br></li><li>2.1.29.1.0-12 Output Data:</br></li><li>2.1.29.1.0-13 Ist_Modus_Schaltmatrix
+Status_Schaltmatrix</br></li><li>2.1.29.1.0-14 Postconditions:</br></li><li>2.1.29.1.0-15 tbd</br></li><li>2.1.29.1.0-16 Descriptions of exceptions:</br></li><li>2.1.29.1.0-17 in case of error set the output signal to the corresponding value
+hint
+11: Error, stuck in 1 phase charging mode
+13: Error, stuck in 3 phase charging mode
+14: Overvoltage, charging stopped
+15: Global Error, charging stopped</br></li><li>2.1.29.1.0-18 Dependencies and interactions:</br></li><li>2.1.29.1.0-19 Other components/modules
+LDK
+Usecases: SYR_ACC240
+Customer requirements: 17464
+EPIC: CCU-513</br></li><li>2.1.29.2 Differences to CRS</br></li><li>2.1.29.2.0-1 tbd</br></li><li>2.1.29.3 Questions and Answers</br></li><li>2.1.29.3.0-1 MiL/HiL test</br></li>

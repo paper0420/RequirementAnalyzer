@@ -1,0 +1,16 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_604</h1></br><li>8.1.59 SYR_CIN_604: updated EAPC configuration with Chaoji PDUs for  PDU group iLD_ChaoJi from NK05</br></li><li>8.1.59.1 Description</br></li><li>8.1.59.1.0-1 Brief description:
+NK_SP2021_21KW05_V78_EAPC_CCU_CAN_1_V77  will have 5 Pdus (3Rx & 2TX) assigned to Pdu group iLD-Chaoji
+Pdu group iLD-Chaoji shall be activated only if the coding parameter BMWcod_st_VehChgrTyp DC has value '4' & Ild_state is in active state.  
+  
+ 
+ In other conditions this pdugroup shall be deactivated .
+
+Corresponding DTC ‘ as listed in below table ‘ from ZEDIS26.1_BEV21_G70 shall not be logged if the PDU is deactivated
+ 
+  
+ 
+Please refer to below table for the signal interface with BMW application comonent 
+ 
+</br></li><li>8.1.59.1.0-2 Preconditions: NA</br></li><li>8.1.59.1.0-3 Trigger: coding paramter  BMWcod_st_VehChgrTyp has value 4 &  Ild_State is active.</br></li><li>8.1.59.1.0-4 Input data: CAF file ,  NK-> NK_SP2021_21KW05_V78_EAPC_CCU_CAN_1_V77 ,  Diagnostc ->ZEDIS26.1_BEV21_G70</br></li><li>8.1.59.1.0-5 Description of behaviour:
+ </br></li><li>8.1.59.1.0-6 Timing Requirements: NA</br></li><li>8.1.59.1.0-7 Output data: Tx pdus EAPC_ControlCHGPLockingDC, EAPC_ControlCHGIFChaoJi on private can</br></li><li>8.1.59.1.0-8 Postconditions: Status of DTC's  0xD7995A,0xD7995B,0xD7995C,0xD7995E,0xD7995F,0xD79960,0xD79962 based on error detected in respective Rx PDU's </br></li><li>8.1.59.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.59.1.0-10 Dependencies and interactions:
+</br></li><li>8.1.59.1.0-10.0-1 <Picture></br></li><li>8.1.59.2 Differences to CRS</br></li><li>8.1.59.2.0-1 xxx</br></li><li>8.1.59.3 Questions and Answers</br></li><li>8.1.59.3.0-1 xxx</br></li>

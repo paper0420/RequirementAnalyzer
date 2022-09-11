@@ -1,0 +1,34 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-06-0001-0015#</h1>
+[Charging],[AC_Charging],[AC_Measurement_Accuracy]</br>Test Objective: LT4 voltage accuracy check (0V-540V) 
+
+(Add negative test)<br>
+<h2>Requirements</h2><ul><li><strong>23640</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The CCU during the AC charging should ensure that the DC voltage is in the allowed ranges, that is below 540V.
+
+For this safety function:
+-	The supplier should measure the DC voltage on LT4 within the specified range and accuracy.
+-      Supplier will evaluate LT4 voltage,  if it is higher than the allowed range then shall stop the AC charging.
+</li>
+<li><strong>23642</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)Review][Requirement]</div>The mean voltage value (over last 10ms) present on E_U_LT4 shall be sent over signal "LT4_U_Sig" with following accuracy
+LT4_U_Sig < 10V:   +/- 1V
+10V <= LT4_U_Sig < 1000V:   +/- 5% 
+
+Safe State : Respective Qualifier set to "signal invalid", LT4_U_Sig_qi equal to "Invalid"
+FTT: 160ms</li>
+<li><strong>6375</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>For the test, the test parameters shall be selected according to the table “Test parameters of the upper restricted operational capability range”  ENBN_PR_2640.</li>
+<li><strong>6416</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Report of the Test shall be provided for all operating voltage ranges in accordance with the table “High voltage ranges” (ENBN_PR_2255).</li>
+<li><strong>11154</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The "Messwertermittlung_Ladegerät_AC/DC" function shall determine the DC-HV voltage output by the charging electronics. </li>
+<li><strong>11464</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Pre-Condition:
+a) connect the development object with resistive load.
+b) activate and operate the development object at the constant-voltage output mode with the output voltage being a set value Uz0 in the range of output voltage of the development object.</li>
+<li><strong>11465</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Action:
+a) adjust the input voltage of the development object such that it varies within ± 15% of the rated value.
+b) adjust the output current such that it varies within the range between no load to rated current.
+b) measure actual output voltage Uz.</li>
+<li><strong>17648</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Post-Condition:
+a) output voltage tolerance must be not more than ± 1% calculated per formula: 
+  
+Of which,
+ξU 	-- 	Output voltage tolerance;
+Uz 	-- 	Actual output voltage (V);
+Uz0	-- 	Set output voltage (V).</li>
+</ul></html>

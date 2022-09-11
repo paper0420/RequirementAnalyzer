@@ -1,0 +1,24 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_14</h1></br><li>1.1.31.6 SYR_CCS_14: provide CCS protocol support for DIN70121 DC message set</br></li><li>1.1.31.6.1 Description</br></li><li>1.1.31.6.1.0-1 Brief description:
+Panasonic software shall provide DIN70121 message support.
+The DIN70121 Parameter confuguration shall be done. 
+Panasonic software shall Communication with Charging Station, Collecting information and providing to BMW SW or Charging station as per message set.
+The BMW SW will control the communication with the Charging station.
+
+Below are the accepted change present in I20 SW:
+DC-Combo is already implemented and working since G08 following DIN 70121 stamdard.
+
+Change provided in Meta.2017 I20 through Bug Fix and SIP integration:
+The optional parameter "Unit[Watt, Volt, Ampere]" for PhysicalValue Type elements shall be send by CCU to EVSE charger over PLC communication.
+vSCC stack shall be fixed to enable sending such optional values.
+
+New deviation in Meta.2041 as requested by BMW:
+On BMW request, the payload length check (referring [V2G-DC-172], [V2G-DC-173]) will be made configurable by Stack supplier (Vector). Change shall be provided as Vector SIP delivery.
+BMW has requested PANA to deactivate this payload length check in DIN DC sequence (-> payload length is present in V2GTP header) in order to successfully perform Charging with Stations (such as Triitium EVSE). Because of deactivation of length check, Conformance test (DIN70122: TC_EVCC_VTB_V2GTPSessionSetup_004) will fail or no error will be reported when EVSE (such as Tritium) sends extra byte in payload data than what EV is expected to process.
+</br></li><li>1.1.31.6.1.0-2 Preconditions: Dlink is established and IP is assigned	</br></li><li>1.1.31.6.1.0-3 Trigger: LIM_C shall provide trigger start DIN70121 seq</br></li><li>1.1.31.6.1.0-4 Input data: LIM_C shall provide information need for creating request message</br></li><li>1.1.31.6.1.0-5 Description of behaviour: see DIN70121 Seq.
+The communication with charging station shall be accordance with seq
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/Sequence/LH_CCS_DIN70121_Sequence.pdf</br></li><li>1.1.31.6.1.0-6 Timing Requirements: shall as requested in DIN70121 standard	</br></li><li>1.1.31.6.1.0-7 Output data: PLC frames to Charging station (external)</br></li><li>1.1.31.6.1.0-8 Postconditions: trigger from bmw SWC and Datalink must be established</br></li><li>1.1.31.6.1.0-9 Descriptions of exceptions: 
+Physical Unit Change 
+Meta.2017 --> additional fix was handled through bug ticket BMW03-27554
+
+Payload Length Check Deactivation
+Meta.2041 --> Change is handled as CR through EPIC CCU-26751</br></li><li>1.1.31.6.1.0-10 Dependencies and interactions: none</br></li><li>1.1.31.6.2 Differences to CRS</br></li><li>1.1.31.6.2.0-1 NA</br></li><li>1.1.31.6.3 Questions and Answers</br></li><li>1.1.31.6.3.0-1 NA</br></li>

@@ -1,0 +1,16 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_700</h1></br><li>6.1.81 SYR_LvDCDC_F_700: Uncontrolled fast HV voltage drop to below p_DCDC_MIN_U_HV and above p_DCDC_DERAT_MIN_U_HV</br></li><li>6.1.81.1 Description</br></li><li>6.1.81.1.0-1 Brief description:</br></li><li>6.1.81.1.0-2 When the HV contactors of the battery management unit are opened unintended the HV voltage drops fast without any control message</br></li><li>6.1.81.1.0-3 Preconditions:</br></li><li>6.1.81.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30,
+HV voltage = 380V,
+LV target voltage = above 13,5V
+LV actual voltage = 13,5V
+LV actual current consumption = ca 43A,</br></li><li>6.1.81.1.0-5 Trigger:</br></li><li>6.1.81.1.0-6 HV voltage drop from 380V to 189V within ca. 100ms.
+Measured decreasing voltage slope: 210V/100ms.</br></li><li>6.1.81.1.0-7 Input data:</br></li><li>6.1.81.1.0-8 Description of behaviour:</br></li><li>6.1.81.1.0-9 The LvDCDC shall be not get broken due to the fast decreasing voltage. The LvDCDC shall perform a derating below 200V.</br></li><li>6.1.81.1.0-10 Timing Requirements:</br></li><li>6.1.81.1.0-11 Specified allowed HV voltage drop is 2,5 kV/s</br></li><li>6.1.81.1.0-12 Output data:</br></li><li>6.1.81.1.0-13 LV current reduction.</br></li><li>6.1.81.1.0-14 Postconditions:</br></li><li>6.1.81.1.0-15 LvDCDC current operating state = buck,
+Error state = 0
+Derating state = Derating due to HV undervoltage</br></li><li>6.1.81.1.0-16 Descriptions of exceptions:</br></li><li>6.1.81.1.0-17 Dependencies and interactions:</br></li><li>6.1.81.1.0-18 Other components/modules: 
+Customer requirements: 9957, 23530
+Customer info: 14097, 
+EPIC: 
+META:
+Usecases 
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.81.1.0-19 Assumed as reference EA_SYS_ENBN_2510. </br></li><li>6.1.81.2 Differences to CRS</br></li><li>6.1.81.2.0-1 xxx</br></li><li>6.1.81.3 Questions and Answers</br></li><li>6.1.81.3.0-1 xxx</br></li>

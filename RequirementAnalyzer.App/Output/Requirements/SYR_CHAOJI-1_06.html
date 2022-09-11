@@ -1,0 +1,61 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CHAOJI-1_06</h1></br><li>1.1.32.6 SYR_CHAOJI-1_06 : provide functionality in SW for reception of Long Message from Charger</br></li><li>1.1.32.6.1 Description</br></li><li>1.1.32.6.1.0-1 Brief description: 
+Charger will send LM messages to Vehicle (CCU) via DC-CAN.
+Supplier-SW (at TP layer) shall receive the LM message from lower layer, confirms the reception via acknowledgement to Charger and provides the message-data / ACK state to upper-layers & then to BMW appl. </br></li><li>1.1.32.6.1.0-2 Preconditions: Vehicle is coded as Chaoji vehicle (VehChrTypDC = 4).  BMW_nr_DcCanProtReq is set to 2 (Chaoji vehicle charges at chaoji-1 charger).</br></li><li>1.1.32.6.1.0-3 Trigger: Reception of LM Connection Establishment Frame at CCU</br></li><li>1.1.32.6.1.0-4 Input data: 
+SN0 frame and then SNn data-frames.
+
+******
+(change for new draft CDV2)
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1/CCU-31198
+new DBC in sprint.2219
+https://asc-prod-ha-wig.bmw.com/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2219/BMW/Doc/NK/PATCH_v1_EADBN-1710_220324_DBC_EAPC_DC_CAN.dbc
+
+Note: new DBC is integrated in SW. 
+In accordance with new draft CDV2, there is change in values of CAN identifiers of all messages.
+a) change in CAN addresses for charger and CCU
+b) change in PDU format (PF) values for all message types
+
+*******</br></li><li>1.1.32.6.1.0-5 Description of behaviour:
+During Chaoji-1 charging sequence, in function module execution, CCU is expected to receive LM messages from the charger over DC-CAN. 
+LM RX messages in accordance with chaoji draft CDV2,
+Function Module	Contents of Parameter Group	Parameter Group Identification (PGI) (hex)	Message type	Message content (short)
+Parameter Negotiation	“Charger Charging Parameters” message	0x21	LM	CCP
+	“Vehicle Charging Parameters” message	0x22	LM	VCP
+Function Negotiation	Function code supported by the charger	0x11	LM	CSF
+	Vehicle function negotiation acknowledgment result message	0x12	SM_RM	VSF
+End of charging	“Charger Statistics” message (FDC=1)	0x81	LM	CSM
+	“Vehicle Statistics” message (FDC=1)	0x82	LM	VSM
+
+These RX-signals will be provided to LIM-C via COMAdapter. In CCU, LM message reception sequence is handled by new Supplier-SW (at TP layer). Supplier-SW provides the received data to PduR, which then be provided to COM. COM provides the data to COM adapter via RTE interface.
+1. Connection Establishment frame is received at CCU
+If Charger wishes to establish connection for LM message, TP-SW shall receive connection establishment frame (LM SN=0). TP-layer processes the frame-data, validates the frame content, request buffer and decides upon response as ACK. Connection establishment is done based on total no. of bytes in SN0 frame.
+TP-SW transmits the ACK for SN=0 frame, having done calculation for start of frame and total number of frames. TP-SW shall start timers as soon as ACK is sent out. LM T2 (value 100ms, to check if first data-frame is received within T2) and LM T3 (value 10sec, overall long message reception timer).
+Note as per chaoji CDV2: In SN0, total number of frames excludes connection establishment frame itself and total number of bytes are data bytes to be received in data frames SN1 to SNn excluding unused bytes. 
+
+2. Data Frames Reception Starts within timeout
+CCU (TP-SW) starts receiving data frames. When first data frame is received within T2, sequence number and parameter group information validation shall be done. Accordingly, frame data (7 bytes) shall be stored in buffer and passed to upper layers. LM T2 timer shall be restarted after each data-frame reception.
+3. Last Data Frame received
+TP-SW shall keep monitoring if all valid data frames are being received in sequence. When data-frame is received, sequence number is valid and total received frames count (sum of consecutive sequence no.) matches to total data-frames (excluding SN=0), this means last data frame is received. After processing the data-frame bytes (excluding bytes with FF out of 7 bytes), TP-SW shall send end of acknowledgement message on DC-CAN bus. 
+LIM-C shall now receive the RX-signals (message-data) via Com Adapter over RTE when end of ack is successfully sent out. 
+Note as per CDV2: In LM End of ACk, Total number of frames includes SN0 with data frames (SN1 to SNn), Total number of bytes should match as in SN0 frame.
+
+4. Connection Closed
+After sending End of Ack message, TP-SW shall move to connection closed state which means resetting the internal states and timers. 
+
+5. Receive last frame as per k in ACK (n,k)
+TP-SW shall keep monitoring the reception of data frames. If last frame is received which means count is matching to the total number of frames requested when ACK is sent out by CCU. But still total number of frames defined in connection establishment frame is not reached. This means CCU (TP-SW) shall request for remaining frames by readjusting and sending out new ACK, specifying start of frame and total number of frames required.  
+
+6. Resend End of Acknowledgment frame in Connection Closed state
+After sending End of Ack, CCU (TP-SW) moves to connection closed state. If last data frame SNn is received again, TP-SW shall resend end of acknowledgment control frame on the bus.   
+
+ When End of ack is successfully sent out by CCU, Connection is closed. Now If SNn (last data frame from charger) receives again, no retry of end of ack will happen as connection is closed.</br></li><li>1.1.32.6.1.0-6 Timing Requirements: Timers LMS T2 and LMS T3 are applicable.	</br></li><li>1.1.32.6.1.0-7 Output data:
+ACK is sent out when Connection Establishment Frame is received.
+End of ACK is sent out when last data-frame is received.
+Appl. interfaces are updated with RX-signals data.</br></li><li>1.1.32.6.1.0-8 Postconditions: NA		</br></li><li>1.1.32.6.1.0-9 Descriptions of exceptions: When End of ack is successfully sent out by CCU, Connection is closed. Now If SNn (last data frame from charger) receives again, no retry of end of ack will happen as connection is closed.	
+
+"Suspend transmission" use case is not in scope
+
+Based on this statement from standard, "The time interval
+LMS_T1 between data frames of message sent shall be less than 10ms (to be discussed)" --> Min. acceptable interval between data frames is not covered/defined.
+
+
+Strict check on unused data bytes in a frame (such as on 0xFF in SN0, SNn) is not desired.</br></li><li>1.1.32.6.1.0-10 Dependencies and interactions: RTE, COM, IPDUM, CAN IF, Supplier-TP (ChaojiTp), PduR, BSWM</br></li><li>1.1.32.6.2 Differences to CRS</br></li><li>1.1.32.6.2.0-1 xxx</br></li><li>1.1.32.6.3 Questions and Answers</br></li><li>1.1.32.6.3.0-1 xxx</br></li>

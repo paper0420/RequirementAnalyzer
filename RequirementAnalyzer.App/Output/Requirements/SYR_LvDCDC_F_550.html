@@ -1,0 +1,13 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_550</h1></br><li>6.1.71 SYR_LvDCDC_F_550: Error handling in case of undervoltage at the LvDCDC output measurement for longer 500ms</br></li><li>6.1.71.1 Description</br></li><li>6.1.71.1.0-1 Brief description:</br></li><li>6.1.71.1.0-2 Error state and DTC needed in case of LvDCDC undervoltage at output pins for longer 500ms</br></li><li>6.1.71.1.0-3 Preconditions:</br></li><li>6.1.71.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.71.1.0-5 Trigger:</br></li><li>6.1.71.1.0-6 Measured_U_LV < 6V for more than 500ms.</br></li><li>6.1.71.1.0-7 Input data:</br></li><li>6.1.71.1.0-8 Description of behaviour:</br></li><li>6.1.71.1.0-9 When the LvDCDC stops the buck mode due to the minimal output voltage lower p_DCDC_DERAT_MIN_U_LV (6V) the error state is set accordingly and a DTC is generated. The LvDCDC is in the error operation mode as long as the error condition is present. If the undervoltage condition is finished, the LvDCDC is in standby operation mode. The buck operation mode cannot be started without HVPM.</br></li><li>6.1.71.1.0-10 Timing Requirements:</br></li><li>6.1.71.1.0-11 500 ms</br></li><li>6.1.71.1.0-12 Output Data:</br></li><li>6.1.71.1.0-13 The DTC 0x030F8D DCDC converter - LV voltage sensor - lower threshold value deceeded must be set in the primary error memory.
+Deratingstatus_DCDC-Wandler_Ist = tbd.
+g_dcdcoutput_error_status_dcdc = 0x0010: Undervoltage LV
+Current_Operating_State = g_dcdcoutput_dcdc_operating_state = Error
+Measured_LVcurrent=  0A</br></li><li>6.1.71.1.0-14 Postconditions:</br></li><li>6.1.71.1.0-15 When Measured_U_LV > 6V:
+g_dcdcoutput_error_status_dcdc : Not ( 0x0010: Undervoltage LV)
+Current_Operating_State = g_dcdcoutput_dcdc_operating_state = Standby
+Measured_LVcurrent=  0A</br></li><li>6.1.71.1.0-16 Descriptions of exceptions:</br></li><li>6.1.71.1.0-17 Dependencies and interactions:</br></li><li>6.1.71.1.0-18 Other components/modules
+Customer requirements: 23186 (undervoltage 500ms), 23420 (undervoltage below 500ms), 18173 (error state), 18177 (DTC)Usecases 
+EPIC: CCU-1206
+Safety requirements : ASIL-A
+Technical Safety requirements: SF-03</br></li><li>6.1.71.2 Differences to CRS</br></li><li>6.1.71.3 Questions and Answers</br></li>

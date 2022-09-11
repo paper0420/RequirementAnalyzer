@@ -1,0 +1,20 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG78</h1></br><li>3.1.22 SYR_HMG78: [AKKS] Closing Supression</br></li><li>3.1.22.1 Description</br></li><li>3.1.22.1.0-1 Brief description:
+It must implement a functionality, which suppresses the closing of all active AKKS depending on the vehicle speed (Closing Suppression)</br></li><li>3.1.22.1.0-2 Preconditions:
+CCU is running and the AKKS functionality has correctly started.
+The ST_CON_VEH = PAD or FAHREN</br></li><li>3.1.22.1.0-3 Trigger:
+Activation and deactivation of AKKS closing Suppression by using Closing_Suppression_SWITCH.
+Closing Suppression can only be triggered in NORMAL mode</br></li><li>3.1.22.1.0-4 Input data:
+BMW_v_VehMc_rc signal shall be used for Vehicle speed information</br></li><li>3.1.22.1.0-5 Description of behaviour:
+If the vehicle speed is bigger or equal an upper adjustable vehicle speed threshold (Closing Suppression activation threshold), all active  AKKS are not allowed to send to a smaller position as is current position. In this state (Closing Suppression)the AKKS is only allowed to send to positions bigger than its current position.
+If the vehicle speed is smaller or equal an lower adjustable vehicle speed threshold (Closing Suppression deactivation threshold), all active AKKS are allowed to be commanded in Normal Mode.
+The Range of the application values has to be chosen, so that the functionality could be completely deactivated. With this it must be ensured that the functionality is fully neutral for the AKKS Component Driver Software Module.</br></li><li>3.1.22.1.0-6 Timing Requirements: 
+ NA</br></li><li>3.1.22.1.0-7 Output data:
+The outcome of this implementation shall be activation and deactivation of the AKKS Closing Suppression using Switch based on the Vehicle speed.</br></li><li>3.1.22.1.0-8 Postconditions:
+NA</br></li><li>3.1.22.1.0-9 Descriptions of exceptions:
+AKKS1 is not mounted for SP21 car lines.</br></li><li>3.1.22.1.0-10 Dependencies and interactions:
+Appl SW
+
+Related EPICs: CCU-27302
+
+[Enterprise Architect Functional Model]
+Related Activity Diagram on EA under: ENG.02¿> ThermalManagement ===> FunctionalArchitecture ====> AKKS ===> AKKS_Activity_Diag</br></li><li>3.1.22.2 Differences to CRS</br></li><li>3.1.22.2.0-1 xxx</br></li><li>3.1.22.3 Questions and Answers</br></li><li>3.1.22.3.0-1 xxx</br></li>

@@ -1,0 +1,30 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG_200</h1></br><li>3.1.55 SYR_HMG_200: [DV2] Diagnostic for Auto-Calibration Function</br></li><li>3.1.55.1 Description</br></li><li>3.1.55.1.0-1 Brief description:
+The calibration-runs requested by DV2 within one driving-cycle shall be counted. If related thresholds are exceeded, no more calibration-requests shall be serviced and DTC 0x2240A0 shall be set. Conditions to increment and reset the calibration-counter are detailed below. </br></li><li>3.1.55.1.0-2 Preconditions:
+Kl15 ON.</br></li><li>3.1.55.1.0-3 Trigger:
+ECU Startup.</br></li><li>3.1.55.1.0-4 Input data:
+See desccription of behavior.</br></li><li>3.1.55.1.0-5 Description of behaviour:
+(1) The calibration-counter shall be incremented:
+- if a new calib-request is issued by DV2 <30s* after the last calibration-run has finished
+
+(2) The calibration-counter shall be initialized/reset to 0:
+- if there is no calib-request by DV2 within 30s* after a completed calibration-run
+- at ECU-startup (sleep/wakeup=power-cycle)
+- if there is a transition ST_CON_VEH == (from (5) to (7 or 8 or 10)) (New Driving-Cycle)
+
+(3) DTC 0x2240A0 shall be set if calibration-counter reaches threshold ‘Counter_DV2_Calibration_Function_ThreshDTC’*
+
+(4) DTC 0x2240A0 shall be reset if calibration-counter is smaller than threshold ‘Counter_DV2_Calibration_Function_ThreshDTC’ 2.5min after start of a new driving-cycle
+
+(5) Calibration-requests by DV2 shall be ignored if calibration-
+counter reaches threshold ‘Counter_DV2_Calibration_Function’*
+
+(6) Is shall be possible to disable the functional changes of this Epic by a calibration switch*
+
+(7) Manual calibration-requests (as per CCU-17287) shall not alter the calibration-counter. If triggered simultaneously, a manual calibration-request shall prevail over a calibration request issued by DV2.
+
+(*) calibratable value (CRETA)</br></li><li>3.1.55.1.0-6 Timing Requirements: 
+ See description of behaviour.</br></li><li>3.1.55.1.0-7 Output data:
+See desccription of behavior.</br></li><li>3.1.55.1.0-8 Postconditions:
+NA</br></li><li>3.1.55.1.0-9 Descriptions of exceptions:
+NA</br></li><li>3.1.55.1.0-10 Dependencies and interactions:
+Related Epics: CCU-31286, CCU-17294, CCU-17287</br></li><li>3.1.55.2 Differences to CRS</br></li><li>3.1.55.2.0-1 xxx</br></li><li>3.1.55.3 Questions and Answers</br></li><li>3.1.55.3.0-1 xxx</br></li>

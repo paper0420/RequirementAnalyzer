@@ -1,0 +1,50 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_611</h1></br><li>8.1.66 SYR_CIN_611 :Diagnostic of nonresponding LIN slave units during Plant process </br></li><li>8.1.66.1 Description</br></li><li>8.1.66.1.0-1 Brief description:
+No LIN slave components diagnosis in the FE_Mode available for factory.  Unplugged LIN components are not recognized in the FE_Mode.
+This will result into Heating and Malfunctioning LIN components 
+With this system requirement, solution is depicted  which will be applicable in CCU all modes .(As per the activation condition)
+</br></li><li>8.1.66.1.0-2 Preconditions:
+LIN Awake; CCU in  FE mode Or Normal mode; Application's FSPs are always active</br></li><li>8.1.66.1.0-3 Trigger:
+LIN Slave is not communicating properly due to unplugged / disconnected</br></li><li>8.1.66.1.0-4 Input data:
+Zedis document and Zedis DB in SW</br></li><li>8.1.66.1.0-5 Description of behaviour:
+
+Current Situation:
+The LIN timeout DTCs that are previously present are not active in Production mode and thus cannot be used during plant process.  Since the production mode is active in the CCU in the factory, LIN participants that are not plugged is cannot be recognized and lead to malfunctions (overheating) 
+Trigger for change:
+New application DTCs for LIN are introduced in Zedis which will be logged at All CCU modes (as per activation conditions )
+New Situation:
+Long term solution is implemented and allows to identify that a LIN slave SG is not communicating during plant process.  Below are the Image for Application DTC defined for each LIN slave  
+ 
+For the application DTCs Activation condition defined as :
+ 
+When LIN slave is plugged (communicating over LIN), in BSW at PDU level, IPDUcallout callback is triggered when a PDU is received from COM. If a callback has not been called for 5 seconds (debounce time) for a PDU, then Appl LIN DTC for impacted LIN slave (identified from PDU for which callback is not called-out) will be set.
+As soon as slave starts responding which means IPDU callback is triggered and recognized in BSW. DTC is cleared.
+
+
+Below is the activation/deactivation condition for appl. DTC and PDUs for each slave. 
+Slaves	Calibration Parameter used till Meta.2151 (*Note 1)	Calibration Parameter used from Meta.2209 (**Note 2)
+AKKS1	Rte_ComAdapter_DisableDemEvent_ST_AKKS_1_LIN_PDU !=1	Rte_Prm_rpCDD_PANA_APPLICATION_SWITCH_APPLICATION_SWITCH =1
+AKKS2	Rte_ComAdapter_DisableDemEvent_ST_AKKS_2_LIN_PDU !=1	Rte_Prm_rpCDD_PANA_APPLICATION_SWITCH_2_APPLICATION_SWITCH_2 =1
+eDH	Rte_ComAdapter_DisableDemEvent_ST_eDH_HVS_LIN_PDU !=1	BMWetmc_id_HvsHtMthd = 1**
+ 	Rte_ComAdapter_DisableDemEvent_ST_DIAG_SYS_eDH_HVS_LIN_PDU !=1	 
+ 	Rte_ComAdapter_DisableDemEvent_ERR_ST_eDH_HVS_LIN_PDU !=1	 
+DV2	Rte_ComAdapter_DisableDemEvent_StatusThreeWayValve2LIN_PDU !=1	BMWetmc_id_HvsHtMthd > 1**
+eFAN	Rte_ComAdapter_DisableDemEvent_ST_FAN_1_LIN_PDU !=1	NA*
+EWP22	Rte_ComAdapter_DisableDemEvent_ST_EWP22_LIN_PDU !=1	NA*
+EWP23	  Rte_ComAdapter_DisableDemEvent_ST_EWP23_LIN_PDU !=1	NA*
+		*Note: eFAN, EWP22 and EWP23 slaves are always mounted in all vehicle variants. Hence DTC could not be disabled.
+** eDH and DV2 uses same calibration parameter. Hence cannot be mounted together in same car.
+
+*Note 1 - Only AKKS1 and AKKS2 PDUs are Activated based on application calibration parameters APPLICATION_SWITCH and APPLICATION_SWITCH_2 respectively. All other slave PDUs are active by default.
+
+      **Note 2 - AKKS1, AKKS2, DV2 and eDH PDUs are activated based on Calib. Parameters in last column of above table. EWP22, EWP23 and EFAN PDUs are enabled in all car variants.
+
+
+***
+
+This SYR is also adapted to cover the implementation for LIN appl. DTCs in other SOPs (SP 18 2211 and SP 18 2307). DTCs added into ZEDIS (v25.7 and v25.8) for SOP SWs.
+Please refer Verification Criteria for performing the tests for new SOP lines. 
+
+</br></li><li>8.1.66.1.0-6 Timing Requirements: DTCs will aprear after  5 sec debounce time (This debunce time is configurable )</br></li><li>8.1.66.1.0-7 Output data: DTC Locked 
+Error description : Depending on the application DTC which LIN slave is not communicating</br></li><li>8.1.66.1.0-8 Postconditions: NA</br></li><li>8.1.66.1.0-9 Descriptions of exceptions:
+AKKS1 is not mounted for SP21 car lines.</br></li><li>8.1.66.1.0-10 Dependencies and interactions:
+BSW:- LIN, PDUR , COM, DiagSW:- DEM, DCM.</br></li><li>8.1.66.2 Differences to CRS</br></li><li>8.1.66.2.0-1 xxx</br></li><li>8.1.66.3 Questions and Answers</br></li><li>8.1.66.3.0-1 xxx</br></li>

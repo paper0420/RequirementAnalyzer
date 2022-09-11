@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PIC_020</h1></br><li>7.4.1.16 SYR_PIC_020: normal application</br></li><li>7.4.1.16.1 Description</br></li><li>7.4.1.16.1.0-1 Brief description:</br></li><li>7.4.1.16.1.0-1.0-1 The PIC is responsible for power factor compensation management. The “normal application” means the nominal execution of this task. While this mode, data is exchanged with the “main application” on “System CPU”.
+The “main application” can only communicate the PICs via UART and relies on this communication, only.
+If SW-update is requested, the “bootloader “of “system cpu” will request the PIC to start its “flash bootloader” via UART.
+In this case the “normal application” of PIC is stopped and “flash bootloader” is started.
+</br></li><li>7.4.1.16.1.0-2 Preconditions:</br></li><li>7.4.1.16.1.0-2.0-1 The device is in one of the following system states:
+Flash of PIC contains valid application-program
+PIC is powered and its reset is released</br></li><li>7.4.1.16.1.0-3 Trigger:</br></li><li>7.4.1.16.1.0-3.0-1 Not known to Panasonic-NEO</br></li><li>7.4.1.16.1.0-4 Input data:</br></li><li>7.4.1.16.1.0-4.0-1 UART communication from/to main CPU</br></li><li>7.4.1.16.1.0-5 Description of behaviour:</br></li><li>7.4.1.16.1.0-6 Timing Requirements:</br></li><li>7.4.1.16.1.0-7 Output data:</br></li><li>7.4.1.16.1.0-8 Postconditions:</br></li><li>7.4.1.16.1.0-9 Descriptions of exceptions:</br></li><li>7.4.1.16.1.0-10 Dependencies and interactions:</br></li><li>7.4.1.16.2 Differences to CRS</br></li><li>7.4.1.16.3 Questions and Answers</br></li><li>7.4.1.17 SYR_PLCC_010: operation - obsolete</br></li><li>7.4.1.17.1 Description</br></li><li>7.4.1.17.1.0-1 Brief description:</br></li><li>7.4.1.17.1.0-1.0-1 SYR set as obsolete as functionality was not requested anymore (CCU-5136)
+
+This use-case is place-holder for all operations of QCA7005 chip. Since this chip is not in domain of Panasonic, its functionality is not known deeply. All operations of this chip are handled via API which uses SPI-communication between “system cpu” and QCA7005.
+
+Since SPI-Flash is attached to QCA7005, the chip can boot itself via its SPI-Master interface without any boot support (host boot) of “system cpu”.
+
+The usage of this API will be mostly done by software supplied by Vector-Informatik.
+
+Panasonic is mainly responsible to use the API of QCA7005 to update content of in-line SPI-Flash.
+</br></li><li>7.4.1.17.1.0-2 Preconditions:</br></li><li>7.4.1.17.1.0-2.0-1 The device is in one of the following system states:
+QCA7005 is powered and “reset” is released.</br></li><li>7.4.1.17.1.0-3 Trigger: cannot be triggered</br></li><li>7.4.1.17.1.0-4 Input data: none</br></li><li>7.4.1.17.1.0-5 Description of behaviour: see brief description</br></li><li>7.4.1.17.1.0-6 Timing Requirements: none</br></li><li>7.4.1.17.1.0-7 Output data: none</br></li><li>7.4.1.17.1.0-8 Postconditions: none</br></li><li>7.4.1.17.1.0-9 Descriptions of exceptions: none</br></li><li>7.4.1.17.1.0-10 Dependencies and interactions: none</br></li><li>7.4.1.17.2 Differences to CRS : none</br></li><li>7.4.1.17.3 Questions and Answers: none</br></li>

@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG_116</h1></br><li>3.1.53 SYR_HMG_116: [S5] Startup-WaitTime for WJ-S5 Plausibility check</br></li><li>3.1.53.1 Description</br></li><li>3.1.53.1.0-1 Brief description:
+The plausibility check S5-temperature sensor vs. WJ-temperature sensor shall start with a configurable time-delay after enabling the check. This time-delay shall also be applied if the check is enabled at CCU startup. Typical value for time-delay: 5min.</br></li><li>3.1.53.1.0-2 Preconditions:
+Kl15 ON.</br></li><li>3.1.53.1.0-3 Trigger:
+ECU Startup.</br></li><li>3.1.53.1.0-4 Input data:
+- Control signal 'BMW_b_DiCoRadrOutPlauDiag' received from BMW ASW (corresponds to signal 'Enable_S5WJ_PlausiCheck'; (0 = Enabled; 1=Disabled)
+- Calibration label: WaitTime_For_ENA_S5WJ_PLAUSI</br></li><li>3.1.53.1.0-5 Description of behaviour:
+- The plausibility check S5- vs. WJ-temperature sensor shall be inactive when Enable_S5WJ_PlausiCheck = Disabled(1).
+- The plausibility check shall start with a configurable time-delay ‘WaitTime_For_ENA_S5WJ_PLAUSI’ after a transition of ‘Enable_S5WJ_PlausiCheck’ from Disabled(1) to Enabled(0). After this time-delay, the check shall be active. The time-delay for activation of the check shall also be applied if the check is enabled at CCU startup.</br></li><li>3.1.53.1.0-6 Timing Requirements: 
+ See description of behaviour.</br></li><li>3.1.53.1.0-7 Output data:
+Plausibility check result.</br></li><li>3.1.53.1.0-8 Postconditions:
+NA</br></li><li>3.1.53.1.0-9 Descriptions of exceptions:
+NA</br></li><li>3.1.53.1.0-10 Dependencies and interactions:
+tbd
+
+Related Epics: CCU-29220</br></li><li>3.1.53.2 Differences to CRS</br></li><li>3.1.53.2.0-1 xxx</br></li><li>3.1.53.3 Questions and Answers</br></li><li>3.1.53.3.0-1 xxx</br></li>

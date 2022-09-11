@@ -1,0 +1,10 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_GBTDC_11</h1></br><li>1.1.29.2 SYR_GBTDC_11: enable DC-China (GBT/DC) communication</br></li><li>1.1.29.2.1 Description</br></li><li>1.1.29.2.1.0-1 Brief description: Enable DC-China interface and Disable Chademo interface.	</br></li><li>1.1.29.2.1.0-2 Preconditions:</br></li><li>1.1.29.2.1.0-3 Trigger: Coding input</br></li><li>1.1.29.2.1.0-4 Input data: Coding input (NVM Data)
+Temporarily we need to provide 'calibration switch' to Enable/Disable DC-China till Coding is implemented. </br></li><li>1.1.29.2.1.0-5 Description of behaviour: When the DC-China is Enabled. Following action from J1939 BSW package is expected.
+1. CCU should claim address 244(F4H) and should establish point to point connection with External Charger (EVSE) with address 86(56H). This activity is expected by J1939NM
+2. The Request handling message should be expected to establish data link layer. It should be expected by J1939RM BSW package.
+3. Communciation over CAN via J1939 protocol is available to LIM-C via ComAdaptor
+
+CAN Specification:
+- CAN 2.0B Active, Extended 29-bits
+- Baudrate 250kbps</br></li><li>1.1.29.2.1.0-6 Timing Requirements: TBD. 
+Note: Expected as defined in J1939-21: Data link Layer standard.	 </br></li><li>1.1.29.2.1.0-7 Output data:</br></li><li>1.1.29.2.1.0-8 Postconditions: LIM-C must be able to send and receive messages from EVSE.</br></li><li>1.1.29.2.1.0-9 Descriptions of exceptions:</br></li><li>1.1.29.2.1.0-10 Dependencies and interactions:</br></li><li>1.1.29.2.2 Differences to CRS</br></li><li>1.1.29.2.2.0-1 xxx</br></li><li>1.1.29.2.3 Questions and Answers</br></li><li>1.1.29.2.3.0-1 xxx</br></li>

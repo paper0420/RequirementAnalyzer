@@ -1,0 +1,39 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_220</h1></br><li>7.7.1.21 SYR_SEC_220: Data encryption + PMD Diag implementation in bootloader</br></li><li>7.7.1.21.1 Description</br></li><li>7.7.1.21.1.0-1 Brief description:
+This EPIC is the second part of the EPIC CCU-24787.
+
+in this EPIC below parts will be covered
+
+Zedis changes v25 (Meta.2041) : activation in bootloader + removal function group 
+Data encryption + PMD Diag implementation in bootloader 
+1-	HSM LGN will generate an ECDH private key A and export the public key A
+2-	CCU will store the public key A from LGN in SW
+3-	Every PMD read will trigger CCU to generate it’s private key B.
+4-	CCU generate public key B using it’s private key.
+5-	CCU will generate the shared key using the private key B and the public key A
+6-	CCU will randomly generate the 16 byte IV
+7-	CCU will encrypt the data using the shared key and IV with AES-CBC
+8-	RID to read data will return encrypted data + public Key B + IV
+9-	HSM LGN will use private key A + public key B to derive the shared secret.
+     The shared secret and IV will be used to decrypt the data.
+ 
+  
+Agreed Key Formats
+EC Key:
+
+                ECC key type:                     ECDH
+                ECC curve:                           prime256v1
+                ECC key length:                 256 bit 
+
+Derive:
+
+                Type:                     ECDH1_DERIVE
+                Key type:             AES
+                Key length:         256 bit
+                KDF:                       NULL-KDF
+
+AES decryption:
+
+                En-/Decryption: AES CBC
+                IV:                          provided (generated during encryption)
+                Padding:              According to PKCS#7</br></li><li>7.7.1.21.1.0-2 Preconditions:NA</br></li><li>7.7.1.21.1.0-3 Trigger:RID in factory for CCU to start generating keys
+RID in field to read PMD data</br></li><li>7.7.1.21.1.0-4 Input data:NA</br></li><li>7.7.1.21.1.0-5 Description of behaviour:NA</br></li><li>7.7.1.21.1.0-6 Timing Requirements:NA</br></li><li>7.7.1.21.1.0-7 Output data:NA</br></li><li>7.7.1.21.1.0-8 Postconditions:NA</br></li><li>7.7.1.21.1.0-9 Descriptions of exceptions:NA</br></li><li>7.7.1.21.1.0-10 Dependencies and interactions:NA</br></li><li>7.7.1.21.2 Differences to CRS</br></li><li>7.7.1.21.2.0-1 xxx</br></li><li>7.7.1.21.3 Questions and Answers</br></li><li>7.7.1.21.3.0-1 xxx</br></li>

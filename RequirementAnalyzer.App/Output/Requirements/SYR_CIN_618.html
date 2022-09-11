@@ -1,0 +1,58 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_618</h1></br><li>8.1.72 SYR_CIN_618: Adaptation to CCU ILD state machine, ILD DTCs and SVK lesen for new CCS Inlet (AP2-C)(Obsolete)-this requirement to be removed from SP18 and SP21 lines from 2041.250 and 2137.120 release onwards</br></li><li>8.1.72.1 Description</br></li><li>8.1.72.1.0-1 Brief description: 
+Charging socket HW is changing and due to which minimum functional scope of the charging socket for charging will be considered. Therefore, ILD for CCS (US oe ECE) will be developed with monitoring for CCS1/CCS2 pins and no private/ILD CAN.
+With this change, CCU ILD state machine, SVK lesen and timeout DTCs are impacted and should be adapted accordingly. </br></li><li>8.1.72.1.0-2 Preconditions:
+CCS Inlet (ECE or US, also called as AP2C) is present in Vehicle. Coding is done for CCS-ILD (CAF is integrated). 
+CCS ILD is awake. </br></li><li>8.1.72.1.0-3 Trigger: when InletTypeAC_CCS is set to 1001 or 1002</br></li><li>8.1.72.1.0-4 Input data: 
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/iLD/CCU-ILD_SM_AP2-B_AP2-C.pdf</br></li><li>8.1.72.1.0-5 Description of behaviour:
+
+In current SWs (SOP 2207, 2211), charging socket (ILD) communicates with CCU over Private CAN.  
+CCU has ILD state machine (controls the private CAN PDUs activation/deactivation, CCU sleep after Nachlauf etc..), timeout DTCs for private CAN PDUs, DTCs for Charging socket (ILD HW/SW) inconsistency and ILD SVK Lesen.
+***
+
+Now since Charging socket HW is changing and minimum functional scope of the charging socket for charging should be  considered. New ILD socket for CCS (AP2-C) socket will be developed w/o electronics and w/o ILD CAN.
+
+To detect this new ILD, vehcile inlet coding type parameter is updated with new value. Therefore, if InletTypeAC_CCS coding parameter is set to 1001 or 1002, then vehicle is expected to have new CCS inlet either US or Europe region.
+***
+
+When InletTypeAC_CCS is 1001 or 1002,
+1. CCU should completely deactivate all private CAN PDUs (all PDU groups). No reception of PDUs from AC_CCS ILD or DC ILD is expected. Even No transmission from CCU over Private CAN should be possible.
+ 
+2. CCU should deactivate all  timeout DTCs for AC_CCS ILD and DC ILD on private CAN. 
+0xD797C3 - Botschaft (EAPC_Status_Ladedose_AC_CCS, ID: EAPC_Status_Ladedose_AC_CCS) fehlt
+0xD79763 - Botschaft (EAPC_Status_Ladestatusanzeige_AC_CCS, ID: EAPC_Status_Ladestatusanzeige_AC_CCS) fehlt
+0xD79769 - Botschaft (EAPC_Status_Ladesteckerverriegelung_AC_CCS, ID: EAPC_Status_Ladesteckerverriegelung_AC_CCS) fehlt
+0xD7975D - Botschaft (EAPC_Status_Ladeklappe_AC_CCS, ID: EAPC_Status_Ladeklappe_AC_CCS) fehlt
+0xD7976C - Botschaft (EAPC_Temperatur AC, ID: EAPC_Temperatur_AC) fehlt
+0xD79811 - Botschaft (EAPC_Status_Ladeklappe_Roh_AC_CCS, ID: EAPC_Status_Ladeklappe_Roh_AC_CCS) fehlt
+0xD797DB - Botschaft (EAPC_Status_Ladesteckerverriegelung_Roh_AC_CCS, ID: EAPC_St_Ladesteckerverriegelung_Roh_AC_CCS) fehlt
+
+0xD79766 - Botschaft (EAPC_Status_Ladestatusanzeige_DC, ID: EAPC_Status_Ladestatusanzeige_DC) fehlt
+0xD79760 - Botschaft (EAPC_Status_Ladeklappe_DC, ID: EAPC_Status_Ladeklappe_DC) fehlt
+0xD79751 - Botschaft (EAPC_ Temperatur DC, ID: EAPC_Temperatur_DC) fehlt
+0xD797C6 - Botschaft (EAPC_Status_Ladedose_DC, ID: EAPC_Status_Ladedose_DC) fehlt
+0xD79814 - Botschaft (EAPC_Status_Ladeklappe_Roh_DC, ID: EAPC_Status_Ladeklappe_Roh_DC) fehlt
+
+3. CCU should deactivate the DTCs for detecting the wrong ILDs connected. DTC were implemented in CCU SW with EPIC CCU-19493 and CCU-19494.
+Now these DTCs should be deactivated for new CCS ILD (charging inlet) as CCU would not perform mismatch check for (SW/HW) version for this ILD.
+0x0321A9 - Ladedose: Hardware inconsistent
+0x0321AA - Ladedose: Software inkonsistent
+
+4. Since CCS ILD does not have private CAN channel. Read SVK from Master (CCU) for CCS CIF is not expected to be sent since there will be no entry in CCU for CCS ILD (DLOG entry).  
+Byte 0	Client ID	AC/CCS CIF or DC CIF
+Byte 1	UDS Service ID	ReadDataByIdentifier
+Byte 2	DID (Byte 1)	SVK_MSB
+Byte 3	DID (Byte 2)	SVK_LSB
+
+The positive DID response is only expected for targeted CIF (which means presence of DC ILD if present). The response mainly contains SGBM-ID, Hauptversion, Unterversion and Patchversion. 
+After getting all the SVK's from CIF, CCU has to assemble it with SVK information of CCU and store to send it to the tester. Therefore, in this assembled response to tester, no information related to new CCS ILD is expected to be present. 
+For Read SVK, refer Req ID : FL845 and FL846 in LH 10505691 – 000 – 02.
+
+***
+
+CCU sleep procedure is changed as ILD state machine in CCU is completely deactivated for new CCS ILD. after detecting this condition (BasePn as Keine KOM, Func Pn as Keine KOM and Comnet Req set to 0), CCU waits for additional 4 seconds before triggering the sleep by calling BswM shutdown rule. Refer below. 
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/iLD/CCU-ILD_SM_AP2-B_AP2-C.pdf
+
+Wakeup of CCU via new CCS ILD is not possible anymore. However, CCU wakeup via Proximity or Pilot is still possible.  Wakeup and Sleep of CCS ILD is not in scope of this SYR.  </br></li><li>8.1.72.1.0-6 Timing Requirements: NA</br></li><li>8.1.72.1.0-7 Output data: No communication over private CAN.
+Read SVK should be present w/o CCS ILD entries.
+Timeout DTCs and ILD in-consitence DTCs shall not be present.</br></li><li>8.1.72.1.0-8 Postconditions:  NA</br></li><li>8.1.72.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.72.1.0-10 Dependencies and interactions:
+BswM, SVK adapter, RTE</br></li><li>8.1.72.2 Differences to CRS</br></li><li>8.1.72.2.0-1 xxx</br></li><li>8.1.72.3 Questions and Answers</br></li><li>8.1.72.3.0-1 xxx</br></li>

@@ -1,0 +1,18 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_07</h1></br><li>1.1.31.11 SYR_CCS_07: provide failure detection for DEM to set DTC </br></li><li>1.1.31.11.1 Description</br></li><li>1.1.31.11.1.0-1 Brief description:
+DTC : Combined Charging System: Verbindungsstörung, Ladesäule 
+This DTC shall be raised, if we have any failure while establishing session with charging station.
+failure:
+- Dlink up is not notified.
+- IP is not assigned
+- TLS secure connection establishment failed
+- handshake with charging station is denied
+The failure shall be detected and request to DEM shall be performed to raise DTC .
+DTC : Combined Charging System: Protokollfehler 
+This DTC shall be rasied, if failure is detected while exchanging information with charging station as per Schema selected.
+- Selected schema is not detected
+- charging station is not complian with schema defination
+The failure shall be detected by function and report DEM to raise DTC</br></li><li>1.1.31.11.1.0-2 Preconditions: function is oprational	</br></li><li>1.1.31.11.1.0-3 Trigger: failure detected during normal operational flow</br></li><li>1.1.31.11.1.0-4 Input data: NA</br></li><li>1.1.31.11.1.0-5 Description of behaviour:
+When the normal operation is detected with failure or error, the function shall detect it, try to recover the situation as per ISO15118-2 standard requirement. If the function is not successful, it shall trigger DEM to raise DTC.
+DTC 0x03194A PLC-HW-Error -> DTC is set if PLC BootUp has failed 3x times in a row
+DTC 0x03194B PLC-Com-Error-> DTC is set if SLAC-attampt has failed 
+DTC 0x03194C PLC Protocol Error-> DTC is set if a protocol error is reported by SCC</br></li><li>1.1.31.11.1.0-6 Timing Requirements: NA</br></li><li>1.1.31.11.1.0-7 Output data: On failure, DTC shall be triggered</br></li><li>1.1.31.11.1.0-8 Postconditions: we shall be able to see DTC on failure detected.</br></li><li>1.1.31.11.1.0-9 Descriptions of exceptions: NA</br></li><li>1.1.31.11.1.0-10 Dependencies and interactions: NA</br></li><li>1.1.31.11.2 Differences to CRS</br></li><li>1.1.31.11.2.0-1 NA</br></li><li>1.1.31.11.3 Questions and Answers</br></li><li>1.1.31.11.3.0-1 NA</br></li>

@@ -1,0 +1,33 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_332</h1></br><li>6.1.36 SYR_LvDCDC_F_332: Temperature dependant small adpation of current delivery at an actual LV range of 10,5V to 14V and Tcool between minus 26°C and 45°C</br></li><li>6.1.36.1 Description</br></li><li>6.1.36.1.0-1 Brief description:</br></li><li>6.1.36.1.0-2 The output current remains nearly equal between 10,5V and 14V for the temperature class minus 26°C and 45°C, while due to the lower output voltage, the output power decreases linear.</br></li><li>6.1.36.1.0-3 Preconditions:</br></li><li>6.1.36.1.0-4 Current_Operating_State=Buck or Standby,
+RUNLEVEL >= 30,
+No error</br></li><li>6.1.36.1.0-5 Trigger:</br></li><li>6.1.36.1.0-6 Target_Operating_State = Buck,
+Target_U_LV = 14V,
+The electronic DC load  power is adjusted  to 3556 W
+The electronic DC load current is adjusted to 250A
+The electronic DC load  voltage is adjusted to 14V.
+The regulation mode of the electronic DC load shall be constant curent.</br></li><li>6.1.36.1.0-7 Input data:</br></li><li>6.1.36.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = 10V ... 14V
+Measured_U_HV = 380V
+Min_Permitted_HV_Voltage = 300V,
+Max_Permitted_HV_Power (Leistung_DCDC-Wandler_Hochvoltteil_maximal_Grenze) = 3911W
+p_DCDC_CONTINUOUS_I_LV =  254A,
+p_DCDC_CONTINUOUS_P_LV = 3911W,
+Coolant temperature = 35°C</br></li><li>6.1.36.1.0-9 Description of behaviour:</br></li><li>6.1.36.1.0-10 Due to HW limits and resistance losses for higher currents it is allowed to limit the output currents to an equal value between 10,5V and 14V within a given temperature class. The LVSupplySystem transfers energy when the target voltage is higher than the measured voltage. As a result the output power is linear decreased to lower voltages. The limit of the current shall be the current calculated with the continuous power at 14V. The LV currents are little different with 250A for -26°C, 254A for 35°C and 243A for 45°C.</br></li><li>6.1.36.1.0-11 Timing Requirements:</br></li><li>6.1.36.1.0-12 to be defined</br></li><li>6.1.36.1.0-13 Output Data:</br></li><li>6.1.36.1.0-14 Current_Operating_State = Buck,
+Measured_LVcurrent = 254A,
+Measured_Hvcurrent >= 4,3A to 4,7A
+Measured_U_HV = 380V,
+Measured_LVvoltage = 10 V ... 14,1V,
+Max_Available_Lvcurrent > 0A
+Current_Workload > 0 percent
+Other values to be reported: Yes
+Measured_Critical_Temperature,
+Measured_Coolant_Temperature,
+Current_Derating_Status</br></li><li>6.1.36.1.0-15 Postconditions:</br></li><li>6.1.36.1.0-16 LvDCDC current operating state = Buck,
+LVSupplySystem output current >0 A
+LVSupplySystem HV input current > 0A</br></li><li>6.1.36.1.0-17 Descriptions of exceptions:</br></li><li>6.1.36.1.0-18 Dependencies and interactions:</br></li><li>6.1.36.1.0-19 Other components/modules
+Customer requirements: 21984 (-26°C, 14V), 14131 (35°C, 10,5V), 14133 (35°C, 14V), 9801 (45°C, 10,5V), 6529 (linear decreasing), 6528 (45°C, 14V).
+Usecases:
+EPIC:
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.36.2 Differences to CRS</br></li><li>6.1.36.3 Questions and Answers</br></li>

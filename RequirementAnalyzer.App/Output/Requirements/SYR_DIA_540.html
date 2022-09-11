@@ -1,0 +1,22 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_540</h1></br><li>7.5.1.56 SYR_DIA_540: Diagnostic job to readout VMax</br></li><li>7.5.1.56.1 Description</br></li><li>7.5.1.56.1.0-1 Brief description: 
+
+To readout the coded maximum velocity (see coding parameter VMax_Codierung) a new diagnostic job is created in Zedis version 29.
+</br></li><li>7.5.1.56.1.0-2 Preconditions: CCU is flashed with corresponding FA file for VMax_Codierung coding and software is running</br></li><li>7.5.1.56.1.0-3 Trigger: Read Data By Identifier Diagnostic Job 0x22 78 79</br></li><li>7.5.1.56.1.0-4 Input data: Zedis document and Zedis DB in SW
+Corresponding FA file for VMax_Codierung</br></li><li>7.5.1.56.1.0-5 Description of behaviour: 
+
+To readout the coded maximum velocity (see coding parameter VMax_Codierung) a new diagnostic job is created in Zedis version 29.
+
+The details are as below:
+DID-ID: 0x7879
+DID/RID Name: MAXIMALGESCHWINDIGKEIT
+Name: STATUS_MAXIMALGESCHWINDIGKEIT
+
+The Coding parameter “VMax_Codierung” contains the value of the maximum coded velocity of the Car which changes based on flashing the FA files for VMax. (This coding parameter is already integrated as part of EPIC CCU-23462 which was integrated in Sprint 2031, Meta 2033)
+
+</br></li><li>7.5.1.56.1.0-6 Timing Requirements: none</br></li><li>7.5.1.56.1.0-7 Output data: CCU responds with the proper coded maximum velocity value to the Diagnostic Job 0x22 78 79 request from the Tester </br></li><li>7.5.1.56.1.0-8 Postconditions: none</br></li><li>7.5.1.56.1.0-9 Descriptions and exceptions: none</br></li><li>7.5.1.56.1.0-10 Dependencies and interactions: 
+
+New Service P-Port from Coding Wrapper module with compatible data type (Uint16)  to connect with DCM Service receiver port 
+ 
+
+
+</br></li><li>7.5.1.56.2 Differences to CRS</br></li><li>7.5.1.56.2.0-1 None</br></li><li>7.5.1.56.3 Questions and Answers</br></li><li>7.5.1.56.3.0-1 None</br></li>

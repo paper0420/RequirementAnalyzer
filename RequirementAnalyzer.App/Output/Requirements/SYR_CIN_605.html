@@ -1,0 +1,23 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_605</h1></br><li>8.1.60 SYR_CIN_605: Activation of ECUHeartBeat PDU on Vehicle Ethernet</br></li><li>8.1.60.1 Description</br></li><li>8.1.60.1.0-1 Brief description:
+ECUHeartbeat PDU shall sent to BCP at every 5 seconds interval.</br></li><li>8.1.60.1.0-2 Preconditions: 
+Valid MAC for CCU shall be written to NVM block and shall be read correctly.
+ETH stack & port bring-up/down shall happen when RTE interface is set (1 or 0).
+SOME/IP stack & service bring-up/down shall happen when RTE interface is set (1 or 0). 
+CCU shall be able to configure as SOME/IP client (for HeartBeat PDU) and server (ChargingSchedule) when required RTE interfaces are set.</br></li><li>8.1.60.1.0-3 Trigger: 
+BMW interface (BMW_b_NetComAcvn) controls the activation/deactivation of PDU.</br></li><li>8.1.60.1.0-4 Input data: NK integration for ECUHeartbeat PDU</br></li><li>8.1.60.1.0-5 Description of behaviour:
+From the message catalogue, It is identified that the PDU defined for CCU is HeartBeat0x3A with Setter ID 0x34 (The last byte of CCU IP address is 160.48.199.58 which is 0x3A (in HEX) hence it corresponds to HeartBeat0x3A for CCU). ECUHeartbeat PDU shall sent to BCP (via ETH) at every 5 seconds interval. 
+
+Since SOME/IP service identifier is defined (0x1020) for PDU, CCU needs to configure itself as SOME/IP client, enable SOME/IP service and start receiving "Offer Service" messages for service (i.e. Service Identifier is 0x1020) from BCP (server). Then only, CCU shall send ECUHeartbeat PDU as SOME/IP message to BCP.
+
+Since SOME/IP service is defined as fields (because of defined Setter ID 0x3A in PDU), therefore as per ETH LH SIP_RPC_634, the setter of a field shall be a request/response call that has the desired value of the field in the payload of the request message and the value that was set to the field in the payload of the response message.
+
+In BSW, ETH and SOME/IP stack bring-up and shutdown shall be properly controlled at CCU. This will be done with RTE interface i.e. BMW_b_NetComAcvn.
+a) when BMW_b_NetComAcvn == 1, CCU ETH port shall be up and CCU shall be configured as SOME/IP client (IP-Adresse: IPV4 160.48.199.58, Transport-Protocol:UDP, Port:DYNAMIC)
+b) when BMW_b_NetComAcvn == 0, SOME/IP service and ETH port shutdown shall happen. No data transfer over ETH channel is possible.
+
+When BMW_b_NetComAcvn is 1, CCU shall be able to detect/receive Offer Service messages from Server.
+a) If Offer Service has Service ID set to 0x1020, CCU (client) identifies the Server (i.e. BCP with IP 160.48.199.16, UDP, 30501) and CCU shall trigger SOME/IP Request call to Server.
+b) Request Call contains SOME/IP header (having Service ID 0x1020, Method/Setter ID 0x34, Length 9 bytes, Message Type 0x00) and Data Payload shall be set to 2.
+c) Response from BCP (having Message Type 0x80, Payload data set to 2, Service ID 0x1020, Method/Setter ID 0x34) shall be received at CCU. No action is required on Response message once received in BSW.
+d) Request is sent every 5 seconds to BCP.</br></li><li>8.1.60.1.0-6 Timing Requirements: 
+Periodic transmission of ECUHeartbeat PDU (every 5 seconds) i.e. SOME/IP Request.</br></li><li>8.1.60.1.0-7 Output data: Request-Response messaging on ETH bus.</br></li><li>8.1.60.1.0-8 Postconditions: NA</br></li><li>8.1.60.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.60.1.0-10 Dependencies and interactions: RTE interface, BSW (LDCOM, SoAD, ETH, TCP, SOME/IP), NK (PDU)</br></li><li>8.1.60.2 Differences to CRS</br></li><li>8.1.60.2.0-1 Waiting for CR to approve and update to be provided in KLH</br></li><li>8.1.60.3 Questions and Answers</br></li><li>8.1.60.3.0-1 NA</br></li>

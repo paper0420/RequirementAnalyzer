@@ -1,0 +1,27 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC130</h1></br><li>2.1.14 SYR_ACC130: Component protection / Safety Function -Detect and handle overrvoltage on DC HV</br></li><li>2.1.14.1 Description</br></li><li>2.1.14.1.0-1 Brief description:</br></li><li>2.1.14.1.0-2 Detect over voltage on the DC side - stop operation - set error status bit "Abschaltung Überspannung DC-HV"</br></li><li>2.1.14.1.0-3 Preconditions:</br></li><li>2.1.14.1.0-4 CCU is in any active mode</br></li><li>2.1.14.1.0-5 Trigger:</br></li><li>2.1.14.1.0-6 HVDC_Voltage > Threshold_Overvoltage_HVDC</br></li><li>2.1.14.1.0-7 Input data:</br></li><li>2.1.14.1.0-8 LT4_U_Sig</br></li><li>2.1.14.1.0-9 Description of behaviour:</br></li><li>2.1.14.1.0-10 * Detect over voltage on the DC Voltage side:
+  HVDC_Voltage > Threshold_Overvoltage_HVDC
+* The Charger should stop operation  -> msg PMG/LDK
+* Register the respective DTC and set bit "Abschaltung Übers-pannung DC-HV"" in the error status word. Forward respective voltage values to the BMW side
+safe state: no AC charging & no Energy in DC‐HV
+implementation hint
+Threshold_Overvoltage_HVDC = 540 V [23644]
+DTC Codes:  (Bauteilschutz - DC Überspannung)
+Modul 1 0x318E5
+Modul 2 0x318EB
+Modul 3 0x318F3
+if the EES element open itself by maximum DC and AC
+charging, the CCU must not be domaged and not provide
+inadmissible voltage in DC circuits</br></li><li>2.1.14.1.0-11 Timing Requirements:</br></li><li>2.1.14.1.0-12 FTT: 1000ms [SZ_AC3]</br></li><li>2.1.14.1.0-13 Output Data:</br></li><li>2.1.14.1.0-14 - Abschaltung Überspannung DC-HV Statusword
+- HVDC_Voltage
+0--- ---- --1- ---- Überspannung DC HV</br></li><li>2.1.14.1.0-15 Postconditions:</br></li><li>2.1.14.1.0-16 Descriptions of exceptions:</br></li><li>2.1.14.1.0-17 safe state: disable  AC charging & no Energy in DC‐HV, inform BMW SW
+If an error was found "Abschaltung Überspannung DC-HV" bit shall be set in the error status word.
+CCU has stop operations.</br></li><li>2.1.14.1.0-18 Dependencies and interactions:</br></li><li>2.1.14.1.0-19 Other modules/components
+Diagnostic - LDK
+Usecases
+SYR_ACC90, SYR_ACC80 (Voltage measurement)
+Customer requirements: [18413,18414,18415,18392][21537, 23644, 21589,21547,24546,21545]
+Safety requirements: SZ-AC3(SF04) with ASIL B
+Mean error probability: 10 FIT
+outage metrics: SPFM: > 97%  ; LFM: > 80%
+EPIC:  Implemented in sprint 1709 EPIC/Task(s): 287/ 431
+FuSa EPIC: CCU-1179 (open)</br></li><li>2.1.14.2 Differences to CRS</br></li><li>2.1.14.3 Questions and Answers</br></li><li>2.1.14.3.0-1 MiL/HiL test</br></li>

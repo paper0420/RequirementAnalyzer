@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PLC_16</h1></br><li>1.1.30.13 SYR_PLC_16: provide selection for AC/DC SLAC procedure in SYR_PLC_03</br></li><li>1.1.30.13.1 Description</br></li><li>1.1.30.13.1.0-1 Brief description:
+As per requested CR-633 PLC workaround, Software must be able to seperate the SLAC process required by (DC) DIN70121 and (AC) ISO15118</br></li><li>1.1.30.13.1.0-2 Preconditions: PLC physical link is establish</br></li><li>1.1.30.13.1.0-3 Trigger: customer trigger to start dedicated SLAC process	</br></li><li>1.1.30.13.1.0-4 Input data: signal providing infromation from customer swc</br></li><li>1.1.30.13.1.0-5 Description of behaviour:
+After PLC chip is ready to communicate and have physical link established. 
+Customer SW can request to establish datalink with charging station. When this request is made customer SW shall also specifiy which procedure to use DC(DIN70121) or AC(ISO15118) for datalink establishment.
+
+Tolerance for SLAC attenutation
+
+DC Charging (DIN from G08):
+0 - 45 dB   EVSE_FOUND
+> 45 dB     EVSE_NOT_FOUND
+
+AC Charging (ISO AC EIM from I20): 
+0 - 35 45 dB   EVSE_FOUND (range changed as in scope of neg CR836).
+35 - 45 dB EVSE_POTENTIALLY_FOUND (neg CR836 for validation/BCB toggling)
+> 45 dB     EVSE_NOT_FOUND</br></li><li>1.1.30.13.1.0-6 Timing Requirements: NA	</br></li><li>1.1.30.13.1.0-7 Output data: datalink established between CCU and charging station</br></li><li>1.1.30.13.1.0-8 Postconditions: NA</br></li><li>1.1.30.13.1.0-9 Descriptions of exceptions:NA</br></li><li>1.1.30.13.1.0-10 Dependencies and interactions:NA</br></li><li>1.1.30.13.2 Differences to CRS</br></li><li>1.1.30.13.2.0-1 update to be updated in SYR_PLC_11 due to CR-836
+I20:
+1. CR-836 :  For both AC and DC start of Slac 	   
+        0 - 45 dB   EVSE_FOUND   
+        > 45 dB     EVSE_NOT_FOUND
+attenuation shall be considered
+2. CR-836 : No switching in SLAC is required as same attenuation value is requested.
+3. CR-836 : No validation process shall be implemented by CCU for I20 as no  "EVSE Potentially found" case will be detected by CCU.
+
+Future Carline
+Discussion from customer is needed to implement validation for “EVSE Potentially Found” 
+new range of attenuation check shall be implemented after discussing with customer.</br></li><li>1.1.30.13.3 Questions and Answers</br></li><li>1.1.30.13.3.0-1 NA</br></li>

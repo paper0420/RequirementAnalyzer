@@ -1,0 +1,9 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PMG_330</h1></br><li>7.2.1.30 SYR_PMG_330: Disable Wakeup during unhealable charging error</br></li><li>7.2.1.30.1 Description</br></li><li>7.2.1.30.1.0-1 Brief description: The CCU wakes up due to the missing PE-contact which is the ground line for the CP and Proximimity measurement.
+When PE is not there, the CP signal and the proximity signal are floating, which causes an unexpected wakeup via CP or Proximity change.
+The problem is severe in the consequences , To solve the problem, a robustness countermeasure is to be implemented by which
+Wakeup Triggers via Proximity or Pilot line can be locked/disabled by BMW SW. Ethernet WUP should not be affected.</br></li><li>7.2.1.30.1.0-2 Preconditions: CCU is operational.</br></li><li>7.2.1.30.1.0-3 Trigger: Removal of the PE contract</br></li><li>7.2.1.30.1.0-4 Input data: none</br></li><li>7.2.1.30.1.0-5 Description of behaviour: 
+An Interface from BMWHVcha  BMW_st_PiwProxWkuAll will be used to disable/enable the wakeup.
+BMW_st_PiwProxWkuAll:
+0 – Function not initialized
+1 – Wakeup allowed
+2 – Wakeup disabled</br></li><li>7.2.1.30.1.0-6 Timing Requirements: none</br></li><li>7.2.1.30.1.0-7 Output data: none</br></li><li>7.2.1.30.1.0-8 Postconditions: none</br></li><li>7.2.1.30.1.0-9 Descriptions of exceptions: none</br></li><li>7.2.1.30.1.0-10 Dependencies and interactions: Cdd_SlpCtrl</br></li><li>7.2.1.30.2 Differences to CRS</br></li><li>7.2.1.30.2.0-1 xxx</br></li><li>7.2.1.30.3 Questions and Answers</br></li><li>7.2.1.30.3.0-1 xxx</br></li>

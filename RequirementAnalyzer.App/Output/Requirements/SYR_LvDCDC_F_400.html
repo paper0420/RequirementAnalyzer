@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_400</h1></br><li>6.1.53 SYR_LvDCDC_F_400: LvDCDC is derating due to minimum HV-voltage limit</br></li><li>6.1.53.1 Description</br></li><li>6.1.53.1.0-1 Brief description:</br></li><li>6.1.53.1.0-2 The LvDCDC must be operational for at least 10 seconds with reduced power at a minimum HV-voltage between 150 V and 199 V.</br></li><li>6.1.53.1.0-3 Preconditions:</br></li><li>6.1.53.1.0-4 LvDCDC current operating state=Buck
+RUNLEVEL >= 30.</br></li><li>6.1.53.1.0-5 Trigger:</br></li><li>6.1.53.1.0-6 Measured_U_HV between 150V and 199,9V</br></li><li>6.1.53.1.0-7 Input data:</br></li><li>6.1.53.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = 13,9V
+Measured_U_HV = 150V to 199,9V
+Min_Permitted_HV_Voltage = p_DCDC_MIN_U_HV = 200V,
+p_DCDC_DERAT_MIN_U_HV = 150V,
+Max_Permitted_HV_Power = 3100 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = 35°C</br></li><li>6.1.53.1.0-9 Description of behaviour:</br></li><li>6.1.53.1.0-10 In case that the HV voltage is lower than the adjustable threshold p_DCDC_MIN_U_HV, the LvSupplySystem cannot fullfill any more full conversion. In this case the derating of the output current is allowed. The LvDCDC shall set an info DTC: 0xBA0001 DCDC converter - component protection - HV undervoltage. 
+Per default it the value for p_DCDC_MIN_U_HV is 200V. The lowest HV voltage is p_DCDC_DERAT_MIN_U_HV. Per default it is 150V. </br></li><li>6.1.53.1.0-11 Timing Requirements:</br></li><li>6.1.53.1.0-12 Output Data:</br></li><li>6.1.53.1.0-13 Postconditions:</br></li><li>6.1.53.1.0-14 Descriptions of exceptions:</br></li><li>6.1.53.1.0-15 Dependencies and interactions:</br></li><li>6.1.53.1.0-16 Other components/modules
+Customer requirements: 9989, 14529, 14562, 18177
+EPIC: CCU-113, CCU-498
+Usecases : SYR_LvDCDC_F_490
+Safety requirements CCU-113,
+Technical Safety requirements</br></li><li>6.1.53.2 Differences to CRS</br></li><li>6.1.53.3 Questions and Answers</br></li>

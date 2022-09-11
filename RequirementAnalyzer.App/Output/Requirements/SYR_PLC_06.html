@@ -1,0 +1,21 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PLC_06</h1></br><li>1.1.30.7 SYR_PLC_06: provide failure detection </br></li><li>1.1.30.7.1 Description</br></li><li>1.1.30.7.1.0-1 Brief description:
+provide failure detection in establishing PLC channel for communication. When Failure is detected which cannot be recovered runtime, DTC: Powerline communication : modern error shall be rasies and enviorment variable shall be saved by CCU.</br></li><li>1.1.30.7.1.0-2 Preconditions: Normal operation for establishing the PLC Channel	</br></li><li>1.1.30.7.1.0-3 Trigger: detection of failure</br></li><li>1.1.30.7.1.0-4 Input data: NA</br></li><li>1.1.30.7.1.0-5 Description of behaviour:
+- request for LIM_C to establish PHY Link, PLCCP shall perform the procedure to establish PHY LINK.
+- If the QCA chip is not powering up
+- If the QCA chip is not responding
+- If the QCA chip is not booting up (internally or externally)
+- If the QCA chip is not responding with correct SW version
+On above error we will fail to establish PHY link
+thie failure shall be detected and DTC 0x03194A shall be set with UWB expected.
+
+PLCCP shall report the error as PASSED/FAILED after checking all above condition to recover to DCM. DCM will store this in fault memory. If the failure is Passed for next 40 device wakeup cycle the fault memory will be removed.
+
+Debounce count shall be set to zero.</br></li><li>1.1.30.7.1.0-6 Timing Requirements: NA</br></li><li>1.1.30.7.1.0-7 Output data: DTC shall be raised when failure is detected</br></li><li>1.1.30.7.1.0-8 Postconditions:
+DTC and enviorment data can be retreivable via diagnostic tester</br></li><li>1.1.30.7.1.0-9 Descriptions of exceptions: NA</br></li><li>1.1.30.7.1.0-10 Dependencies and interactions: PLCCP state machine</br></li><li>1.1.30.7.2 Differences to CRS</br></li><li>1.1.30.7.2.0-1 xxx</br></li><li>1.1.30.7.3 Questions and Answers</br></li><li>1.1.30.7.3.0-1 xxx</br></li><li>1.1.30.8 SYR_PLC_07: provide access to edit parameter signal attenuation via Diag Job - obsolete</br></li><li>1.1.30.8.1 Description</br></li><li>1.1.30.8.1.0-1 Brief description:
+Feature related to validation was dropped through CR-836. Hence SYR obsolete
+-------------------------------------------------------------
+During the slac process, signal attenuation is calculated. This will help in deciding whether CCU has discovered EVSE or not. Provision shall be made to read or write parameter C_EV_match_signalattn_direct and C_EV_match_signalattn_indirect limit as define in [V2G3-A08-01] via Diagnostic Job. </br></li><li>1.1.30.8.1.0-2 Preconditions: NA</br></li><li>1.1.30.8.1.0-3 Trigger: Diag tester request</br></li><li>1.1.30.8.1.0-4 Input data: new value to update</br></li><li>1.1.30.8.1.0-5 Description of behaviour:
+default value shall be as per [V2G3-A08-01] of ISO15118-3.</br></li><li>1.1.30.8.1.0-6 Timing Requirements: NA</br></li><li>1.1.30.8.1.0-7 Output data: updated value</br></li><li>1.1.30.8.1.0-8 Postconditions:
+Read operation shall provide the excisting values and write operation shall update the suggested value.
+</br></li><li>1.1.30.8.1.0-9 Descriptions of exceptions: 
+if not correct infromation is provided, Datalink establishment will Fail</br></li><li>1.1.30.8.1.0-10 Dependencies and interactions: Charging station will evaluate this values and send back to charging station</br></li><li>1.1.30.8.2 Differences to CRS</br></li><li>1.1.30.8.2.0-1 NA</br></li><li>1.1.30.8.3 Questions and Answers</br></li><li>1.1.30.8.3.0-1 NA</br></li>

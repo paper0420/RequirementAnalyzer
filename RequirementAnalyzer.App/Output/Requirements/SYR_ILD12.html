@@ -1,0 +1,49 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ILD12</h1></br><li>1.1.2.3 SYR_ILD12: Specific_PDU_Monitoring_for_DC_inlets</br></li><li>1.1.2.3.1 Description</br></li><li>1.1.2.3.1.0-1 Brief description:
+To comply with this vehicle configuration situation, there must be no PDU timeout monitoring for the 3 
+following PDUs:
+EAPC_Status_Ladestatusanzeige_DC
+EAPC_Status_Ladeklappe_DC 
+EAPC_Temperatur_DC 
+Possible implementation logic with existing coding parameter :
+IF ((BMWcod_st_VehChgrTyp DC == 1) or (BMWcod_st_VehChgrTyp DC == 3)) /* info: 1 = 
+Chademo, ou 3 = DC China */
+THEN timeout monitoring for PDUs EAPC_Status_Ladestatusanzeige_DC, 
+EAPC_Status_Ladeklappe_DC, EAPC_Temperatur_DC shall be ACTIVATED (0 xD79766,
+0xD79760,0xD79751)
+ELSE timeout monitoring for PDUs EAPC_Status_Ladestatusanzeige_DC, 
+EAPC_Status_Ladeklappe_DC, EAPC_Temperatur_DC shall be DEACTIVATED. (0 xD79766,
+0xD79760,0xD79751)
+
+Summary update as per BMW expectation
+		BMWcod_st_VehChgrTyp DC (VehicleChargingTypeDC)				
+		0 (no DC)	2 (CCS)	1 (Chademo)
+3 (GBT)		IPdu Group 
+						
+PDU :						
+EAPC_St_Ladesteckerverriegelung_Roh_AC_CCS [1]	Rx	x	x	x		AC_CCS
+EAPC_Status_Ladedose_AC_CCS [1]	Rx	x	x	x		AC_CCS
+EAPC_Status_Ladedose_DC [1]	Rx	-	-	x		DC
+EAPC_Status_Ladeklappe_AC_CCS [15]	Rx	x	x	x		AC_CCS
+EAPC_Status_Ladeklappe_DC [15]	Rx	-	-	x		DC
+EAPC_Status_Ladestatusanzeige_AC_CCS [15]	Rx	x	x	x		AC_CCS
+EAPC_Status_Ladestatusanzeige_DC [15]	Rx	-	-	x		DC
+EAPC_Status_Ladesteckerverriegelung_AC_CCS [15]	Rx	x	x	x		AC_CCS
+EAPC_Temperatur_AC [15]	Rx	x	x	x		AC_CCS
+EAPC_Temperatur_DC [15]	Rx	-	-	x		DC
+EAPC_Temperatur_DC_CCS [15]	Rx	-	x	-		DC_CCS
+EAPC_WUPM_LD_AC_CCS [15]	Rx	x	x	x		AC_CCS
+EAPC_WUPM_LD_DC [15]	Rx	-	-	x		DC
+EAPC_Steuerung_Ladeklappenverriegelung_AC_CCS [15]	Tx	x	x	x		AC_CCS
+EAPC_Steuerung_Ladeklappenverriegelung_DC [15]	Tx	-	-	x		DC
+EAPC_Steuerung_Ladestatusanzeige [15]	Tx	x	x	x		AC_CCS
+EAPC_Steuerung_Ladesteckerverriegelung_AC_CCS [15]	Tx	x	x	x		AC_CCS
+EAPC_ST_CD [15]	Tx	x	x	x		AC_CCS
+						
+AC_CCS > is for AC or Combo Cars						
+						
+Summary : 3 categories						
+1. AC or AC_CCS -> for all variants						
+2. DC -> only for Chademo, GBT	BMW03-17059					
+3. DC_CCS -> only for DC=2	BMW03-17347					
+</br></li><li>1.1.2.3.1.0-2 Preconditions: coding parameter set to Chademo or DC_China</br></li><li>1.1.2.3.1.0-3 Trigger: coding parameter</br></li><li>1.1.2.3.1.0-4 Input data: NA</br></li><li>1.1.2.3.1.0-5 Description of behaviour:
+When iLD DC is connected to CCU we shall activate timeout monitoring for PDUs</br></li><li>1.1.2.3.1.0-6 Timing Requirements: NA</br></li><li>1.1.2.3.1.0-7 Output data: NA</br></li><li>1.1.2.3.1.0-8 Postconditions: Activatation and deactivation of timeout monitoring for PDU's as per configuration</br></li><li>1.1.2.3.1.0-9 Descriptions of exceptions: if not done correctly, DTC memory will be flooded with unwanted memory.</br></li><li>1.1.2.3.1.0-10 Dependencies and interactions: NA</br></li><li>1.1.2.3.2 Differences to CRS</br></li><li>1.1.2.3.2.0-1 xxx</br></li><li>1.1.2.3.3 Questions and Answers</br></li><li>1.1.2.3.3.0-1 xxx</br></li>

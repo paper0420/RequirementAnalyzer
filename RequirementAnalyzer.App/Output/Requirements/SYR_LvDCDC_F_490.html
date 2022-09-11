@@ -1,0 +1,13 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_490</h1></br><li>6.1.65 SYR_LvDCDC_F_490: HV undervoltage DTC and buck mode off</br></li><li>6.1.65.1 Description</br></li><li>6.1.65.1.0-1 Brief description:</br></li><li>6.1.65.1.0-2 When the HV undervoltage is below the derating value, the LvDCDC must stop the conversion and must set a DTC.</br></li><li>6.1.65.1.0-3 Preconditions:</br></li><li>6.1.65.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.65.1.0-5 Trigger:</br></li><li>6.1.65.1.0-6 Measured_U_HV = 150V for more than 10s.
+Measured_U_HV < 150V.</br></li><li>6.1.65.1.0-7 Input data:</br></li><li>6.1.65.1.0-8 Description of behaviour:</br></li><li>6.1.65.1.0-9 In case that the HV voltage is lower than the minimum threshold p_DCDC_DERAT_MIN_U_HV or the voltage is equal p_DCDC_DERAT_MIN_U_HV for longer than 10s the LvDCDC must stop the power conversion. An DTC must be stored in the primary error memory.</br></li><li>6.1.65.1.0-10 Timing Requirements:</br></li><li>6.1.65.1.0-11 Output Data:</br></li><li>6.1.65.1.0-12 DTC 0x030F83 DCDC converter - HV voltage sensor - lower threshold value deceeded,
+LvDCDC output current = 0 A,
+LvDCDC error state = Bin  .... .... .... ..1. : Undervoltage HV</br></li><li>6.1.65.1.0-13 Postconditions:</br></li><li>6.1.65.1.0-14 Descriptions of exceptions:</br></li><li>6.1.65.1.0-15 Dependencies and interactions:</br></li><li>6.1.65.1.0-16 Other components/modules
+Customer requirements: 18177, 14563
+EPIC: CCU-282, Meta 1715, CCU-518, Meta 1751
+Usecases SYR_LvDCDC_F_400
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.65.2 Differences to CRS</br></li><li>6.1.65.3 Questions and Answers</br></li><li>6.1.65.3-1 Q1: Is the time 10s also relevant for voltage below 200V to 151V?
+Q2: What is the debouncing time.
+Q3: Which DTC shall be used? The primary error DTC is not listed in ZEDIS. For general HV undervoltage the Info DTC: 0xBA0001 DCDC converter - component protection - HV undervoltage is in ZEDIS.
+A3: According to BMW EA-DiagArchitecture the OOR LOW boundary is also MIN DERATING limit. The OOR MAX boundary and MAX DERATING is valid accordingly. So the DTCs 0x030F83 for DCDC converter - HV voltage sensor - lower threshold value deceeded.</br></li>

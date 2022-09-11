@@ -1,0 +1,29 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG61</h1></br><li>3.1.7 SYR_HMG61: AKKS Actuation Evaluation</br></li><li>3.1.7.1 Description</br></li><li>3.1.7.1.0-1 Brief description:</br></li><li>3.1.7.1.0-2 CCU shall evaluate and set the respective actuator target position, Clockwise/anticlockwise direction of movement, based on the actual thermal management needs and on the AKKS actuator responses.</br></li><li>3.1.7.1.0-3 Preconditions: LIN Wake-Up, LIN-Communication correctly working (no physical failure on the LIN Network)</br></li><li>3.1.7.1.0-4 Trigger: End of the Stop-Test Closed\Open</br></li><li>3.1.7.1.0-5 Input data: 
+- value of the target position ( from the BMW Thermal Management SW --->eTMC)
+- value of the current position (from the AKKS itself)
+- other parameters like movement direction, torque, speed are hardcoded in the SW (values agreed with    BMW)</br></li><li>3.1.7.1.0-6 Description of behaviour: After the necessary initialization procedure, composed by the INIT and the Stop-Test, which is being executed in order to learn the movement range of the flaps in terms of LIN Steps, the CCU will change the position of the flap according to the values of following inputs:
+- Vehicle Speed
+- Engine downtime
+- Engine status
+- Engine speed
+- Motor coolant temperature
+- Terminal status (Current terminal concept: PreDrive, Drive, PostDrive)
+- Battery voltage
+- LIN signals output of the AKKS
+- ECU state
+- Ambient temperature
+- Status of the hood
+- Mileage
+
+Based on the above mentioned inputs a special algorythm developed by BMW (PANA has no access to its content) will calculate the required position of the AKKS. Then :
+1. this target position will be then cyclically sent on LIN by the Pana-Application SW ;
+2.  if no errors are occurring (frozing, blocking of the flaps) the AKKS´ actuator will move the flap to such target position; in case errors are occurring during the movement to the target position a proper error handling will be triggered (frozing handling, blocking handling, both are not described in this use-case);
+3. in case  a new update on the target value comes from the BMW Thermal Management SW, the flap will move to the new target value
+.</br></li><li>3.1.7.1.0-7 Timing Requirements: 
+- the time-raster for the calculation of a new flap target position value on the BMW Thermal Management SW side is 100ms.</br></li><li>3.1.7.1.0-8 Output Data: the output data are the following LIN Signals (only the ones for AKKS1 are mentioned, for the AKKS2 consider the corresponding ones):
+- SMOT_PO_AKKS_LIN
+- TURN_V_AKKS_LIN
+- CTR_SMOT_MOD_AKKS_LIN
+- SMOT_TORQ_AKKS_LIN</br></li><li>3.1.7.1.0-9 Postconditions:</br></li><li>3.1.7.1.0-10 Descriptions of exceptions: In case the previous initialization procedure (INIT + Stop-Test Closed\Open) has been not successfully performed, then the actuation of the target position will not be performed ----> instead of it, it is necessary to repeat the initialization procedure until it has been successfully performed
+
+AKKS1 is not mounted for SP21 car lines.</br></li><li>3.1.7.1.0-11 Dependencies and interactions:</br></li><li>3.1.7.2 Differences to CRS</br></li><li>3.1.7.3 Questions and Answers</br></li>

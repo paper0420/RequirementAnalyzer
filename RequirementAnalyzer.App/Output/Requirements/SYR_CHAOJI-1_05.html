@@ -1,0 +1,54 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CHAOJI-1_05</h1></br><li>1.1.32.5 SYR_CHAOJI-1_05 : provide functionality in SW for handling timeout, re-transmission and abort situations during LM transmission </br></li><li>1.1.32.5.1 Description</br></li><li>1.1.32.5.1.0-1 Brief description: 
+While LM transmission, supplier SW (at TP layer) shall handle situations when timeout happens, when re-transmission of frame is required and when connection abort is required. </br></li><li>1.1.32.5.1.0-2 Preconditions: Vehicle is coded as Chaoji vehicle (VehChrTypDC = 4).  BMW_nr_DcCanProtReq is set to 2 (Chaoji vehicle charges at chaoji-1 charger).</br></li><li>1.1.32.5.1.0-3 Trigger: Connection Establishment Frame LM (SN=0) sent on bus (when send trigger is set for LM message as in SYR_CHAOJI-1_01)</br></li><li>1.1.32.5.1.0-4 Input data: Message data reference and identifier
+
+******
+(change for new draft CDV2)
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1/CCU-31198
+new DBC in sprint.2219
+https://asc-prod-ha-wig.bmw.com/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2219/BMW/Doc/NK/PATCH_v1_EADBN-1710_220324_DBC_EAPC_DC_CAN.dbc
+
+Note: new DBC is integrated in SW. 
+In accordance with new draft CDV2, there is change in values of CAN identifiers of all messages.
+a) change in CAN addresses for charger and CCU
+b) change in PDU format (PF) values for all message types
+
+*******
+
+</br></li><li>1.1.32.5.1.0-5 Description of behaviour:
+This SYR describes the situations that shall be handled at transport layer during LM transmission state in ChaoJi-1 charging communication.
+1. Timeout Handling
+a) At first, TP-SW triggers the connection establishment frame i.e. LM (seq no. = 0), on the DC-CAN bus and waits for ACK from charger (as described in SYR_CHAOJI-1_04). 
+--> If ACK is not received within LM T2 timeout (100ms), CCU SW triggers the retransmission of same frame and wait again for ACK.
+b) Similarly, when last data-frame is sent out, CCU (TP-SW) waits for EndofACK to finish LM transmission and to update LIM-C on ACK state (as described in SYR_CHAOJI-1_04). 
+---> If EndofACK is not received within LM T2 timeout (100ms), CCU (TP-SW) shall trigger re-transmission of last frame and wait again for End of ACK.
+c) When data-frame is sent (i.e. last frame as requested in ACK received during connection establishment) but not matching the total frames count at CCU SW.
+--> CCU (TP-SW) shall transmit this data-frame and wait for new ACK from charger with adjusted parameter within 100ms T2 timeout.
+2. Re-Transmission Limit & Connection Abort
+a) If consecutive re-transmission happens and three times of LM T2 timeout done
+--> CCU (TP-SW) shall abort the connection by sending NACK. Supplier SW (at RTE level) shall update LIM-C by updating ACK status interface as "4: Message sent, ACK Timeout"
+b) If overall LM transmission timeout LM T3 happens (i.e. 10 sec), connection shall be aborted by sending NACK.
+c) If next consecutive data frame transmission takes more than LM T1 i.e. 10ms, to be sent out, connection shall be aborted by sending NACK.
+d) Connection can also be aborted by sending out NACK due to issues in frame format, PGI matching,BUF allocation, Byte size or internal states. 
+e) Connection is aborted when NACK is received.
+
+---> In case b,c,d,e : Supplier SW (at RTE level) shall update LIM-C by updating ACK status interface as "5: Message sent, Connection is aborted"
+ 
+When NACK is sent (1st byte is 2, 7 bytes set to FF) or NACK is received, current connection is closed and only new connection request can be accepted or triggered by CCU.
+
+3. Re-adjustment of Transmission when LM ACK (start of frame, total number of frames requested) is received 
+During data-transmission phase, if ACK frame is received at CCU,  TP-SW shall process this ACK and adjust the frame transmission flow according to ACK parameters. Next data frame shall be send as per defined start of frame. Transmission interval timeout of 10ms has to be maintained until last requested frame is sent.</br></li><li>1.1.32.5.1.0-6 Timing Requirements: 
+Timeouts handled. LMS T1 = 10ms, LMS T2 = 100ms and LMS T3 = 10 sec.	</br></li><li>1.1.32.5.1.0-7 Output data:
+LM (first frame) or LM (last frame) shall be sent out by CCU when re-transmit. 
+NACK (control frame) shall be seen on bus when connection is aborted. 
+LM (SNn) shall be sent out when re-adjusted ACK is received.
+RTE interface shall be updated.</br></li><li>1.1.32.5.1.0-8 Postconditions: NA		</br></li><li>1.1.32.5.1.0-9 Descriptions of exceptions: COM has limitations when re-transmission of previous seq number (for data frame) is required. Transmission is not possible. Instead, CCU will transmit the NACK.
+
+Based on this statement from standard, "The time interval
+LMS_T1 between data frames of message sent shall be less than 10ms (to be discussed)". Min. acceptable T1 interval between data frames is not covered in standard.
+
+Review on point (d) in verification criteria:
+T3 timeout -> non testable due to COM limitation.
+Wrong PGI in data frame   calibration for PGI is not available.
+to test in simulated env.
+T1 timeout   CCU is currently transmitting data frames with 0.5ms interval. It is not posssible to test T1 timeout in simulated env. 
+BUF NOK or Internal states scenario --> to be covered at ENG7/8.</br></li><li>1.1.32.5.1.0-10 Dependencies and interactions: Supplier-SWC (Chaoji-Adaptor), RTE, COM, CAN IF, PduR, Supplier-TP (ChaojiTp), BSWM</br></li><li>1.1.32.5.2 Differences to CRS</br></li><li>1.1.32.5.2.0-1 xxx</br></li><li>1.1.32.5.3 Questions and Answers</br></li><li>1.1.32.5.3.0-1 xxx</br></li>

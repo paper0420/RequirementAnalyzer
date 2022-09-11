@@ -1,0 +1,18 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-20-0001-0003#</h1>
+[Charging],[Component_Protection],[AC_Overcurrent]</br>Test Objective: Confirmation of overcurrent detection of HVAC input current (3 phase)<br>
+<h2>Requirements</h2><ul><li><strong>18393</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Komponentenschutz und Derating" function shall detect the following protection conditions (detect errors and monitor limit values) in order to adjust operation of the charging electronics without damaging the hardware:
+- AC undervoltage
+- DC-HV undervoltage
+- AC overvoltage
+- DC-HV overvoltage
+- Maximum AC current
+- Maximum DC-HV current
+- Hardware fault (e.g. short circuit)
+- Excess temperature
+- Broken N-Line</li>
+<li><strong>18417</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The function "Komponentenschutz und Derating" shall detect an AC overcurrent error if the charger measures an AC current over the maximum AC operating current for a parameterizable period. </li>
+<li><strong>18418</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>If an AC overcurrent is detected, the function "Komponentenschutz und Derating" shall set the "Abschaltung Maximalstrom AC" bit in the error status word.</li>
+<li><strong>18419</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>These diagnostics shall be performed only if the "Charge" target operating mode (2) is commanded by the "LDK" function on the respective charging module.
+</li>
+<li><strong>18444</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The "SLE" function shall always observe the phase current limit. </li>
+</ul></html>

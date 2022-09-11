@@ -1,0 +1,35 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_451</h1></br><li>6.1.59 SYR_LvDCDC_F_451: LvDCDC is stopped due to maximium LV limit of 16V for longer 100ms.</br></li><li>6.1.59.1 Description</br></li><li>6.1.59.1.0-1 Brief description:</br></li><li>6.1.59.1.0-2 The LvDCDC must stop the LvDCDC and go to Error mode, if the maximum LV voltage of 16V exceeds 100ms.</br></li><li>6.1.59.1.0-3 Preconditions:</br></li><li>6.1.59.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.59.1.0-5 Trigger:</br></li><li>6.1.59.1.0-6 Target_Operating_State = Buck,
+Target_U_LV = 15,5V,
+The electronic DC load  power is adjusted  to 3500 W
+The electronic DC load  voltage is adjusted to 15,5V and max 16V for <= 0,1s.
+The regulation mode of the electronic DC load shall be constant curent.
+The coolant temperature shall be adjusted between -26°C and 70°C.</br></li><li>6.1.59.1.0-7 Input data:</br></li><li>6.1.59.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = Measured_U_LV = 15,5V
+p_DCDC_DERAT_MAX_U_LV = 16V
+p_DCDC_ABSOLUT_MAX_U_LV = 15,5V
+Measured_U_HV = 380V
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 3100 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = between -26°C and 70°C.</br></li><li>6.1.59.1.0-9 Description of behaviour:</br></li><li>6.1.59.1.0-10 The LvDCDC must reduce the output current to 0 A if the LV voltage is equal or higher than p_DCDC_DERAT_MAX_U_LV. If the LV voltage is kept longer than 100ms higher than p_DCDC_DERAT_MAX_U_LV = 16V the LvDCDC goes to error mode. A DTC is stored in the primary error memory.</br></li><li>6.1.59.1.0-11 Timing Requirements:</br></li><li>6.1.59.1.0-12 Debounce Time = 10ms
+Debounce count = 10</br></li><li>6.1.59.1.0-13 Output Data:</br></li><li>6.1.59.1.0-14 Current_Operating_State = Error
+Measured_LVcurrent=  0A
+Measured_U_LV = 16V
+p_DCDC_DERAT_MAX_U_LV = 16V
+p_DCDC_ABSOLUT_MAX_U_LV = 15,5V
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = as calculated
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist = as measured (16V)
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist = 0A,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 0 V
+An primary DTC for LV derating at overvoltage will be stored.</br></li><li>6.1.59.1.0-15 Postconditions:</br></li><li>6.1.59.1.0-16 Current_Operating_State = Error
+Measured_LVcurrent=  0A
+Measured_U_LV = 16V
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = as calculated
+An primary DTC for LV derating at overvoltage is stored.</br></li><li>6.1.59.1.0-17 Descriptions of exceptions:</br></li><li>6.1.59.1.0-18 Dependencies and interactions:</br></li><li>6.1.59.1.0-19 Other components/modules
+Customer requirements: 23934, 10100, 18177, 14563
+Usecases 
+EPIC: CCU-113, CCU-498
+Safety requirements 
+Technical Safety requirements:</br></li><li>6.1.59.2 Differences to CRS</br></li><li>6.1.59.3 Questions and Answers</br></li>

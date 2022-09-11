@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_140</h1></br><li>7.7.1.13 SYR_SEC_140: Secure XCP-flashing to Bootloader/Bootmanager</br></li><li>7.7.1.13.1 Description</br></li><li>7.7.1.13.1.0-1 Brief description: Moving Secure XCP Flashing to BL/BM</br></li><li>7.7.1.13.1.0-2 Preconditions: CCU is operational </br></li><li>7.7.1.13.1.0-3 Trigger: XCP flash request</br></li><li>7.7.1.13.1.0-4 Input data: none</br></li><li>7.7.1.13.1.0-5 Description of behaviour: The Secure XCP Flashing has to be moved to Bootloader/Bootmanager.
+XCP flashing sequence must follow E-sys flashing sequence:
+1- Suspend HSM
+2- Unlock PFlash
+3- Recalculate CRC
+4- Update Trusted boot reference table.
+5- For logging purpose: TBD</br></li><li>7.7.1.13.1.0-6 Timing Requirements: none</br></li><li>7.7.1.13.1.0-7 Output data: none</br></li><li>7.7.1.13.1.0-8 Postconditions: CCU flashed using XCP secure flash procedure</br></li><li>7.7.1.13.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.13.1.0-10 Dependencies and interactions: N/A</br></li><li>7.7.1.13.2 Differences to CRS</br></li><li>7.7.1.13.2.0-1 xxx</br></li><li>7.7.1.13.3 Questions and Answers</br></li><li>7.7.1.13.3.0-1 xxx</br></li><li>7.7.1.14 SYR_SEC_145: secure enable of XFF - OBSOLETE</br></li><li>7.7.1.14.1 Description</br></li><li>7.7.1.14.1.0-1 Brief description: This is only for Meta.2017 in I20 project. It is about moving XFF into Bootloader.
+
+14.04.2021 G. Teiusan: SYR became obsolete, due to drop of XFF functionality. The XCP functionality is still valid and covered by SYR_SEC_140.
+</br></li><li>7.7.1.14.1.0-2 Preconditions: CCU is operational</br></li><li>7.7.1.14.1.0-3 Trigger: XCP Flashing Request</br></li><li>7.7.1.14.1.0-4 Input data: none</br></li><li>7.7.1.14.1.0-5 Description of behaviour: XCP Flashing Request shall be received in the Appl SW module
+The CCU shall only accept the XCP Flashing Request when:
+ECU Mode = Engineering Mode
+AND
+The SFA Token: "XCP Write" w/Feature ID: 0x001D1B, is installed AND valid.
+When the Pre-conditions of Point.2 are met, the Appl SW module shall:
+Set the regular XFF flag.
+Perform non destructive reset for flashing.</br></li><li>7.7.1.14.1.0-6 Timing Requirements: none</br></li><li>7.7.1.14.1.0-7 Output data: none</br></li><li>7.7.1.14.1.0-8 Postconditions: none</br></li><li>7.7.1.14.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.14.1.0-10 Dependencies and interactions: none</br></li><li>7.7.1.14.2 Differences to CRS</br></li><li>7.7.1.14.2.0-1 xxx</br></li><li>7.7.1.14.3 Questions and Answers</br></li><li>7.7.1.14.3.0-1 xxx</br></li>

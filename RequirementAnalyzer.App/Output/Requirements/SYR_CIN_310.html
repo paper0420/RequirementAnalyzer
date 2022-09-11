@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_310</h1></br><li>8.1.35 SYR_CIN_310: Provide E/E support for Autonomous Driving by coding parameter</br></li><li>8.1.35.1 Description</br></li><li>8.1.35.1.0-1 Brief description: Autonomous Driving support is not needed in in All Vehicle variants.
+Based on CODING Parameter for Autonomous Driving the PDUs which are to be received from "hPAD_Safety" control unit has to be Disabled or Enabled in CCU.</br></li><li>8.1.35.1.0-2 Preconditions: NA</br></li><li>8.1.35.1.0-3 Trigger: NA</br></li><li>8.1.35.1.0-4 Input data: CAF , BMW NK</br></li><li>8.1.35.1.0-5 Description of behaviour: Based in Coding parameter hPadHardware having possible value "verbaut " or "nicht verbaut" the "hPAD_Safety" control unit will be present in the Vehicle.
+So Based on CODING Parameter monitoring of "hPAD_Safety" control unit related PDUs in CCU has to be enabled or Disabled.
+
+Acceptance : 
+- Coding accesible to SWC
+- No Timeout, CRC , Alive Error monitoring for PDUs from "hPAD_Safety" control unit when hPadHardware is not Available ("nicht verbaut")
+- Timeout , CRC, Alive Monitoring and Siganal Values are provided to SWC when hPadHardware is Available ("verbaut")</br></li><li>8.1.35.1.0-6 Timing Requirements: NA</br></li><li>8.1.35.1.0-7 Output data: NA</br></li><li>8.1.35.1.0-8 Postconditions: 
+Acceptance : 
+- Coding accesible to SWC
+- No Timeout, CRC , Alive Error monitoring for PDUs from "hPAD_Safety" control unit when hPadHardware is not Available ("nicht verbaut")
+- Timeout , CRC, Alive Monitoring and Siganal Values are provided to SWC when hPadHardware is Available ("verbaut")
+</br></li><li>8.1.35.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.35.1.0-10 Dependencies and interactions:
+BMW is responsible for notifying Panasonic if a new Receive PDU for HPadSafety is to be added for CCU.
+List updated in Panama VariantMan agement excel sheet. (file:\\Europe.bmw.corp\winfs\Panama\PLW_EA\GEN4_CCU_Exchange_PANASONIC\04_Requirements\Variantmanagement\200616_CCU-PDU-Configuration_v16.xlsx) See always latest.</br></li><li>8.1.35.2 Differences to CRS</br></li><li>8.1.35.2.0-1 xxx</br></li><li>8.1.35.3 Questions and Answers</br></li><li>8.1.35.3.0-1 xxx</br></li>

@@ -1,0 +1,10 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-68-0001-0009#</h1>
+[Charging],[DC_Charging],[Proximity]</br>Test Objective: Checking CHAdeMO's charging operation sequence (input / output)<br>
+<h2>Requirements</h2><ul><li><strong>7897</strong> - <div>[Not Changed][accepted][HWT (ENG.7/8)Review][Requirement]</div>VARIANT (DC Charging): The "CCU" must implement the CAN communication with the charging station according to CHAdeMO 1.0.1 chapter 6 "Circuit requirements". </li>
+<li><strong>19049</strong> - <div>[Not Changed][partly accepted][SWQT (ENG.8)][Requirement]</div>The CHAdeMO DC charging procedure shall be implemented. </li>
+<li><strong>19060</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>Every 10 ms, the supplier function shall send the current state of the Charge_Sequence_1 line ("E_HV+_RELAY") to the "Ladeschnittstelle" function via the "Status_Charge_Sequence_Signal_1" interface signal (0 = inactive, 1 = active, 2 = error)</li>
+<li><strong>19061</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>Every 10 ms, the supplier function shall send the current state of the Charge_Sequence_2 line ("E_HV-_RELAY") to the "Ladeschnittstelle" function via the "Status_Charge_Sequence_Signal_2" interface signal (0 = inactive, 1 = active, 2 = error)</li>
+<li><strong>19083</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>The supplier function shall be able to receive messages from the CHAdeMO charger including two with the identifiers 0x108 (Chademo_H108) and 0x109 (Chademo_H109).
+</li>
+<li><strong>19092</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>The supplier function shall be capable of sending the CHAdeMO charger three messages with the identifiers 0x100 (Chademo_H100), 0x101 (Chademo_H101) and 0x102 (Chademo_H102) (see table: Overview of DC-CAN signals to be sent). </li>
+</ul></html>

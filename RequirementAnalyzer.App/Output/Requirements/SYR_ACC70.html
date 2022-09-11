@@ -1,0 +1,18 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC70</h1></br><li>2.1.7 SYR_ACC70: Function: "Messwertermittlung"-measure  DC-HV current output</br></li><li>2.1.7.1 Description</br></li><li>2.1.7.1.0-1 Brief description:</br></li><li>2.1.7.1.0-2 determine the current DC‐HV current output by the charging electronics.</br></li><li>2.1.7.1.0-3 Preconditions:</br></li><li>2.1.7.1.0-4 none (always)</br></li><li>2.1.7.1.0-5 Trigger:</br></li><li>2.1.7.1.0-6 start up (always active)</br></li><li>2.1.7.1.0-7 Input data:</br></li><li>2.1.7.1.0-8 H_I_LT4</br></li><li>2.1.7.1.0-9 Description of behaviour:</br></li><li>2.1.7.1.0-10 measure mean HV DC current value over one monitoring cycle. Distribute to the respective signal. The required accuracy should be respected.
+Implementation hint.
+Signal name:  send the curent on H_I_LT4  over signal "LT4_I_Sig"
+accuracy:
+HVDC_I_LT4_Phy <40A: +/‐ 2A
+40A <HVDC_I_LT4_Phy <150A: +/‐ 5%
+Conversion formula :
+HVDC_Curr_Lx = ( ADC_HVDC_Lx_Curr * 4.096V / 2^12 ) * ( 1 / 42.5 ) * ( 1 / 0.003 ) * 1.041
+Filter, Debounce : moving average 8 times
+Safe State : Respective Qualifier set to not valid.</br></li><li>2.1.7.1.0-11 Timing Requirements:</br></li><li>2.1.7.1.0-12 monitoring cycle 10ms
+FTZ: 20ms</br></li><li>2.1.7.1.0-13 Output Data:</br></li><li>2.1.7.1.0-14 LT4_I_Sig</br></li><li>2.1.7.1.0-15 Postconditions:</br></li><li>2.1.7.1.0-16 none</br></li><li>2.1.7.1.0-17 Descriptions of exceptions:</br></li><li>2.1.7.1.0-18 Safe state: Qualifier is equal to "Signal invalid"</br></li><li>2.1.7.1.0-19 Dependencies and interactions:</br></li><li>2.1.7.1.0-20 Other modules/components
+LDK
+Customer requirements:  [11153][21560 21562 21564 21565 21566]
+Safety requirements: (AC SZ‐6)(SF05) ASIL-B
+Mean error probability: 10 FIT
+outage metrics: SPFM: > 90%  ; LFM: > 60%
+EPIC: Implemented in sprint 1705
+EPIC/Task(s): 288 / 227and 228</br></li><li>2.1.7.2 Differences to CRS</br></li><li>2.1.7.3 Questions and Answers</br></li><li>2.1.7.3.0-1 MiL/HiL test</br></li>

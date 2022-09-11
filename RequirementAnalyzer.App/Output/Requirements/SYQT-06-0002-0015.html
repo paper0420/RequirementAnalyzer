@@ -1,0 +1,15 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-06-0002-0015#</h1>
+[Charging],[AC_Charging],[AC_Measurement_Accuracy]</br>Test Objective: LT4 voltage accuracy check<br>
+<h2>Requirements</h2><ul><li><strong>23640</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The CCU during the AC charging should ensure that the DC voltage is in the allowed ranges, that is below 540V.
+
+For this safety function:
+-	The supplier should measure the DC voltage on LT4 within the specified range and accuracy.
+-      Supplier will evaluate LT4 voltage,  if it is higher than the allowed range then shall stop the AC charging.
+</li>
+<li><strong>23642</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)Review][Requirement]</div>The mean voltage value (over last 10ms) present on E_U_LT4 shall be sent over signal "LT4_U_Sig" with following accuracy
+LT4_U_Sig < 10V:   +/- 1V
+10V <= LT4_U_Sig < 1000V:   +/- 5% 
+
+Safe State : Respective Qualifier set to "signal invalid", LT4_U_Sig_qi equal to "Invalid"
+FTT: 160ms</li>
+</ul></html>

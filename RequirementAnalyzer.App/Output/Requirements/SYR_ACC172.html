@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC172</h1></br><li>2.1.25 SYR_ACC172: Safety functions - Detect HVAC Phase difference error</br></li><li>2.1.25.1 Description</br></li><li>2.1.25.1.0-1 Brief description:</br></li><li>2.1.25.1.0-2 Preconditions:
+(Phase_Diff_Time_Lx_Ly != 0) AND (Phase_Switch_State == "multi phase")</br></li><li>2.1.25.1.0-3 Trigger: NA</br></li><li>2.1.25.1.0-4 Input data:  Phase_Diff_Time_Lx_Ly, Phase_Switch_State, HVAC_Lx_Freq_State</br></li><li>2.1.25.1.0-5 Description of behaviour:
+
+implementation hint:
+Calibration Parameter : HVAC_Freq_50Hz_Max, HVAC_Freq_50Hz_Min, HVAC_Freq_60Hz_Max, HVAC_Freq_60Hz_Min
+
+Failure criteria :
+NOT( ((HVAC_Lx_Freq_State == 50Hz) AND
+(Phase_Diff_Time_Lx_Ly >= Phase_Diff_Time_50Hz_Min) AND (Phase_Diff_Time_Lx_Ly <= Phase_Diff_Time_50Hz_Max)) OR
+((HVAC_Lx_Freq_State == 60Hz) AND
+(Phase_Diff_Time_Lx_Ly >= Phase_Diff_Time_60Hz_Min) AND (Phase_Diff_Time_Lx_Ly <= Phase_Diff_Time_60Hz_Max)) )</br></li><li>2.1.25.1.0-6 Timing Requirements:
+Monitoring cycle : 10msec</br></li><li>2.1.25.1.0-7 Output data:g_slerlt_error_cause_lx_element</br></li><li>2.1.25.1.0-8 Postconditions:</br></li><li>2.1.25.1.0-9 Descriptions of exceptions: Set 
+g_slerlt_error_cause_lx_element</br></li><li>2.1.25.1.0-10 Dependencies and interactions: LDK
+SYR_ACC170, SYR_ACC171, SYR_ACC173
+FuSa EPIC: CCU-1345 (BMW)</br></li><li>2.1.25.2 Differences to CRS</br></li><li>2.1.25.2.0-1 xxx</br></li><li>2.1.25.3 Questions and Answers</br></li><li>2.1.25.3.0-1 xxx</br></li>

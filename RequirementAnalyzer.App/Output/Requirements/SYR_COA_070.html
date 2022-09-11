@@ -1,0 +1,13 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_COA_070</h1></br><li>7.9.1.11 SYR_COA_070: COM Adapter Debouncing mechanism</br></li><li>7.9.1.11.1 Description</br></li><li>7.9.1.11.1.0-1 Brief description:
+This UC gives brief description of Debouncing mechanism. The error debouncing for CAN and Flexray buses are done for parameterized number of events. For LIN busses error (Bus error, Node error, frame error) debouncing is done for parameterised time. The internal qualifier is updated depending on the COM status (CRC, Timeout, Alive error).    
+
+If a time out error occurs for "n" consecutive cycles then a time out error is reported by COM Adapter. The number of consecutive cycles is calibratable. 
+</br></li><li>7.9.1.11.1.0-2 Preconditions:
+RUNLEVEL>=30</br></li><li>7.9.1.11.1.0-3 Trigger: COM Adapter receives Signal value from COM</br></li><li>7.9.1.11.1.0-4 Input data: Valid COM signal</br></li><li>7.9.1.11.1.0-5 Description of behaviour:
+Com Adapter debouncing mechanism is done depending on the error status as per the time specifications.
+For example, K_T_CANA_BUSOFF_DEF is 60ms and K_T_CANA_BUSOFF_OK is 50ms. The Defect monitoring counter is incremented during error presence and after counter reached maximum value the error is confirmed. If the error is not present after error detection then healing counter is decremented when counter is zero then Error debounced is reset to “0”.</br></li><li>7.9.1.11.1.0-6 Timing Requirements:
+OK condition: OK debounce counter * cycle time of the scheduling table ms
+Defect condition: DEF debounce counter * cycle time of the scheduling table ms</br></li><li>7.9.1.11.1.0-7 Output data:
+When input data is valid COM Adapter transfers COM signals with Qualifier information
+When input data is invalid COM Adapter transfers COM signals as invalidity value and records the DTC through DEM.</br></li><li>7.9.1.11.1.0-8 Postconditions:</br></li><li>7.9.1.11.1.0-9 Descriptions of exceptions:</br></li><li>7.9.1.11.1.0-10 Dependencies and interactions:
+Interaction with LIM C and BMW components</br></li><li>7.9.1.11.2 Differences to CRS</br></li><li>7.9.1.11.2.0-1 xxx</br></li><li>7.9.1.11.3 Questions and Answers</br></li><li>7.9.1.11.3.0-1 xxx</br></li>

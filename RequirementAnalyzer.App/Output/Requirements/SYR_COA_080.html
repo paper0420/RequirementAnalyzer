@@ -1,0 +1,8 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_COA_080</h1></br><li>7.9.1.13 SYR_COA_080: COM Adapter End to End protection mechanism</br></li><li>7.9.1.13.1 Description</br></li><li>7.9.1.13.1.0-1 Brief description:
+This UC gives brief description of the  End to End protection using Time out monitoring for sensor signals and onboard electrical signals generate corresponding Qualifiers by COM Adapter. During the generation of qualifiers COM Adapter monitors the Time out, CRC, Alive status with debounce counters for predefined duration of time and update the qualifier status.  </br></li><li>7.9.1.13.1.0-2 Preconditions:
+RUNLEVEL>=30</br></li><li>7.9.1.13.1.0-3 Trigger: COM Adapter receives Signal or Group signals from COM</br></li><li>7.9.1.13.1.0-4 Input data: c</br></li><li>7.9.1.13.1.0-5 Description of behaviour:
+COM adapter shall provide End to End protection by monitoring received COM signals and assigning Signal Qualifiers depending on the monitoring status.</br></li><li>7.9.1.13.1.0-6 Timing Requirements:
+(Message cycle time + tolerance) ms</br></li><li>7.9.1.13.1.0-7 Output data:
+When input data is valid COM Adapter transfers COM signals with Qualifier information
+When input data is invalid COM Adapter transfers invalidity value.</br></li><li>7.9.1.13.1.0-8 Postconditions:</br></li><li>7.9.1.13.1.0-9 Descriptions of exceptions:</br></li><li>7.9.1.13.1.0-10 Dependencies and interactions:
+Interaction with LIM C and BMW components</br></li><li>7.9.1.13.2 Differences to CRS</br></li><li>7.9.1.13.2.0-1 xxx</br></li><li>7.9.1.13.3 Questions and Answers</br></li><li>7.9.1.13.3.0-1 xxx</br></li>

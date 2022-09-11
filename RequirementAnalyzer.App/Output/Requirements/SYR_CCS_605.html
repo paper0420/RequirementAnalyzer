@@ -1,0 +1,48 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_605</h1></br><li>1.1.31.19 SYR_CCS_605: Transmission of reduced incentives via CAN FD</br></li><li>1.1.31.19.1 Description</br></li><li>1.1.31.19.1.0-1 Brief description:
+Regarding the resource problems in the CCU, Ethernet shall be dactivated. Transmission of the SAScheduleList data via CAN is necessary. </br></li><li>1.1.31.19.1.0-2 Preconditions: 
+ChargeParameterDiscoveyRes is received from EVSE and EVSEProcessing is Finished</br></li><li>1.1.31.19.1.0-3 Trigger: SW interface BMW_st_CtlTranSAScdList is set to "1: Transmission required" or "4:Transmission renegotiate"
+
+For invalid values transmission,  BMW_st_CtlTranSAScdList is set to 2</br></li><li>1.1.31.19.1.0-4 Input data: SAScheduleList in ChargeParameterDiscoveryRes </br></li><li>1.1.31.19.1.0-5 Description of behaviour:
+SAScheduleTupleList is received in ChargeParameterDiscoverRes from EVSE which contains PMaxschedule and SalesTariff data.
+ 
+refer : https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/Sequence/CCU-29030_SmartCharging.jpg
+
+1. CCU Appl. SW shall set the SW interface  BMW_st_CtlTranSAScdList which means tranmission of PMaxSchedule and SalesTariff related data is required over CANFD to MGU. 
+2. CCU Supplier SW shall extract the PMaxSchedule related data from each ScheduleTuple (supports 12 entries for PMaxScheduleEntry inside one SAScheduleTuple). Max. 3 ScheduleTuple to be present in ScheduleTupleList.
+3. CCU Supplier SW shall extract the SalesTariff related data from only first ScheduleTuple (supports 12 entries for SalesTariffEntry inside one ScheduleTuple).
+4. CCU Supplier SW shall pack and send this data to MGU over CANFD utilizing new CAN PDUs i.e. SmartChargingInformation2 and SmartChargingIncentive.
+5. CCU Supplier SW shall update the transmission status via SW interface BMW_st_ActStTranSAScdList ("1: transmission ongoing" or "2: transmission finished successfully")
+6. Calculation of charging profile and SAScheduleTupleID will be performed at MGU and will send the values back to CCU Appl. SW and then later provided to CCU Supplier SW via SW interfaces. CCU Supplier SW shall prepare the PowerDeliveryReq, with ScheduleTupleID (read from SW interface BMW_nr_ScdListIdCcsISO) and ChargingProfile (read from SW interface BMW_rc_ChaProfCcsISO_rc)
+7. CCU Supplier SW shall immediately switch to fallback solution (default SAScheduleID selection and no charging profile in PowerDeliveryReq) as soon as Appl SW. sets SW interface BMW_rc_ChaProfCcsISO_qi to error (15) and BMW_st_RqrtChaCtlCcsInt to (3: Scc_ChargingControl_StartPowerDelivery). Fallback solution already implemented in scope of SYR_CCS_603. It shall be tested together with SYR_CCS_605.
+
+New changes in Meta.2217 (SP21 G60)
+1. Untill Meta.2209 SW, the PDUs SmartchargingInformation2 and SmartChargingIncentives (w/o Signal Conversion computation) are sent directly from CCU BSW (w/o ComAdapter) to MGU. At MGU, signal computation on certain signal types (defined in NK) is being performed which eventually lead to wrong values calculation/Or wrong data interpretation. 
+
+Therefore in CCU, for 5 different signal-types (as identified from NK) and in total for 252 signals (max.), signal conversion computation should be applied in BSW (starting from Meta.2217 SW) before sending incentives data to MGU over CAN FD. With this change, the computed values at MGU should be correct.
+
+Signal conversion formula is defined below:
+ConsumptionCostxx_x_CostAmountMultiplierx : (DEC) + 3
+ConsumptionCostStartValuexx_x : (DEC) + 32766
+ConsumptionCostStartValueMultiplierxx_x :  (DEC) + 3
+PmaxMultiplierIntervalxxx : (DEC) + 3
+PmaxValueIntervalxxx : (DEC) + 32766
+
+*DEC = Value (in decimal) fetched from ChargeParameterDiscovery Res for related PDU signal.
+
+
+2. Because of the actual board-net topology in Gen5 architecture, the gateway (BCP) transmitts the PDU SmartchargingInformation2 4AAh and SmartchargingIncentive 4ABh via Ethernet to MGU. In this case, the last value (i.e. incentives recieved from CCU over CANFD at BCP) is always active on ethernet bus. 
+In the use-case of Charging Profile Re-negotiation, as stated by customer, last value (active) on ethernet bus can cause problem in charge profile calculation at MGU.
+To avoid this problem during re-negotiation, CCU should sent both PDUs with invalid values "All F"  when BMW-Appl SW sets BMW_st_CtlTranSAScdList=2. CCU Supplier SW shall update the transmission status via SW interface BMW_st_ActStTranSAScdList ("1: transmission ongoing" or "2: transmission finished successfully").
+
+This change is to be applied in BSW from Meta.2217 onwards.
+
+Note: when incentives (PMax & SalesTariff) are sent from CCU to BCP over CAN FD. MGU is expected to take around ~8-10 seconds to process the information and to calculate the charging profile. Then, this information is available to BMW-Appl. SW from MGU.
+Expectation is BMW-Appl shall only set the interface BMW_st_CtlTranSAScdList = 2 in correct system state otherwise it would impact the charging profile calculation (example, set the interface after ~10-12 seconds from the last value/data trigger).
+</br></li><li>1.1.31.19.1.0-6 Timing Requirements: After receiving the ChargeParameterDiscoveryRes with parameter ‘EVSEProcessing' set to 'Finished’, the EVCC shall send a PowerDeliveryReq while V2G_EVCC_Sequence_Timer is smaller than V2G_EVCC_Sequence_Performance_Time (40 seconds).</br></li><li>1.1.31.19.1.0-7 Output data: 
+BMW_st_ActStTranSAScdList shall be set to "1" if transmission triggered from BSW and then to "2" if transmission finished. 
+Also, Smart Charging PDUs shall be present on CAN FD bus.  </br></li><li>1.1.31.19.1.0-8 Postconditions: 
+Based on MGU calculation done for ChargingProfile and ScheduleTupleID, PowerDeliveryReq is sent to EVSE.</br></li><li>1.1.31.19.1.0-9 Descriptions of exceptions: 
+Within the V2G charging loop, the EV is not allowed to charge in the basic charging mode. 
+Before the V2G charging loop and after the V2G communication session, the EV is allowed to charge in the basic charging mode in case of nominal control pilot duty cycle.
+In case of AC-charging, an EV should be capable to switch from a HLC-C mode to a basic charging mode, if an error occurs on the high-level communication, even if a HLC-C mode is already launched.</br></li><li>1.1.31.19.1.0-10 Dependencies and interactions:
+vSCC, SCCAdaptor, COM stack (CANFD), RTE, PLC </br></li><li>1.1.31.19.2 Differences to CRS</br></li><li>1.1.31.19.2.0-1 NA</br></li><li>1.1.31.19.3 Questions and Answers</br></li><li>1.1.31.19.3.0-1 NA</br></li>

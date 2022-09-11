@@ -1,0 +1,2008 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>Check ID!</h1></br><li>2.1.36 [SysReq][Charger] Write the freeze frame ID 0x707B, UWB_SUMMENSTROM_ZWISCHNEKREIS with the measured LT4 Current in case of some LT4 current DTCs</br></li><li>2.1.36.1 Description </br></li><li>2.1.36.1.0-1 [Short Description]
+The SYR explains the content of the freeze frame ID 0x707B, UWB_SUMMENSTROM_ZWISCHNEKREIS.
+The freeze frame shall be filled with the LT4 current measurement at the moment, when a failure occurs according:
+SYR_AC602: LT4 current measurement plausibility check for the DTC
+The FF 0x707B is delivered used by "ZEDIS and Autosar methods" with the following DTCs
+Memory
+DTC ID
+DTC summary text
+
+
+Primary
+0x031957
+AC-Charging, component protection: group error
+
+
+Primary
+0xBA000B
+DC-current sensor total current 01: Upper limit is exceeded
+
+
+Primary
+0xBA000C
+DC current sensor total current 01: Lower limit not achieved
+
+
+Primary
+0xBA000D
+DC-current sensor total current 01: Plausibility error 01
+
+
+Secondary
+0x0318F3
+AC-Charging, component protection: total current
+</br></li><li>2.1.36.1.0-2 [Preconditions/Enabling conditions]
+System is enabled to perform "LT4 current measurement".
+That is 'always' or in case of a HW deviation as long as 'HVDC is ready'.
+</br></li><li>2.1.36.1.0-3 [Trigger]
+ 
+Cycle timer every 10ms
+</br></li><li>2.1.36.1.0-4 [Input Data]
+'Input to 'HVDC Voltage Measurement' the following interfaces:
+Resulted measured LT4 current:
+g_slerlt_lt4_current.BMW_i_Cbl4InlChaUnitHvsAct
+according to 'SYR_AC6_part1: Limiting the DC charging current'
+This is refered as LT4_Current
+</br></li><li>2.1.36.1.0-5 [Output Data]
+The freeze frame ID 0x707B, UWB_SUMMENSTROM_ZWISCHNEKREIS contains the absolute value of the measured LT4 current from the master measurement.
+Originally the FF was defined as an UINT16 to copy the M_LT4_IM_ADC into the FF. But ZEDIS ruled to have UCHAR.
+</br></li><li>2.1.36.1.0-6 [Dependencies and Interactions]</br></li><li>2.1.36.1.0-7 [Timing requirements]
+For 0xBA000D: DebTime_Fail_LT4Curr_PlausiErr 20ms (in negotiation to extend to 500ms)
+</br></li><li>2.1.36.1.0-8 [Verification Measure]
+SYQT (System Qualification Test)
+SWQT (Software Qualification Test)
+</br></li><li>2.1.36.1.0-9 [Verification Criteria]
+The correct setting of the Freeze frame *in one* of the above mentioned DTCs in the DTC memory is the verification criteria.
+</br></li><li>2.1.36.1.0-10 [Traceability to Requirement]
+<ReqID>18399;18426</ReqID>
+</br></li><li>2.1.36.1.0-11 [Estimate]</br></li><li>2.1.36.1.0-12 [acceptance criteria]
+Jira-Ticket set to "resolved"
+</br></li><li>2.1.37 [SysReq][Charger] Write the freeze frame 0x708E, UWB_TEMPERATUR_KUEHLMITTEL_CCU_WERT with cooling fluid temperature as measured by CCU.</br></li><li>2.1.37.1 Description</br></li><li>2.1.37.1.0-1 [Short Description]
+The SYR explains the content of the freeze frame ID 0x708E, UWB_TEMPERATUR_KUEHLMITTEL_CCU_WERT.
+This freeze frame shall be filled with the coolant temperature measured by a CCU sensor.
+The FF 0x708E is used for DTCs as defined by ZEDIS and with technics given by the autosar framework.
+The following list is from ZEDIS with filter for columm "UWB" in the folder DTCs:
+Reference: Excel file:
+ 
+SGBD_ - CCU-01 - G08 BEV - I-430 - 191009_ZEDIS_V19
+Memory
+DTC ID
+DTC summary text
+
+
+Primary
+0x030F87
+DC/DC converter, high voltage, current sensor: upper threshold value exceeded
+
+
+Primary
+0x030F89
+DCDC converter, HV current sensor: plausibility check
+
+
+Primary
+0x030F8C
+DCDC converter, LV voltage sensor: upper threshold value exceeded
+
+
+Primary
+0x030F8D
+DCDC converter, LV voltage sensor: lower threshold value deceeded
+
+
+Primary
+0x030F8E
+DCDC converter, LV voltage sensor: plausibility check
+
+
+Primary
+0x030F91
+DC/DC-Wandler, low voltage, current sensor: upper threshold value exceeded
+
+
+Primary
+0x030F93
+DCDC converter, LV current sensor: plausibility check
+
+
+Primary
+0x030F96
+DCDC converter, temperature sensor: upper threshold value exceeded
+
+
+Primary
+0x030F97
+DCDC converter, temperature sensor: lower threshold value deceeded
+
+
+Primary
+0x030F98
+DCDC converter, temperature sensor: plausibility check
+
+
+Primary
+0x030FA6
+DC/DC converter, low voltage, voltage sensor: target voltage not exceeded
+
+
+Primary
+0x030FA8
+DC/DC converter, component protection: Overtemperature
+
+
+Primary
+0x030FAA
+DC/DC converter, high voltage, current sensor, component protection: switch off due to overcurrnet
+
+
+Primary
+0x030FAC
+DC/DC converter, low voltage, current sensor, component protection: switch off due to overcurrent
+
+
+Primary
+0x030FB3
+DC/DC converter: effency implausible
+
+
+Primary
+0x030FB6
+Cooling, DC/DC: overtemperatur
+
+
+Primary
+0x030FB7
+DC/DC converter, component protection: outlet connection reversed
+
+
+Primary
+0x030FB8
+DC/DC converter, component protection: low voltage self diagnose
+
+
+Primary
+0x031958
+Cooling, AC charging: overtemperatur
+
+
+Primary
+0x031967
+AC-Charging, module 1, component protection: overtemperature
+
+
+Primary
+0x031968
+AC-Charging, module 2, component protection: overtemperature
+
+
+Primary
+0x031969
+AC-Charging, module 3, component protection: overtemperature
+
+
+Primary
+0xBA0000
+DCDC converter, component protection: HV overvoltage
+
+
+Primary
+0xBA0001
+DCDC converter, component protection: HV undervoltage
+
+
+Primary
+0xBA0003
+DCDC converter, component protection: LV overvoltage
+
+
+Primary
+0xBA0004
+DCDC converter, component protection: LV undervoltage
+
+
+Primary
+0xBA0006
+Cooling, temperature sensor: upper threshold exceeded
+
+
+Primary
+0xBA0007
+Cooling, temperatur sensor: lower limit not achieved
+
+
+Primary
+0xBA0008
+Cooling, temperature sensor: plausibility error
+
+
+Primary
+0xBA0014
+Crash-Detection: KL30C implausiblle
+
+
+Secondary
+0x030EC6
+HVPM - charging - error DC/DC converter
+
+
+Secondary
+0x030FB4
+DC/DC converter: derating
+
+
+Secondary
+0x030FB9
+DC/DC converter, component protection: DC/DC switch off error KL30
+
+
+Secondary
+0x030FBA
+DC/DC converter, component protection: DC/DC switch off error crash
+
+
+Secondary
+0x03195A
+AC-Charging, component protection: cooling liquid temperature
+
+
+Secondary
+0xBA0002
+DC/DC converter, component protection: HV overcurrent
+
+
+Secondary
+0xBA0005
+DC/DC converter, component protection: LV overcurrent
+
+
+Secondary
+0xBA0037
+DC/DC Wandler, I2C communication error
+</br></li><li>2.1.37.1.0-2 [Preconditions/Enabling conditions]
+Always
+</br></li><li>2.1.37.1.0-3 [Trigger]
+ 
+Cycle timer every 1s
+</br></li><li>2.1.37.1.0-4 [Input Data]
+Input to 'HVDC Voltage Measurement' the following interfaces:
+Resulted measured temperature of the water jacket:
+g_cmnmeasrlt_coolant_temp_todiag
+</br></li><li>2.1.37.1.0-5 [Output Data]
+The freeze frame ID 0x708E, UWB_TEMPERATUR_KUEHLMITTEL_CCU_WERT is delivered with several registered DTCs.
+</br></li><li>2.1.37.1.0-6 [Dependencies and Interactions]</br></li><li>2.1.37.1.0-7 [Timing requirements]</br></li><li>2.1.37.1.0-8 [Verification Measure]
+SYQT (System Qualification Test)
+SWQT (Software Qualification Test)
+</br></li><li>2.1.37.1.0-9 [Verification Criteria]
+The correct setting of the Freeze frame *in one* of the above mentioned DTCs in the DTC memory is the verification criteria.
+</br></li><li>2.1.37.1.0-10 [Traceability to Requirement]
+<ReqID>18399</ReqID>
+</br></li><li>2.1.37.1.0-11 [Estimate]</br></li><li>2.1.37.1.0-12 [acceptance criteria]
+Jira-Ticket set to "resolved"
+</br></li><li>2.1.38 [SysReq] [Charger] Healing of the error / pass registration of Secondary and Primary DTCs after AC-plug off</br></li><li>2.1.38.1 Description</br></li><li>2.1.38.1.0-1 [Short Description]
+In the situation where the error of Secondary continues,
+If an error occurs, Fail registration of the Secondary and Primary DTCs.
+When Plug is OFF, Pass registration of the Secondary and Primary DTCs.
+After that, Plug is ON, Fail registration of the Secondary and Primary DTCs.
+Applicable for:
+Component protection for module 1/2/3 internal and external,
+Component protection module unspecific internal and external,
+Temperature protection,
+Some Sensor DTCs, since i_emphasized text_t should be really only an N to 1 mapping
+</br></li><li>2.1.38.1.0-2 [Timing requirements]
+50 ms
+</br></li><li>2.1.38.1.0-3 [Verification Measure]
+ SYQT (System Qualification Test)
+ MIL / back to back / HIL</br></li><li>2.1.38.1.0-4 [Verification Criteria]
+After plug is attached anew and the error is still present.
+The DTC will be set again.
+The occurence counter of the DTC is incremented.
+</br></li><li>2.1.38.1.0-5 [Traceability to Requirement]
+ <ReqID>26765; 26764<\ReqID>
+</br></li><li>2.1.38.1.0-6 [Estimate]</br></li><li>2.1.38.1.0-7 [acceptance criteria]
+After plug is attached anew and the error is still present.
+The DTC will be set again.
+The occurence counter of the DTC is incremented.
+´For the following primary DTCs and related Secondary DTC checks:
+Primary
+DTC
+Secondary
+
+
+g_sleint_Error_Pack_Permanent.component
+0x031942 0x031947 0x03194E
+g_sleint_Error_Pack_From_PIC.under_volt_pfc  : [increment 1]
+g_sleint_Error_Pack_From_DSP.tz_over_curr_out \
+g_sleint_Error_Pack_From_DSP.over_curr : [increment 5]
+* g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.diff_curr_err_L1L2 \
+g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.diff_curr_err_L2L3 | g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.diff_curr_err_L2L1) : [increment 2]
+* g_sleint_Error_Pack_From_DSP.tz_over_curr_in : [increment 5]
+* g_sleint_Error_Pack_AC_Freq.zcp_err : [increment 1]
+
+
+g_sleint_Error_Pack_Permanent.component_external
+0x031964 0x031965 0x031966
+g_sleint_Error_Pack_From_PIC.over_volt_pfc  : [increment 1]
+g_sleint_Error_Pack_AC_Freq.frequency_err  : [increment 1]
+g_sleint_Error_Pack_AC_Freq.phase_diff_err[0] | g_sleint_Error_Pack_AC_Freq.phase_diff_err[1] | g_sleint_Error_Pack_AC_Freq.phase_diff_err[2]  : [increment 1]
+
+
+g_sleint_Error_Pack_Permanent.over_temp
+0x031967 0x031968 0x031969
+g_sleint_Error_Pack_From_PIC.over_heat_board | Error_Pack_Board_Temp.over_heat_Acside : [increment 3] g_sleint_Error_Pack_Board_Temp.over_heat_Dcside : [increment 3] g_sleint_Error_Pack_DSP_Temp.over_heat :  [increment 3]
+
+
+g_sleint_Error_Pack_Permanent.ac_over_current
+0x0318E2 0x0318E9 0x0318F1
+g_sleint_Error_Pack_AC_Curr.over_curr  | Error_Pack_From_PIC.over_curr_ac : [increment 3]
+
+
+g_sleint_Error_Pack_Permanent.system
+0x031957
+g_sleint_Error_Pack_LT4_Curr.over_curr : [increment 3] (g_sleint_Error_Pack_KL30.under_volt == "Error") or  (g_sleint_Error_Pack_KL30.under_volt_hw == "Error")
+
+
+g_sleint_Error_Pack_Primary.group_1
+0x031946 0x03194D 0x031952
+(g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.lower_range_Lx == "Error") OR
+(g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.upper_range_sub_Lx == "Error") OR
+(g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.lower_range_sub_Lx == "Error") OR
+(g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.plausibility_err_Lx == "Error") OR
+(g_sleint_Error_Pack_AC_Curr_Sensor_Before_Rep.upper_range_Lx == "Error") OR
+(g_sleint_Error_Pack_Board_Temp_Sensor.upper_range_ACside_Lx == "Error") OR
+(g_sleint_Error_Pack_Board_Temp_Sensor.lower_range_ACside_Lx == "Error") OR
+(g_sleint_Error_Pack_Board_Temp_Sensor.upper_range_Dcside_Lx == "Error") OR
+(g_sleint_Error_Pack_Board_Temp_Sensor.lower_range_Dcside_Lx == "Error") OR
+(g_sleint_Error_Pack_Board_Temp_Sensor.plausibility_err_Lx == "Error") OR
+(g_sleint_Error_Pack_DC_Curr_Sensor_Before_Rep.upper_range_Lx == "Error") OR
+(g_sleint_Error_Pack_DC_Curr_Sensor_Before_Rep.upper_range_sub_Lx == "Error") OR
+(g_sleint_Error_Pack_DC_Curr_Sensor_Before_Rep.lower_range_Lx == "Error") OR
+(g_sleint_Error_Pack_DC_Curr_Sensor_Before_Rep.lower_range_sub_Lx == "Error") OR
+(g_sleint_Error_Pack_DC_Curr_Sensor_Before_Rep.plausibility_err_Lx == "Error") OR
+(Error_Pack_AC_Volt_Sensor.lower_range_Lx == "Error") OR
+(Error_Pack_AC_Volt_Sensor.lower_range_sub_Lx == "Error") OR
+(Error_Pack_AC_Volt_Sensor.plausibility_err_Lx == "Error") OR
+(Error_Pack_AC_Volt_Sensor.upper_range_Lx == "Error") OR
+(Error_Pack_AC_Volt_Sensor.upper_range_sub_Lx == "Error") OR
+(Error_Pack_PFC_Volt_Sensor.lower_range_Lx == "Error") OR
+(Error_Pack_PFC_Volt_Sensor.upper_range_Lx == "Error") OR
+(Error_Pack_DC_Volt_Sensor_Before_Rep.lower_range_sub == "Error") OR
+(Error_Pack_DC_Volt_Sensor_Before_Rep.plausibility_err == "Error") OR
+(Error_Pack_DC_Volt_Sensor_Before_Rep.upper_range_Lx == "Error")
+
+
+g_sleint_Error_Pack_Primary.group_2
+0x031959
+    
+(g_sleint_Error_Pack_PassDisChg.pass_dischg_err == "Error") or     (g_sleint_Error_Pack_Abort.crash == "Error") or     (g_sleint_Error_Pack_Abort.kl30b_under_volt == "Error") or     (g_sleint_Error_Pack_PFC_Volt.discharge_err == "Error")
+
+
+g_sleint_Error_Pack_Primary.group_3
+0x031B8B
+Error_Pack_AC_Curr_Sensor_Before_Rep.over_curr_nline == "Error"
+</br></li><li>2.1.48 [SysReq][Charger] Change of pass conditions of DTC’s 0x03192B/0x03192C/0x031938</br></li><li>2.1.48.1 Description</br></li><li>2.1.48.1.0-1 [Short Description]
+The SYR define the change of healing condition for DTC'S
+0x03192B
+0x03192C
+0x031938
+[Preconditions/Enabling conditions]
+ Always
+[Trigger]
+Cycle timer every 1s
+[Input Data]
+Input to 'HVDC Voltage Measurement' the following interfaces:
+Resulted measured HVAC frequency:
+g_slerlt_hvac_frequency_l1_element
+g_slerlt_hvac_frequency_l2_element
+g_slerlt_hvac_frequency_l3_element
+Resulted measured HVAC Voltage:
+g_slerlt_hvac_voltage_l1_element
+g_slerlt_hvac_voltage_l2_element
+g_slerlt_hvac_voltage_l3_element
+Calibration parameter
+SleParam.PANA_Thresh_Present_AC_Volt.Thresh_Present_AC_Volt
+SleParam.PANA_Thresh_Pass_ACFreqErr_max.Thresh_Pass_ACFreqErr_max
+SleParam.PANA_Thresh_Pass_ACFreqErr_min.Thresh_Pass_ACFreqErr_min
+ 
+ 
+ 
+[Output Data]
+The signal g_sleint_Error_Pack_AC_Freq.frequency_err.__0__  (DTC 0x03192B) is cleared (and the corresponding DTC is healed) if the following condition is met :
+AC_Voltage_ave_L1 < Thresh_Present_AC_Volt OR ((AC_Frequency_L1 <= Thresh_Pass_ACFreqErr_max) and (AC_Frequency_L1 >=Thresh_Pass_ACFreqErr_min))
+The signal g_sleint_Error_Pack_AC_Freq.frequency_err.__1__  (DTC 0x03192C) is cleared (and the corresponding DTC is healed) if the following condition is met :
+AC_Voltage_ave_L2 < Thresh_Present_AC_Volt OR ((AC_Frequency_L2 <= Thresh_Pass_ACFreqErr_max) and (AC_Frequency_L2 >=Thresh_Pass_ACFreqErr_min))
+The signal g_sleint_Error_Pack_AC_Freq.frequency_err.__2__  (DTC 0x031938) is cleared (and the corresponding DTC is healed) if the following condition is met :
+AC_Voltage_ave_L3 < Thresh_Present_AC_Volt OR ((AC_Frequency_L3 <= Thresh_Pass_ACFreqErr_max) and (AC_Frequency_L3 >=Thresh_Pass_ACFreqErr_min))
+[Dependencies and Interactions]
+[Timing requirements]
+[Verification Measure]
+ SYQT (System Qualification Test)
+[Verification Criteria]
+ The healing of the above mentioned DTCs in the DTC memory is the verification criteria.
+[Traceability to Requirement]
+<ReqID>18399</ReqID>
+ 
+[Estimate]
+[acceptance criteria]
+Jira-Ticket set to "resolved"
+</br></li><li>2.1.49 SysReq. - [Charger] PFC voltage plausibility DTCs 0x031832, 0x031876 and 0x0318FB are the same as FuSa needs for the PFC discharge error</br></li><li>2.1.49.1 Description</br></li><li>2.1.49.1.0-1 [Short Description]
+The fail criterium for the PFC voltage plausibility DTCs 0x031832, 0x031876 and 0x0318FB are the same as FuSa needs for the PFC caps discharge between PFC and LLC..
+We need no additional DTC as the customer explained. The DTC for the plausi check should be fine.
+Active behavior: - later
+From C2 sample discharge of PFC Caps via H-Bridge is possible; from High (200V-490V) down to low (16V) within 7.88sec.
+The discharge request shall be retries 3 times for each 15s, before a DTC is set.
+Passive behavior for Meta.1911
+When the AC plug is removed and there is not AC voltage measured any more
+Time until check is possible: 1h
+(see attachment PFC_passive_Discharge_Voltages.png: 59min are measureable with C2 HW and SW 1849.7)
+[Preconditions]
+After end of charging, also during driving.
+AC unplugged and no AC-voltage above threshold (60V) measureable.
+[Trigger]
+g_sleinput_pfc_output_voltage_lx > 17V (one calibratable threshold. The deactivation shall be possible by setting this threshold out of range)
+(x = 1,2,3)
+ 
+AND
+1 calibratable timer to adjust the value for active discharge.
+ 
+[Input Data]
+g_sleinput_pfc_output_voltage_l1
+g_sleinput_pfc_output_voltage_l2
+g_sleinput_pfc_output_voltage_l3
+Visible:
+g_slerlt_pfc_volt_l1_todiag
+g_slerlt_pfc_volt_l2_todiag
+g_slerlt_pfc_volt_l3_todiag
+[Refinement]
+The AC HV charger eletronic shall not have any DC or AC Voltage > 17V while driving. Therefore, after end of Charging, all voltages even if they cannot be touched must be discharged below 17V within 15s. This shall be also observed during driving.
+[Enterprise Architect Functional Model]
+[Timing requirements]
+Enable criterium: 10s after discharge via H-bridge is started.
+[post conditions]
+[Output Data]
+0x031832 AC-Laden - Modul 1 - PFC-Spannungssensor - Plausibilitätsfehler
+0x031876 AC-Laden - Modul 2 - PFC-Spannungssensor - Plausibilitätsfehler
+0x0318FB AC-Laden - Modul 3 - PFC-Spannungssensor - Plausibilitätsfehler
+[Description of exceptions]
+The check with timings based on passive discharge is not planned.
+[Dependencies and Interactions]
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+[Traceability to Requirement]
+<ReqID>26537<\ReqID>
+FuSi: 0056_Discharge_Internal_voltage
+BM003CCR075
+CCUGEN5IP-452
+(see attachment)
+[Estimate]
+[acceptance criteria]
+modelling
+Jira-Ticket set to "resolved"
+</br></li><li>2.1.50 SysReq. - [Charger] Enabling condition for the efficiency checks and output value</br></li><li>2.1.50.1 Description</br></li><li>2.1.50.1.0-1 [Short Description]
+The DTC checks for the AC-charger efficiency DTC shall be enabled, when
+the input power is higher than calibratable threshold per module,
+the output power is higher than calibratable threshold per module,
+the threshold at which the efficiency application shall deliver efficiency values is when the HW is able to work normally with 70% efficiency.
+[Example estimation for the minimum power]
+Efficiency of Charge and LVDCDC.XLSX
+See at Line 112: Input side: HVAC = 230V, Output side: HVDC = 470,2V, I_out = 1,59A ; measured efficiency = 73,69,%;
+P_OUT = ca. 700W to 750W
+[Preconditions]
+the input power is higher than calibratable threshold per module (750W)
+g_slerlt_hvac_input_power_l1,2,3_element > Minimum_Operating_Power
+OR
+the output power is higher than calibratable threshold per module (750W)
+g_slerlt_hvdc_output_power_l1,2,3_element > Minimum_Operating_Power]
+[Trigger]
+g_slerlt_real_efficiency_out_l1,2,3 > Thresh_Fail_SLE_HighEfficiency_Err
+OR
+g_slerlt_real_efficiency_out_l1,2,3 < Thresh_Fail_SLE_LowEfficiency_Err
+[Input Data]
+[Refinement]
+[Enterprise Architect Functional Model]
+[Timing requirements]
+[post conditions]
+[Output Data]
+0x03181E AC-Laden, Modul 1: Wirkungsgrad Signal unplausibel
+0x0318B5 AC-Laden, Modul 2: Wirkungsgrad Signal unplausibel
+0x0318DA AC-Laden, Modul 3: Wirkungsgrad unplausibel
+--------
+Error reaction: NONE
+[Description of exceptions]
+[Dependencies and Interactions]
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+[Traceability to Requirement]
+<ReqID><\ReqID>
+[Estimate]
+[acceptance criteria]
+ modelling
+ Jira-Ticket set to "resolved"
+</br></li><li>2.1.51 SysReq. - [Charger][DCDC] Temperature plausibilty WJ and S5 in DTC 0xBA0008</br></li><li>2.1.51.1 Description</br></li><li>2.1.51.1.0-1 [Short Description]
+DTC 0x2241C5. is deleted by BMW. The plausibility is added to CCU coolant DTC 0xBA0008
+0x2241C5 I-310 Factory and service Temperatursensor am Kühleraustritt: Signal unplausibel
+[Preconditions]
+[Trigger]
+abs(WJ_Temperature – S5_Temperature) > Thresh_Pass_S5_Coolant_Plausibility
+Thresh_Pass_S5_Coolant_Plausibility = 10 [°C]
+[Input Data]
+measured temperature from WJ and S5 sensor.
+[Refinement]
+If ((Error_Pack_Coolant_Temp_Sensor_before_rep.plausibility_err == error) or
+(Error_Pack_S5Temp.plausibility_coolant == error))
+{     set DTC 0xBA0008;
+}
+[Enterprise Architect Functional Model]
+[Timing requirements] [Timing requirements]
+DebTime_Fail_S5_Coolant_Plausibility = 3000 [ms]
+DebTime_Pass_S5_Coolant_Plausibility = 3000 [ms]
+[post conditions]
+[Output Data]
+[Description of exceptions]
+The gradient of S5_Temperature is checked.  (Error_Pack_S5Temp.plausibility : 0x2241C4)
+[Dependencies and Interactions]
+Error_Pack_Coolant_Temp_Sensor_before_rep.plausibility_err :
+( (WJ_Temperature > Threshold_WJ_OverTemperature_byHW) && (WJ_OverTemp_byHW = FALSE) )
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+[Traceability to Requirement]
+<ReqID><\ReqID>
+[Estimate]
+[acceptance criteria]
+ modelling
+ Jira-Ticket set to "resolved"
+</br></li><li>2.1.52 [SysReq][Charger] Emergency Stop AC charging with Type 1 non-lockable cable (part1)</br></li><li>2.1.52.1 Description</br></li><li>2.1.52.1.0-1 [Short Description]
+ 
+In case of Type 1 non-lockable cables that feature the release latch, the charging shall be stop or prevented if the  button is pressed
+[Preconditions]
+ 
+g_sleinput_bmw_b_faschaendreqd (BMW_b_FasChaEndReqd) = FALSE AND
+((  g_sleoutput_current_operating_state_lx_element != Standby )
+ 
+OR
+(g_sleinput_target_operating_state_lx_element != Standby AND
+g_sleoutput_current_operating_state_lx_element = Standby  ))
+[Trigger]
+ 
+ 
+g_sleinput_bmw_b_faschaendreqd (BMW_b_FasChaEndReqd) change to TRUE
+ 
+[Input Data]
+ 
+g_sleinput_bmw_b_faschaendreqd (BMW_b_FasChaEndReqd)
+
+
+g_sleinput_target_operating_state_l1_element
+
+
+g_sleinput_target_operating_state_l2_element
+
+
+g_sleinput_target_operating_state_l3_element
+
+
+g_sleoutput_current_operating_state_l1_element
+
+
+g_sleoutput_current_operating_state_l2_element
+
+
+g_sleoutput_current_operating_state_l3_element
+
+  
+[Enterprise Architect Functional Model]
+n/a
+[Timing requirements]
+ 
+60 ms
+[post conditions]
+  
+The CCU shall stop the charging
+  The CCU shall go to Standby mode (g_sleoutput_current_operating_state_lx_element = Standby)
+ 
+ 
+[Output Data]
+g_sleoutput_current_operating_state_l1_element = Standby
+
+
+g_sleoutput_current_operating_state_l2_element = Standby
+
+
+g_sleoutput_current_operating_state_l3_element = Standby
+[Dependencies and Interactions]
+ 
+n/a
+[Verification Measure]
+ 
+ENG10
+[Verification Criteria]
+ 
+AC current is  0 A ± 100 mA
+
+[Traceability to Requirement]
+<ReqID>18446</ReqID>
+
+*[Estimate]
+[acceptance criteria]
+
+Attachments
+</br></li><li>2.1.53 SysReq. - [Charger] Enabling conditions ZCP DTC failures</br></li><li>2.1.53.1 Description</br></li><li>2.1.53.1.0-1 [Short Description]
+The SW monitors the detection of the Zero Cross Point for each phase.
+The diagnosis shall set the DTC (see below) when ZCP was detected without AC or ZCP wasn't detected with AC.
+The DTC shall be added to the collective error: 0x031957 AC-Laden, Bauteilschutz: Sammelfehler
+[Preconditions]
+Enabling Condition: AC Voltage must be above the Thresh_Rel_Undervoltage_AC (72,5V).
+Clearing condition: AC Voltage must be above again the threshold, error shall be cleared.
+[Trigger]
+CCU recognizes ZCP detection error, if zero-cross points are detected before starting AC charging.  SM-AC704-12 is not possible.
+CCU recognizes ZCP detection error, when ZCP is not detected even when the AC voltage exceeds the predetermined value during AC charging. SM-AC704-13
+[Input Data]
+[Refinement]
+[Enterprise Architect Functional Model]
+[Timing requirements]
+Time
+PANA
+BMW CRETA
+
+
+DebTime_Fail_ZCP
+300 [ms]
+1000 [ms]
+
+
+DebTime_Pass_ZCP
+100[ms]
+100[ms]
+[post conditions]
+[Output Data]
+0x031976 - AC-Laden, Modul 1: Nullpunktdurchgangsfehler OR
+0x031975 - AC-Laden, Modul 2: Nullpunktdurchgangsfehler OR
+0x031974 - AC-Laden, Modul 3: Nullpunktdurchgangsfehler
+[Description of exceptions]
+[Dependencies and Interactions]
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+[Traceability to Requirement]
+<ReqID>23683<\ReqID>
+FuSa Safety concept: SZ-AC7-1: SM-AC704-12, SM-AC704-13, SM-AC704-13)
+SM-AC704-12
+CCU recognizes ZCP detection error, if zero-cross points are detected before starting AC charging-
+SM-AC704-13
+CCU recognizes ZCP detection error, when ZCP is not detected even when the AC voltage exceeds the predetermined value during AC charging.
+SM-AC704-15
+CCU records ZCP detection error to DTC.
+[Estimate]
+[acceptance criteria]
+ modelling
+ Jira-Ticket set to "resolved"
+</br></li><li>2.1.54 SysReq. - [Charger] Collective DTCs for Info DTCs</br></li><li>2.1.54.1 Description</br></li><li>2.1.54.1.0-1 SysReq. - [Charger] Collective DTCs for Info DTCs
+[Short Description]
+A lot of DTC are classified as secondary DTCs to reduce efforts for documentation and having more robustness in operation of the CCU. On the other side the secondary DTCs may also trigger an action at the service when the happen often or inform the driver.
+[Preconditions]
+Operating state
+current_operating_state_l1 = charging (2), Derating (3), Charging interruption (4) OR
+current_operating_state_l2 = charging (2), Derating (3), Charging interruption (4) OR
+current_operating_state_l3 = charging (2), Derating (3), Charging interruption (4)
+ 
+[Trigger]
+Collective Sensor failure for each module (e.g. 0x031946)
+Other secondary DTC shall be collected in one primary DTC, which is triggering a CCM (check control message) in the driver display.
+Collective component protection for one module
+Collective external reasons failure 0x031B8B
+Collective common reason failure 0x031957
+Other primary DTC have no collective error, but a counter to switch off charge module after retries, e.g. 0x0318E2
+(from the PPTX presentation.)
+[Input Data]
+see Excel or n/a
+[Refinement]
+See PPTX
+See Excel sheet
+[Enterprise Architect Functional Model]
+n/a
+[Timing requirements]
+see Excel sheet
+[post conditions]
+See Excel sheet
+[Output Data]
+See Excel Sheeet
+[Description of exceptions]
+n/a
+[Dependencies and Interactions]
+n/a
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+n/a
+[Traceability to Requirement]
+CR 500
+[Estimate]
+[acceptance criteria]
+ modelling
+ Jira-Ticket set to "resolved"
+</br></li><li>2.1.55 [SysReq][Charger] Emergency Stop AC charging with Type 1 non-lockable cable (part2)</br></li><li>2.1.55.1 Description</br></li><li>2.1.55.1.0-1 [Short Description]
+ 
+In case of Type 1 non-lockable cables that feature the release latch, the charging shall be stop or prevented if the  button is pressed
+[Preconditions]
+ 
+g_sleinput_bmw_b_faschaendreqd (BMW_b_FasChaEndReqd) = True AND
+(  g_sleoutput_current_operating_state_lx_element = Standby )
+ 
+ 
+[Trigger]
+  
+g_sleinput_target_operating_state_lx_element =  Charging initialization
+ 
+[Input Data]
+ 
+g_sleinput_bmw_b_faschaendreqd (BMW_b_FasChaEndReqd)
+
+
+g_sleinput_target_operating_state_l1_element
+
+
+g_sleinput_target_operating_state_l2_element
+
+
+g_sleinput_target_operating_state_l3_element
+
+
+g_sleoutput_current_operating_state_l1_element
+
+
+g_sleoutput_current_operating_state_l2_element
+
+
+g_sleoutput_current_operating_state_l3_element
+
+  
+[Enterprise Architect Functional Model]
+n/a
+[Timing requirements]
+ 
+n/a
+[post conditions]
+  
+The CCU shall stay in Standby mode (g_sleoutput_current_operating_state_lx_element = Standby)
+ 
+*[Output Data]*
+g_sleoutput_current_operating_state_l1_element = Standby
+
+
+g_sleoutput_current_operating_state_l2_element = Standby
+
+
+g_sleoutput_current_operating_state_l3_element = Standby
+[Dependencies and Interactions]
+ 
+n/a
+[Verification Measure]
+ 
+ENG10
+[Verification Criteria]
+ 
+AC current is  0 A ± 100 mA
+
+[Traceability to Requirement]
+<ReqID>18446</ReqID>
+
+*[Estimate]
+[acceptance criteria]
+
+Attachments
+</br></li><li>2.1.56 SysReq. - [Charger]  Phase difference DTC</br></li><li>2.1.56.1 Description</br></li><li>2.1.56.1.0-1 [Short Description]
+A phase difference is the time difference in the zero cross points between L1, L2, L3.
+So called ZCP HW detects the occurrence of a zero crossing point of AC voltage for each line separately.
+By waiting for the occurrence of ZCP the phase difference can be estimated between (L1 and L2) and (L1 and L3).
+11 KW charging, Number of phases
+phase difference
+
+
+1 phase
+0 degree
+
+
+3 phase
+120 degree
+Deviations of more than 180 degree cannot be measured. This is agreed by customer, since then 3 phase are not symmetrical any more. This is not a grid behavior.
+A phase difference is not a phase error.
+BMW KLH knows the phrase "phase error": This is a different issue. It means that an AC phase is not there. E.g. it is removed externally.
+[Preconditions]
+1. Operating state
+current_operating_state_l1 = charging (2), Derating (3), Charging interruption (4) OR
+current_operating_state_l2 = charging (2), Derating (3), Charging interruption (4) OR
+current_operating_state_l3 = charging (2), Derating (3), Charging interruption (4)
+ 
+2. Restart of the measurement AC voltages above Thresh_Undervoltage_AC (72,5V).
+3. Restart of the measurement after Switch matrix change.
+4. A detected phase shift by 180 degree shall restart the measurement.
+[Trigger]
+SW detects phase shift error by own algorithm.
+[DIAG TRIGGER for ZEDIS]
+FAIL criterion ZEDIS:
+Phase difference angl e between L1 and L2 != 120 degree OR Phase difference angle L1 and L3 != 120 degree
+Pass criterion ZEDIS:
+Phase difference angle between L1 and L2 == 120 degree AND Phase difference angle L1 and L3 == 120 degree
+[Input Data]
+[Refinement]
+In case of detecting a phase difference for DebTime_Fail_ZCP
+Part 2: Charge with 1 SLE, 3 phases are requested:
+Charge with the remaining module, until the diagnosis does not see phase difference error any more.
+[Enterprise Architect Functional Model]
+[Timing requirements]
+Calibration Label
+PANA value 1921 SW
+BMW CRETA
+
+
+DebTime_Fail_ZCP
+300
+1000
+
+
+DebTime_Pass_ZCP
+100
+SAME
+
+
+Thresh_Fail_AcVolt_ZCP_ON
+250
+SAME
+
+
+Thresh_Pass_AcVolt_ZCP_ON
+250
+SAME
+
+
+Thresh_Fail_AcVolt_ZCP_OFF
+0
+SAME
+
+
+Thresh_Pass_AcVolt_ZCP_OFF
+0
+SAME
+
+
+Threshold_ACFreq_PhaseDiffErr_margin
+25%
+SAME
+
+
+DebTime_Fail_ACFreq_PhaseDiffErr
+7500
+10000 --> 7500 (FUSA)
+
+
+DebTime_Pass_ACFreq_PhaseDiffErr
+1000
+SAME
+[post conditions]
+When the DTC is set, the charging shall be still possible with the SLE L1.
+[Output Data]
+... error_cause_l1_element =
+... error_cause_l2_element =
+... error_cause_l3_element =
+bit 11 : Other reasons
+bit 12 : N-Line overcurrent
+bit 13 : Difference of AC-current larger
+Error detection
+reaction{color:#14892c} (until 1913{color})
+reaction (After correction) from 1921
+
+
+L1
+L2
+L3
+L1
+L2
+L3
+
+
+N-Line over current
+goto Error (bit 12)
+goto Error (bit 12)
+goto Error (bit 12)
+Keep charging
+goto Error (bit 12)
+goto Error (bit 12)
+
+
+Phase diff error between L1 and L2
+goto Error (bit 11)
+goto Error (bit 11)
+goto Error (bit 11)
+Keep charging
+goto Error (bit 12)
+goto Error (bit 12)
+
+
+Phase diff error between L2 and L3
+goto Error (bit 11)
+goto Error (bit 11)
+goto Error (bit 11)
+Keep charging
+goto Error (bit 12)
+goto Error (bit 12)
+
+
+Phase diff error between L3 and L1
+goto Error (bit 11)
+goto Error (bit 11)
+goto Error (bit 11)
+Keep charging
+goto Error (bit 12)
+goto Error (bit 12)
+
+
+AC current diff error between L1 and L2
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+
+
+AC current diff error between L2 and L3
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+
+
+AC current diff error between L3 and L1
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+Keep charging
+goto Error (bit 13)
+goto Error (bit 13)
+
+
+DTC ID
+German DTC text
+English DTC text
+
+
+0x03197E
+AC-Laden, Modul 1, Bauteilschutz: Phasendifferenzfehler
+AC-Charging, module 1, component protection: phase deviation error
+
+
+0x03197B
+AC-Laden, Modul 2, Bauteilschutz: Phasendifferenzfehler
+AC-Charging, module 2, component protection: phase deviation error
+
+
+0x031978
+AC-Laden, Modul 3, Bauteilschutz: Phasendifferenzfehler
+AC-Charging, module 3, component protection: phase deviation error
+[Description of exceptions]
+The phase diff error is maskeable by the calibration data Threshold_ACFreq_PhaseDiffErr_margin = 250 %
+[Degradation]
+Switch from 3ph charging to 1ph charging
+[Dependencies and Interactions]
+[Verification Measure]
+SYQT (System Qualification Test)
+MIL / back to back / HIL |
+[Verification Criteria]
+[Traceability to Requirement]
+<ReqID>23685;24572;26536<\ReqID>
+KLH 23685:
+"On the three AC phases 11KW variant, The current on the neutral line shall be less than 18A.
+FTT: 10000 ms
+Safe state: Disable the AC charging and inform BMW SW"
+KLH 24572 (ASIL B)
+For 1 phase 11 KW variant, the current (overlast 100 ms) of the neutral conductor N must not exceed the limit of 54A.
+FTT: 10s
+Safe state: AC charging-current = 0A +/- 10mA
+Note: The maximum nominal operating current on the
+neutral conductor is 3 x 16 A = 48 A
+KLH 26536:
+"On the three AC phases 7.4kW variant, The current on the neutral line shall be less than 13A.
+FTT: 10000 ms
+Safe state: Disable the AC charging and inform BMW SW"
+[Estimate]
+[acceptance criteria]
+ modelling
+ Jira-Ticket set to "resolved"
+</br></li><li>2.2 Non-functional System Requirements </br></li><li>3.1.56 [SysReq][ThMgmt]:Activation eDH_HVS for G26, G28 from NK25</br></li><li>3.1.56.1 Description</br></li><li>3.1.56.1.0-1 [Short Description]
+With this EPIC-23441 the eDH functionality shall be activated for G26/G28 as the eDH_HVS built-in the these vehicles.
+The functionality of eDH can be activated or deactivated via eDH_APPLICATION_SWITCH
+and the setting of the below DTCs shall be possible:
+0x224142
+0x224143
+0x224149
+0x22414A
+0x22414B
+0x22414D
+0x22414E
+0x22414F
+0x224162
+0x224163
+0x224164
+0x224165
+0x224166
+These DTCs and more info can be found in Zedis in the below path just for reference:
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Diag/Import_to_ZEDIS/ZEDIS24_BEV21_and_G26_from_SW2027/
+</br></li><li>3.1.56.1.0-2 [Preconditions]
+CCU is active and eDH running.
+</br></li><li>3.1.56.1.0-3 [Trigger]
+The eDH can be activated via Application switch(eDH_APPLICATION_SWITCH = 1)
+The eDH can be de-activated via Application switch(eDH_APPLICATION_SWITCH = 0)
+</br></li><li>3.1.56.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+[Enterprise Architect Functional Model]
+NA
+</br></li><li>3.1.56.1.0-5 [Output Data]
+When eDH_APPLICATION_SWITCH = 1, the functionality of eDH shall be activated and the setting of eDH DTCs shall be possible
+</br></li><li>3.1.56.1.0-6 [Dependencies and Interactions]
+ThMgmt SWC and eTMC
+</br></li><li>3.1.56.1.0-7 [Timing requirements]
+NA
+</br></li><li>3.1.56.1.0-8 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.56.1.0-9 [Verification Criteria]
+When eDH_APPLICATION_SWITCH = 1, the functionality of eDH shall be activated and the setting of eDH DTCs shall be possible.
+When eDH_APPLICATION_SWITCH = 0, the functionality of eDH shall be deactivated and the setting of eDH DTCs shall not be possible
+</br></li><li>3.1.56.1.0-10 [Traceability to Requirement]
+ 
+<ReqID>25341</ReqID>
+</br></li><li>3.1.56.1.0-11 [Estimate]
+3 days
+</br></li><li>3.1.56.1.0-12 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.57 [SysReq][ThMgmt]:DV2-LIN Diag-Jobs</br></li><li>3.1.57.1 Description</br></li><li>3.1.57.1.0-1 [Short Description]
+The valve must be controlled by a tester job.
+The implementation of the diagnostic Jobs of the DV2 LIN Valve to write and read the position of the DV2.
+STATUS_ASW_DREIWEGEVENTIL_HOCHVOLTSPEICHER (22 E5 B2)
+will return the actual value of the Control Parameter XX which has been specified by :
+"STEUERN_DREIWEGEVENTIL_HOCHVOLTSPEICHER" 0x2F 03 E5 B2 XX
+STATUS_ASW_DREIWEGEVENTIL_HOCHVOLTSPEICHER (22 E5 B3) will return the current value ''XX''
+Diag-Job
+Returned Parameter
+
+
+STATUS_ASW_DREIWEGEVENTIL_HOCHVOLTSPEICHER "22E5B2"
+it has to return the parameter XX of the Diag-Job "STEUERN_DREIWEGEVENTIL_HOCHVOLTSPEICHER" 0x2F 03 E5 B2 XX
+
+
+STATUS_ASG_DREIWEGEVENTIL_HOCHVOLTSPEICHER "22E5B3"
+it has to return the current value XX (mapped according to table below) of the the LIN-Signal ControlPositionDV2LIN
+Mapping of XX with the LIN-Signal ControlPositionDV2LIN:
+Input Parameter Testerjob 0x2F 03 E5 B2 XX
+ControlPositionDV2LIN value
+
+
+0
+0
+
+
+25
+1000
+
+
+50
+2000
+
+
+75
+3000
+
+
+100
+4000
+</br></li><li>3.1.57.1.0-2 [Preconditions]
+CCU is active.
+ThMgmtParam.PANA_DV2_PWM_for_request.DV2_PWM_for_request = {0, 4000}
+ThMgmtParam.PANA_Param_DV2_Output_Switch.Param_DV2_Output_Switch = 0(LIN output)
+</br></li><li>3.1.57.1.0-3 [Trigger]
+
+Request below jobs from tester
+(1) Set 0-100 parameter via sending a DiagJobs request "2F E5 B2" (XX from above table)
+(2) Send DiagJobs requests "22 E5 B2" and "22 E5 B3"
+</br></li><li>3.1.57.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+</br></li><li>3.1.57.1.0-5 [Enterprise Architect Functional Model]
+NA
+</br></li><li>3.1.57.1.0-6 [Output Data]
+PRC : The Diagnostic response would be 0x62 E5 B2 XX where XX are respectively the values of the control parameter of the ShortTermAdjustment Diag-Jobs STEUERN_DREIWEGEVENTIL_HOCHVOLTSPEICHER
+NRC: The Negative response would be 0x7F 22 XX
+</br></li><li>3.1.57.1.0-7 [Dependencies and Interactions]
+DiagJP, DiagJPSWC
+</br></li><li>3.1.57.1.0-8 [Timing requirements]
+NA
+</br></li><li>3.1.57.1.0-9 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.57.1.0-10 [Verification Criteria]
+ThMgmtParam.PANA_DV2_PWM_for_request.DV2_PWM_for_request = {0, 4000}
+ThMgmtParam.PANA_Param_DV2_Output_Switch.Param_DV2_Output_Switch = 0(LIN output)
+(1) Set 0-100 parameter via sending a DiagJobs request "2F E5 B2"
+(2) Send DiagJobs requests "22 E5 B2" and "22 E5 B3"
+PRC: In case the above mentioned preconditions are fulfilled and that the Diag-Jobs correctly return the corresponding Control parameter(0 to 100)
+NRC: In case the above mentioned preconditions are NOT fulfilled;(If it is above 100 then NRC is expected)
+</br></li><li>3.1.57.1.0-11 [Traceability to Requirement]
+ReqID>27040;27041;27042;27043;27044;27045;27046
+</br></li><li>3.1.57.1.0-12 [Estimate]
+3 days
+</br></li><li>3.1.57.1.0-13 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.58 [SysReq]Adaption of FanRelay Diagnosis</br></li><li>3.1.58.1 Description</br></li><li>3.1.58.1.0-1 [Short Description]
+Adaption of FanRelay Diagnosis
+</br></li><li>3.1.58.1.0-2 [Preconditions]
+CCU is active.
+</br></li><li>3.1.58.1.0-3 [Trigger]</br></li><li>3.1.58.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+</br></li><li>3.1.58.1.0-5 [Enterprise Architect Functional Model]
+NA
+</br></li><li>3.1.58.1.0-6 [Output Data]</br></li><li>3.1.58.1.0-7 [Dependencies and Interactions]</br></li><li>3.1.58.1.0-8 [Timing requirements]
+NA
+</br></li><li>3.1.58.1.0-9 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.58.1.0-10 [Verification Criteria]</br></li><li>3.1.58.1.0-11 [Traceability to Requirement]
+NA
+</br></li><li>3.1.58.1.0-12 [Estimate]
+3 days
+</br></li><li>3.1.58.1.0-13 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.59 [SysReq][ThMgmt]:DV2 manuelle Re-Kalibrierungs Routine</br></li><li>3.1.59.1 Description</br></li><li>3.1.59.1.0-1 [Short Description]
+The implementation of DV2 manuelle Re-Kalibrierungs Routine job
+DID 0xAA3A DREIWEGEVENTIL_HVS_KALIBRIERUNG
+The argument to start the job should be a digital value (1 -> start the job, 0 -> don’t start the job).
+If the argument set to 1 should, LIN message ControlCalibrationDV2LIN should be 1h
+</br></li><li>3.1.59.1.0-2 [Preconditions]
+CCU is active.
+</br></li><li>3.1.59.1.0-3 [Trigger]
+
+Request below jobs from tester
+Start trigger Diagjob DID 0xAA3A DREIWEGEVENTIL_HVS_KALIBRIERUNG when ControlCalibrationDV2LIN =1
+Stop trigger Diagjob DID 0xAA3A DREIWEGEVENTIL_HVS_KALIBRIERUNG when ControlCalibrationDV2LIN =0
+</br></li><li>3.1.59.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+</br></li><li>3.1.59.1.0-5 [Enterprise Architect Functional Model]
+NA
+</br></li><li>3.1.59.1.0-6 [Output Data]
+DV2 manual functionality shall be started when this Diagjob is triggered
+</br></li><li>3.1.59.1.0-7 [Dependencies and Interactions]
+DiagJP, DiagJPSWC
+</br></li><li>3.1.59.1.0-8 [Timing requirements]
+NA
+</br></li><li>3.1.59.1.0-9 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.59.1.0-10 [Verification Criteria]
+The verification of the DV2 functionality is started when this Diagjob is triggered.
+The return value can be notified only at the moment when the Runnable corresponding to the DID(0xAA3A) is called.
+Since Manual CF processing is asynchronous, Negative / Positive response cannot be notified.
+</br></li><li>3.1.59.1.0-11 [Traceability to Requirement]
+NA
+</br></li><li>3.1.59.1.0-12 [Estimate]
+3 days
+</br></li><li>3.1.59.1.0-13 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.60 [SysReq][ThMgmt]:Implement diagnosis jobs for TKA S5 Sensor</br></li><li>3.1.60.1 Description</br></li><li>3.1.60.1.0-1 [Short Description]
+The implementation of tester jobs for TKA S5 sensor
+1. The Diag job STAT_TEMPERATUR_KUEHLERAUSGANG will return the actual Temperature at Kühlerausgang.
+2. The Diag job STAT_SPANNUNG_TKA_S5 will return the actual Voltage at Kühlerausgang.
+Präfix
+Name
+Suffix
+MUL
+DIV
+ADD
+MIN
+MAX
+
+
+STAT_
+TEMPERATUR_KUEHLERAUSGANG
+_WERT
+Dieser Job gibt die aktuelle Temperatur am Kühlerausgang zurück.
+Analog
+°C (Grad Celsius)
+g_t_coradrout.BMW_t_CoRadrOut
+long (4 Bytes)
+1
+1
+0
+-40
+110
+
+
+STAT_
+SPANNUNG_TKA_S5
+_WERT
+Dieser Job gibt die aktuelle Spannung am Kühlerausgang zurück
+Analog
+mV (Millivolt)
+long (4 Bytes)
+1
+1
+0
+0
+5000
+</br></li><li>3.1.60.1.0-2 [Preconditions]
+CCU is running.
+</br></li><li>3.1.60.1.0-3 [Trigger]
+
+Request below jobs from tester
+STAT_TEMPERATUR_KUEHLERAUSGANG
+STAT_SPANNUNG_TKA_S5
+</br></li><li>3.1.60.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+</br></li><li>3.1.60.1.0-5 [Enterprise Architect Functional Model]
+NA
+</br></li><li>3.1.60.1.0-6 [Output Data]
+Positive response Diag-Jobs correctly return the corresponding actual Temperatur and Voltage
+Negative response
+</br></li><li>3.1.60.1.0-7 [Dependencies and Interactions]
+DiagJP, DiagJPSWC
+</br></li><li>3.1.60.1.0-8 [Timing requirements]
+NA
+</br></li><li>3.1.60.1.0-9 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.60.1.0-10 [Verification Criteria]
+The CCU returns
+positive diagnostic response in case the above mentioned preconditions are fulfilled and that the Diag-Jobs correctly return the corresponding
+actual Temperatur and Voltage
+negative diagnostic response in case the above mentioned preconditions are NOT fulfilled;
+</br></li><li>3.1.60.1.0-11 [Traceability to Requirement]
+NA
+</br></li><li>3.1.60.1.0-12 [Estimate]
+3 days
+</br></li><li>3.1.60.1.0-13 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.61 [SysReq][ThMgmt]:AKKS Default position after error detection must be possible for all DFCs</br></li><li>3.1.61.1 Description</br></li><li>3.1.61.1.0-1 [Short Description]
+Default position after error detection must be possible for all DTCs.
+The possibility to have an applicable Emergency Run for each AKKS Error.
+g_thmgmtint_Error_Pack_AKKS_Internal_Electric.electric_err.0
+g_thmgmtint_Error_Pack_AKKS_Internal_Electric.electric_err.1
+(DTC 0x224050)
+(DTC 0x224054)
+
+
+g_thmgmtint_Error_Pack_AKKS_Internal_Volt.voltage_err.0
+g_thmgmtint_Error_Pack_AKKS_Internal_Volt.voltage_err.1
+(DTC 0x22404E)
+(DTC 0x224052)
+
+
+g_thmgmtint_Error_Pack_AKKS_Internal_Temp.temperature_err.0
+g_thmgmtint_Error_Pack_AKKS_Internal_Temp.temperature_err.1
+ 
+(DTC 0x22404F)
+(DTC 0x224053)
+
+
+g_thmgmtint_Error_Pack_AKKS_FlapPosition.open_position_err.0
+g_thmgmtint_Error_Pack_AKKS_FlapPosition.open_position_err.1
+(DTC 0x224042)
+(DTC 0x224048)
+
+
+g_thmgmtint_Error_Pack_AKKS_FlapPosition.close_position_err.0
+g_thmgmtint_Error_Pack_AKKS_FlapPosition.close_position_err.1
+(DTC 0x224043)
+(DTC 0x224049)
+
+
+g_thmgmtint_Error_Pack_AKKS_Blockade.blockade.0
+g_thmgmtint_Error_Pack_AKKS_Blockade.blockade.1
+(DTC 0x224040)
+(DTC 0x224046)
+
+
+g_thmgmtint_Error_Pack_AKKS_Blockade.frozen_flap.0
+g_thmgmtint_Error_Pack_AKKS_Blockade.frozen_flap.1
+(DTC 0x22404C)
+(DTC 0x224056)
+
+
+g_thmgmtint_Error_Pack_AKKS_PosDeviation.pos_deviation_err.0
+g_thmgmtint_Error_Pack_AKKS_PosDeviation.pos_deviation_err.1
+(DTC 0x224045)
+(DTC 0x22404B)
+
+
+g_thmgmtint_Error_Pack_AKKS_LIN_Rx.timeout_err.0
+g_thmgmtint_Error_Pack_AKKS_LIN_Rx.timeout_err.1
+
+
+g_thmgmtint_Error_Pack_AKKS_KL30Voltage.over_voltage_err
+-
+
+
+g_thmgmtint_Error_Pack_AKKS_KL30Voltage.under_voltage_err
+-
+
+
+g_thmgmtint_Error_Pack_AKKS_Emergency_Run.implausible_err.0
+g_thmgmtint_Error_Pack_AKKS_Emergency_Run.implausible_err.1
+(DTC 0x224051)
+(DTC 0x224055)
+
+
+g_thmgmtint_Error_Pack_AKKS_InternalCom.communication_err.0
+(DTC 0x224058)
+
+
+g_thmgmtint_Error_Pack_AKKS_InternalCom.communication_err.1
+( DTC 0x22405C)
+</br></li><li>3.1.61.1.0-2 [Preconditions]
+CCU is running and the AKKS functionality has correctly started.
+</br></li><li>3.1.61.1.0-3 [Trigger]
+
+DTCs have to be set always when an error pack flag(g_thmgmtint_Error_Pack_AKKS_xxxx)is set to 1 and
+If Error_reaction_Activation_label_xxxx = 1(active) then emergency run shall be executed
+Info : xxxx= Name of the Error from above table
+</br></li><li>3.1.61.1.0-4 [Input Data]
+Refer to the section "[Short Description]
+[Enterprise Architect Functional Model]
+Related Activity Diagram on EA under: ENG.02¿> ThermalManagement ===> FunctionalArchitecture ====> AKKS ===> AKKS_Activity_Diag
+</br></li><li>3.1.61.1.0-5 [Output Data]
+The output data of this functionality is execution of emergency run for are the above mentioned DTCs.
+</br></li><li>3.1.61.1.0-6 [Dependencies and Interactions]
+PANA-Appl
+</br></li><li>3.1.61.1.0-7 [Timing requirements]
+NA
+</br></li><li>3.1.61.1.0-8 [Verification Measure]
+SYQT (System Qualification Test)
+</br></li><li>3.1.61.1.0-9 [Verification Criteria]
+A criteria for each of above DTC shall be
+The DTCs have to be set always when an error pack flag(g_thmgmtint_Error_Pack_AKKS_xxxx)is set to 1 and
+If Error_reaction_Activation_label_xxxx = 1(active) then emergency run shall be executed.
+The emergency run can be seen in the parameter SMOT_PO_AKKS_LIN = 0x7FFF.
+</br></li><li>3.1.61.1.0-10 [Traceability to Requirement]
+<ReqID>25231<\ReqID>
+</br></li><li>3.1.61.1.0-11 [Estimate]
+3 days
+</br></li><li>3.1.61.1.0-12 [acceptance criteria]
+Jira-Ticket set to "resolved
+</br></li><li>3.1.62 [SysReq][eFAN]DTC set in case of failed Shut Off Path Test</br></li><li>3.1.62.1 Description</br></li><li>3.1.62.1.0-1 Short Description] This functionality implements the diagnosis of the latent faults of eFAN-Relay.
+The key mechanism is the Shut-off Path-Test. This test consists in the cross-check of both inputs:
+electrical diagnosis of the eFAN Relay PIN ("eFAN_Relay_Status") via M_EFAN_DRIVE;
+check of the current/voltage of the eFAN sent via LIN (respectively the LIN Messages AVL_I_FAN_1_LIN / AVL_U_FAN_1_LIN);
+The 4 cases of the Shut-off Path-Test are described in detail in CCU-24846
+ 
+When:
+Shut Off Path Test Result == "eFAN OK" ===> BMW_st_ErrFanRly = 0 (no error)
+Shut Off Path Test Result == "eFAN NOK" ===> folllowing error reaction will be executed:
+BMW_st_ErrFanRly = 1 ( error);
+the eFAN-Relay is switched off (g_dcdcrlt_efan_status = 0);
+DTC 0xBA0072 is set
+the Freeze Frame "STATUS_SHUT_OFF_PATH_TEST" (ID 0x719B)  will be set according to the following table
+ 
+ 
+Bit Position Freeze Frame
+Meaning
+Error condition
+TSR
+
+
+0
+Shut Off Path Test initial error;
+when Shut Off Path Test = NOK
+#  at the Wake Up (first Shut Off Path Test executed in the driving cycle)
+# when the Shut Off Path Test Result cannot be read at the Wake-Up (NVMRead() error
+# when the Shut Off Path Test Result stored in NVM is not consistent at the WakeUp, i.e.:
+ShutOffPathTestResult != inv (ShutOffPathTestResult_Inv )
+ 
+TSR-EFAN01-01
+
+
+1
+ 
+Shut Off Path Test error;
+ 
+in case of Shut Off Path Test = NOK at Runtime
+ 
+TSR-EFAN01-03
+
+
+2
+  
+eFAN Disconnect error
+ 
+in case U_LvDCDC <9.0V (calib label Thresh_Fail_eFanOFF_LVDC_under_volt) AND SEV_Status = active AND eFAN is ON (it cannot be disconnected)
+ 
+TSR-EFAN01-20
+
+
+3
+ 
+eFAN switch on error
+  
+after disconnection of eFAN due to U_LvDCDC < 9.0V:
+in case U_LvDCDC > 10.5V (calib label Thresh_Pass_eFanOFF_LVDC_under_volt)
+AND
+SEV_Status = active
+AND
+20s time (DebTime_Pass_eFanOFF_LVDC_under_volt) elapsed
+AND eFAN is OFF (it cannot be switched on)
+SM-EFAN02-01
+</br></li><li>3.1.62.1.0-2  
+[Preconditions] CCU is up and Running ; there is no Communication Error on LIN;
+</br></li><li>3.1.62.1.0-3 [Trigger] Start-up of the CCU</br></li><li>3.1.62.1.0-4 [Input Data]
+  
+eFAN Relay Status: M_EFAN_DRIVE (for more details, please see HW-Control Spec "【Draft】C2.0_C2.1_C2.2_[5-13]_E-FAN relay control translate (20191017-8).xlsx")
+LIN Messages AVL_I_FAN_1_LIN / AVL_U_FAN_1_LIN
+</br></li><li>3.1.62.1.0-5 [Enterprise Architect Functional Model]
+n.a.
+</br></li><li>3.1.62.1.0-6 [Timing requirements] the timing requirement for the switch-off of the eFAN Relay is 500ms (FTT)</br></li><li>3.1.62.1.0-7 [post conditions]   the post conditions are:
+eFAN Switched OFF (in case of Shut Off Path Test Failed);
+eFAN switched ON (in case of Shut Off Path Test successful)
+</br></li><li>3.1.62.1.0-8 [Output Data]
+ 
+1- Shut Off Path Test Result, saved in NVRAM
+2- g_thmgmtrlt_efan_drive_port (drive status of the eFAN Relay PIN; the output voltage of the eFAN Relay PIN can also be checked via analog measurement)
+3- DTC 0xBA0072
+4- Freeze Frame "STATUS_SHUT_OFF_PATH_TEST" (ID 0x719B)
+</br></li><li>3.1.62.1.0-9 *[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+Thermal Mgmt (since it performs the electrical diagnosis of the eFAN)
+LIN IF / LIN / COMadapter (for what is concerns the LIN Communication)
+DiagSWC (for the setting of the DTC)
+DiagJPSWC (for the setting of the DTC)
+DiagSWC (for the setting of the DTC)
+</br></li><li>3.1.62.1.0-10 [Verification Measure] SYQT (System Qualification Test) by using</br></li><li>3.1.62.1.0-11  
+[Verification Criteria]  The  verification of this criteria has to be focused on the check of the conditions 2. and 4. (Shut Off Path Test = NOK)and of the corresponding error reaction mentioned in the above section "Short Description"
+</br></li><li>3.1.62.1.0-12 [Traceability to Requirement]
+<ReqID>28662;28663;28655;28654</ReqID>
+</br></li><li>3.1.62.1.0-13 *[Estimate] 3days</br></li><li>3.1.62.1.0-14  [acceptance criteria]
+ modelling Jira-Ticket set to "resolved"
+Options
+Attachments
+</br></li><li>3.1.63 [SysReq][eFAN] Safe E-Fan activation</br></li><li>3.1.63.1 Description</br></li><li>3.1.63.1.0-1 Short Description] This functionality implements the switch-on the eFAN-Relay (PIN 1 of the 58-Pin Socket) depending on the value of the LvDCDC Output Voltage and on the SEV_Status.
+In case the SEV Status (BMW_st_TarStEgySplSftyCCU ,with 0= inactive, 1=active) is active:
+(1) when U_LvDCDC < 9.0V : eFAN Relay is OFF
+(2) when U_LvDCDC > 9.0V : eFAN Relay is ON  (not in case of reactivation after condition (1) )
+In case the eFAN has been switched-off due the condition (1), the eFAN will be reactivated only in case:
+(3) U_LvDCDC > 10.5V (calibration variable Thresh_Pass_eFanOFF_LVDC_under_volt) for at least 20sec. (calibration variable DebTime_Pass_eFanOFF_LVDC_under_volt) .
+The conditions (1), (2), (3) are schematized in the attached picture "eFAN_activation_based_onDCDC.png".
+In case the SEV Status (BMW_st_TarStEgySplSftyCCU ,with 0= inactive, 1=active) is inactive:
+(4) eFAN Relay Status is ON/OFF accordingly with the BMW Signal BMW_b_FanRlySp ( 0 : deactivated, 1 : activated),
+therefore the switching of the eFAN will not depend on the value of U_LvDCDC.
+</br></li><li>3.1.63.1.0-2 [Preconditions] CCU is up and Running ; at the eFAN Relay PIN there is no electrical failure (ShortToGND, ShortToVcc, Open Circuit)</br></li><li>3.1.63.1.0-3 [Trigger] The failure detection mechanism will be enabled by the SEV Status signal;
+the same mechanism will be triggered by the LvDCDC Output Voltage.
+</br></li><li>3.1.63.1.0-4 [Input Data]
+  
+SEV Status: BMW Signal BMW_st_TarStEgySplSftyCCU
+LvDCDC Output Voltage: g_dcdcrlt_dcdc_lv_voltage_phy_value
+</br></li><li>3.1.63.1.0-5 [Enterprise Architect Functional Model]
+n.a.
+</br></li><li>3.1.63.1.0-6 [Timing requirements] there is no specific timing</br></li><li>3.1.63.1.0-7 [post conditions]   the post condition of the reactivation of the eFAN Relay (see above condition (3) in the description section) is:
+eFAN Relay ON===> g_thmgmtrlt_efan_drive_port = true
+</br></li><li>3.1.63.1.0-8 [Output Data]
+ 
+1- g_thmgmtrlt_efan_drive_port
+2- g_dcdc_efan_status (0 = eFAN OFF, 1 eFAN ON, both based on U_LvDCDC)
+2- The output voltage of the eFAN Relay PIN can also be checked via analog measurement
+Typical voltage values of the eFAN Relay PIN are indicated in the corresponding eFAN HW-Control Spec "C2.0_C2.1_C2.2_[5-13]_E-FAN relay control translate (20191017-8).xlsx"
+ 
+*[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+SEV Ctrl (BMW SEC)
+ILF---> BMW SW Component which is deputed to send the switch command of the eFAN ;
+</br></li><li>3.1.63.1.0-9 [Verification Measure] SYQT (System Qualification Test) by using</br></li><li>3.1.63.1.0-10 [Verification Criteria]  The  verification of this criteria has to be focused on the check of the condition (3) mentioned in the above section "Short Description"</br></li><li>3.1.63.1.0-11 [Traceability to Requirement]
+<ReqID>28652;28660</ReqID> (referenced KLH IDs in Epic)
+</br></li><li>3.1.63.1.0-12 *[Estimate] 3days</br></li><li>3.1.63.1.0-13 [acceptance criteria] modelling Jira-Ticket set to "resolved"*</br></li><li>3.1.64 [SysReq][eFAN] Shut Off Path Test</br></li><li>3.1.64.1 Description</br></li><li>3.1.64.1.0-1 Short Description] This functionality implements the diagnosis of the latent faults of eFAN-Relay.
+The key mechanism is the Shut-off Path-Test. This test consists in the cross-check of both inputs:
+electrical diagnosis of the eFAN Relay PIN ("eFAN_Relay_Status") via M_EFAN_DRIVE;
+check of the current/voltage of the eFAN sent via LIN (respectively the LIN Messages AVL_I_FAN_1_LIN / AVL_U_FAN_1_LIN);
+The 4 cases of the Shut-off Path-Test can be described as  it follows:
+ 
+if [("eFAN_Relay_Status" == "OFF") AND
+[("AVL_I_FAN_1_LIN" < *{color:#00875a}calibratable_eFAN_Current_Threshold{color}*) AND ("AVL_U_FAN_1_LIN" < {color:#00875a}*calibratable_eFAN_Voltage_Threshold*{color})] , then Shut Off Path Test Result = "eFAN OK"
+if ("eFAN_Relay_Status" == "OFF") AND
+[("AVL_I_FAN_1_LIN" > {color:#00875a}*calibratable_eFAN_Current_Threshold*{color} ) OR ("AVL_U_FAN_1_LIN" >  {color:#00875a}*calibratable_eFAN_Voltage_Threshold*{color})] , then Shut Off Path Test Result = "eFAN NOK"
+if [("eFAN_Relay_Status" == "ON") AND
+[("AVL_I_FAN_1_LIN" > {color:#00875a}*calibratable_eFAN_Current_Threshold*{color}) AND ("AVL_U_FAN_1_LIN" >  {color:#00875a}*calibratable_eFAN_Voltage_Threshold*{color}))] , then Shut Off Path Test Result = "eFAN OK"
+if ("eFAN_Relay_Status" == "ON") AND
+[("AVL_I_FAN_1_LIN" < {color:#00875a}*calibratable_eFAN_Current_Threshold*{color}) OR ("AVL_U_FAN_1_LIN" < {color:#00875a}*calibratable_eFAN_Voltage_Threshold*{color})] , then Shut Off Path Test Result = "eFAN NOK"
+ 
+Initial values:
+calibratable_eFAN_Current_Threshold = 0 (0A)
+calibratable_eFAN_Voltage_Threshold = 5 (5V)
+ 
+When:
+Shut Off Path Test Result == "eFAN OK" ===> BMW_st_ErrFanRly = 0 (no error)
+Shut Off Path Test Result == "eFAN NOK" ===> BMW_st_ErrFanRly = 1 ( error) AND eFAN-Relay has to be switched off
+IMPORTANT : The Shut Off Path in G026/I20.2025-SW has been implemented accordingly with the SysReq. CCU-23599.
+The current SysReq. is valid from the 2033-Meta-SW onwards.
+</br></li><li>3.1.64.1.0-2 [Preconditions] CCU is up and Running ; there is no Communication Error on LIN;</br></li><li>3.1.64.1.0-3 [Trigger] Start-up of the CCU</br></li><li>3.1.64.1.0-4 [Input Data]
+  
+eFAN Relay Status: M_EFAN_DRIVE (for more details, please see HW-Control Spec "【Draft】C2.0_C2.1_C2.2_[5-13]_E-FAN relay control translate (20191017-8).xlsx")
+LIN Messages AVL_I_FAN_1_LIN / AVL_U_FAN_1_LIN
+</br></li><li>3.1.64.1.0-5 [Enterprise Architect Functional Model]
+n.a.
+</br></li><li>3.1.64.1.0-6 [Timing requirements] the timing requirement for the switch-off of the eFAN Relay is 500ms (FTT)</br></li><li>3.1.64.1.0-7 [post conditions]   the post conditions are:
+ 
+1- TARVL_V_FAN_1_LIN = 0 (when SEV-Status = active AND U_LvDCDC y < 9.5V);
+2- TARVL_V_FAN_1_LIN = BMW_rc_SpFan_rc.BMW_n_SpFan; (when SEV-Status = active AND U_LvDCDC y > 9.5V);
+</br></li><li>3.1.64.1.0-8 [Output Data]
+ 
+1- Shut Off Path Test Result, saved in NVRAM
+2- g_thmgmtrlt_efan_drive_port (drive status of the eFAN Relay PIN; the output voltage of the eFAN Relay PIN can also be checked via analog measurement)
+ 
+*[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+Thermal Mgmt (since it performs the electrical diagnosis of the eFAN)
+LIN IF / LIN / COMadapter (for what is concerns the LIN Communication)
+</br></li><li>3.1.64.1.0-9 [Verification Measure] SYQT (System Qualification Test) by using</br></li><li>3.1.64.1.0-10 [Verification Criteria]  The  verification of this criteria has to be focused on the check of the condition 1., 2., 3., 4. mentioned in the above section "Short Description"</br></li><li>3.1.64.1.0-11 [Traceability to Requirement]
+<ReqID>28662;28663</ReqID>
+</br></li><li>3.1.64.1.0-12 *[Estimate] 3days</br></li><li>3.1.64.1.0-13  [acceptance criteria] modelling Jira-Ticket set to "resolved"*
+Options
+Attachments
+</br></li><li>3.1.99 [SysReq][ThMgmt]:DV2-Diagnostic Job DREIWEGEVENTIL_DV2_HOCHVOLTSPEICHER </br></li><li>3.1.99.1 Description</br></li><li>3.1.99.1.0-1 [Short Description]
+The valve must be controlled by a tester job.
+During SOP or Service we need this Job to get the status of DV2.
+A diagnostic job 0xAB7E DREIWEGEVENTIL_DV2_HOCHVOLTSPEICHER has to be implemented which allows reading following valve information: Status und self diagnostic of the valve sent with message StatusThreeWayValve2LIN.
+The below 5 signal information is needed from the message StatusThreeWayValve2LIN to this Diagjob
+1.DataDiagnosis1DV2LIN (Overall diagnosis status of the three way valve)
+2.DataDiagnosis2DV2LIN (Diagnosis status 2 (detail failures) of the three way valve)
+3.CommunicationErrorDV2LIN (Communication error on LIN bus)
+4.StatusPositionDV2LIN (Actual position of the expansion valve)
+5.StatusCalibrationRunDV2LIN (Calibration run status of the three way valve)
+[Preconditions]
+CCU is active and DV2 running
+[Trigger]
+
+Request below jobs from tester 0xAB7E -*DREIWEGEVENTIL_DV2_HOCHVOLTSPEICHER*
+[Input Data]
+Refer to the section "[Short Description]
+[Enterprise Architect Functional Model]
+NA
+*{color:#de350b}[Output Data]{color}
+PRC : The Diagnostic response  shall be positive and the result of Job and LIN value should be equal. For example, if status of position is 77%, the status position on LIN StatusPositionDV2LIN_H_LIN_4 shows 77% and the job STAT_DV2_STATUS_POSITION shows 77%.
+NRC: The Negative response would be 0x7F 22 XX*
+*{color:#de350b}[Dependencies and Interactions]{color}
+DiagJP, DiagJPSWC, JPNSWC
+[Timing requirements]
+NA
+[Verification Measure]
+SWQT (Software Qualification Test)
+[Verification Creteria]
+When the diagnostic job 0xAB7E DREIWEGEVENTIL_DV2_HOCHVOLTSPEICHER is run then the response shall be positive and the result of Job and LIN value should be equal Ex: The status position on LIN StatusPositionDV2LIN_H_LIN_4 shows 77% and the job STAT_DV2_STATUS_POSITION shows 77%)
+Similarly below also be checked correctly.
+◾Status of diagnosis "software CRC (NVM and/or ROM)" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "IC hardware" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Watchdog" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Internal temperature outside limits" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Internal voltage outside limits" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Functional check" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Position sensor" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Motor hardware" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Motor driver" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Motor blocking" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Critical internal temperature - warning" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Under,overvoltage" -> DataDiagnosis2DV2LIN
+◾Status of diagnosis "Communication" > DataDiagnosis2DV2LIN
+◾Status of diagnosis "Valve position" -> DataDiagnosis1DV2LIN
+◾Status of diagnosis "Communication error" -> CommunicationErrorDV2LIN
+◾Status position DV2 -> StatusPositionDV2LIN
+◾Status calibration run -> StatusCalibrationRunDV2LIN
+PRC: In case the above mentioned preconditions are fulfilled and that the Diag-Jobs correctly return the corresponding information
+NRC: In case the above mentioned preconditions are NOT fulfilled
+[Traceability to Requirement]
+<ReqID>27046</ReqID>
+[Estimate]
+3 days
+{color:#de350b}
+[acceptance criteria]{color}
+Jira-Ticket set to "resolved
+</br></li><li>3.1.100 [SysReq][ThMgmt][AKKS] : Closing Supression</br></li><li>3.1.100.1 Description</br></li><li>3.1.100.1.0-1 [Short Description]
+ 
+It must implement a functionality, which suppresses the closing of all active AKKS depending on the vehicle speed (Closing Suppression)
+  If the vehicle speed is bigger or equal an upper adjustable vehicle speed threshold (Closing Suppression activation threshold), all active  AKKS are not allowed to send to a smaller position as is current position. In this state (Closing Suppression)the AKKS is only allowed to send to positions bigger than its current position.
+If the vehicle speed is smaller or equal an lower adjustable vehicle speed threshold (Closing Suppression deactivation threshold), all active AKKS are allowed to be commanded in Normal Mode.
+The Range of the application values has to be chosen, so that the functionality could be completely deactivated. With this it must be ensured that the functionality is fully neutral for the AKKS Component Driver Software Module.
+[Preconditions]
+CCU is running and the AKKS functionality has correctly started.
+The ST_CON_VEH = PAD or FAHREN
+[Trigger]
+ 
+Activation and deactivation of AKKS closing Suppression by using Closing_Suppression_SWITCH.
+Closing Suppression can only be triggered in NORMAL mode
+[Input Data]
+BMW_v_VehMc_rc signal shall be used for Vehicle speed information
+[Enterprise Architect Functional Model]
+Related Activity Diagram on EA under: ENG.02¿> ThermalManagement ===> FunctionalArchitecture ====> AKKS ===> AKKS_Activity_Diag
+[Output Data]
+The outcome of this implementation shall be activation and deactivation of the AKKS Closing Suppression using Switch based on the Vehicle speed.
+[Dependencies and Interactions]
+PANA-Appl.
+[Timing requirements]
+NA
+ 
+[Verification Measure]
+SWQT (Software Qualification Test)
+[Verification Criteria]
+Activation and deactivation of AKKS closing Suppression by using Closing_Suppression_SWITCH then
+The function shall be activated when speed is above 160 kmph
+The function shall be deactivated when speed is below 150kmph
+The Upper and Lower Threshold shall be calibratable.
+[Traceability to Requirement]
+<ReqID>na</ReqID>
+[Estimate]
+2days
+[acceptance criteria]
+Jira-Ticket set to "resolved"
+</br></li><li>3.2 Non-functional System Requirements </br></li><li>3.2.0-1 In this chapter all non-functional system requirements which are valid for software, hardware and mechanic sections are listed.
+
+Note: All non-functional customer requirements in CSR shall at least be linked to one SYR_NF for the section in charge of it.
+
+Note: For clarification with owner of CRS you can temporary use the sub-chapters “Differences to CRS” and “Questions and Answers” but in final release clear judgment is mandatory.</br></li><li>4 eDrive</br></li><li>4.1 Crash</br></li><li>4.1.1 Functional System Requirements</br></li><li>4.1.1.0-1 In the event of Crash or Service Disconnect or a High Voltage (HV) Power down is detected, CCU shall be able to shut of the HV network to avoid the vehicle or component level damages and enforce complete safety by maintaing voltage free devices in vehicle and users in such critical events.
+
+The following system use cases are defined to ensure the safety and protection of HV devices in vehicle and vehicle users.</br></li><li>6.1.96 [SysReq][DCDC]Flexible coolant flow mechanism</br></li><li>6.1.96.1 Description</br></li><li>6.1.96.1.0-1 [Short Description] In order to avoid a critical increasing of the temperature pver the 140°C threshold on the secondary side Mosfet on the DCDC Board,  it has been developed a functionality in the DCDC Application which flexibly request a specific amount of the coolant flow to the eTMC-SWC (BMW) in order to cool down the CCU.
+This functionality is directly embedded in the DCDC Peak/Continuous mechanism: in particular the flexible request of coolant flow will be executed in Peak Mode.
+The amount of the required coolant flow is depending on :
+Number of Peaks (I_LvDCDC > 280A) within 60s;
+Time Length of a current Peak (how long I_LvDCDC is constantly > 280A within 60s)
+coolant temperature (g_dcdcrlt_dcdc_coolanttemp_phy_value)
+The default coolant flow required for the cooling of the CCU is 2L/min.
+ 
+The flow rate request will be output via the I/F BMW_st_TherEffEcuElVeh.
+ 
+In case
+ 264 (p_DCDC_Continuous_I_LV + “New_Calibration_Threshold”) < I_LvDCDC < 279A (p_DCDC_Continuous_I_LV + Thresh_Stop_DCDC_PEAK_I_LV_Margin)
+AND
+no peaks have occurred during the latest 60s:
+the coolant flow is depending on the coolant temperature according to this table
+Coolant temp[deg]
+Flow rate request
+
+
+>= 46
+6.0L/min
+
+
+36 – 45
+4.0L/min
+
+
+<= 35
+2.0L/min
+ 
+In this case the output signal to the eTMC-SW will be:  _BMW_st_TherEffEcuElVeh_ = 2 . * In case
+ I_LvDCDC  < 264A (p_DCDC_CONTINUOUS_I_LV+ "New_Calibration_Threshold")
+AND
+coolant temperature < 25°C
+AND
+no peaks have occurred during the latest 60s:
+the coolant flow will depend on the coolant temperature according to the following table
+Coolant temp[deg]
+Flow rate request
+
+
+51-70
+4L/min
+
+
+26-50
+2L/min
+
+
+21 - 25
+1.75L/min
+
+
+<= 20
+1.5L/min
+   
+In this case the output signal to the eTMC-SW will be:  _BMW_st_TherEffEcuElVeh_ = *1 .*
+In case within a 60s time window
+ I_LvDCDC >= 280A (p_DCDC_CONTINUOUS_I_LV+ Thresh_Stop_DCDC_PEAK_I_LV_Margin) for at least 3s long
+OR
+I_LvDCDC >= 280A (p_DCDC_CONTINUOUS_I_LV+ Thresh_Stop_DCDC_PEAK_I_LV_Margin) at least 3 times (regardless of the time length of the current peaks), then
+the coolant flow will depend on the coolant temperature according to the following table
+Coolant temp[deg]
+Flow rate request
+
+
+>= 70
+2.25L/min
+
+
+69 - 51
+6.0L/min
+
+
+31 - 50
+5.0L/min
+
+
+26 - 30
+2.25L/min
+In this case the output signal to the eTMC-SW will be:  BMW_st_TherEffEcuElVeh = *3 .*
+</br></li><li>6.1.96.1.0-2 [Preconditions] CCU is up and Running ; DCDC is in Buck Mode (M_14DC_EN = 0) and in Peak Mode;
+</br></li><li>6.1.96.1.0-3 [Trigger] The flexible coolant flow mechanism will be enabled as soon as the DCDC is set in Buck Mode (g_dcdcrlt_dcdc_operating_state = 2)</br></li><li>6.1.96.1.0-4 [Input Data]
+  
+DCDC Output Current (g_dcdcrlt_dcdc_lv_current_phy_value)
+coolant temperature (g_dcdcrlt_dcdc_coolanttemp_phy_value)
+number of peaks within 60s (measurement XCP-label not yet available )
+peak time length (measurement XCP-label not yet available )
+</br></li><li>6.1.96.1.0-5 [Enterprise Architect Functional Model]
+n.a.
+</br></li><li>6.1.96.1.0-6 [Timing requirements] the only specific timings are:
+number of peaks within 60s (measurement XCP-label not yet available )
+peak time length (measurement XCP-label not yet available )
+</br></li><li>6.1.96.1.0-7 [post conditions]   from following point of views
+     
+DCDC Operating state
+CCU System State
+there will no postcondition, in terms of change of the state mentioned above in the Preconditions.
+The only from System Point of view relevant change is the amount of coolant flowing in the Water Change.
+This will change accordingly with the values/boundary conditions mentioned in the above section "Description"
+</br></li><li>6.1.96.1.0-8 [Output Data]
+  
+coolant flow request to BMW-SW : SW-Signal BMW_st_TherEffEcuElVeh
+</br></li><li>6.1.96.1.0-9 *[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+ThMgmt (JP-Appl, i.e. the SWC which sends on LIN the target speed of the Waterpumps, which determines the coolant flow in the cooling circuitry)
+eTMC (BMW-SWC which controls the target speed of the Waterpumps)
+COMAdapter and underlying Autosar Stacks related to the LIN Communication (COM, LINIF, LIN)
+</br></li><li>6.1.96.1.0-10 [Verification Measure] SYQT (System Qualification Test)</br></li><li>6.1.96.1.0-11 [Verification Criteria]  The  verification of this criteria has to be focused on the check of the condition (3) mentioned in the above section "Short Description"</br></li><li>6.1.96.1.0-12 [Traceability to Requirement]
+<ReqID>27472;27473;27474</ReqID>
+</br></li><li>6.1.96.1.0-13 *[Estimate] 3days</br></li><li>6.1.96.1.0-14 [acceptance criteria] modelling Jira-Ticket set to "resolved"*</br></li><li>6.1.102 [SysReq][DCDC] I2C Communication Error diagnostic</br></li><li>6.1.102.1 Description</br></li><li>6.1.102.1.0-1 [Short Description] In order to be able to detect communication errors on the I2C Bus (which can lead to a switch-off of the DCDC functionality) and correspondingly have a DTC for the vehicle diagnostic, following I2C diagnostic logic has been implemented:
+(1) in case the ACK Bit on I2C is not received the I2C error timer will be started;
+(2) in case the ACK But on I2C is not received for 3 consecutive times, a Reset on the I2C Bus will be triggered and the I2C error counter (g_dcdcrlt_i2c_error_counter_todiag) will be incremented;
+after the reset execution, the next I2C Write Operation will take place only after 10ms;
+(3) a new check of the ACK Bit will be executed: in case the result is positive the I2C error counter will be reset to 0, otherwise it will keep on incrementing;
+(4) The steps (1)-(3) are cyclically executed: in case the I2C error timer reaches the value of 400ms (calibration variable DebTime_Fail_I2C_BusLock), the DTC 0x030FD1 ( debugging variable g_dcdcint_Error_Pack_I2C.bus_lock = 1) will be set and DCDC will be set to 'Error' and stopped (g_dcdcrlt_dcdc_operating_state = 3).
+(5) In case the DTC 0x030FD1 is set, the corresponding error reaction will be interrupted, i.e.:
+DCDC will be set back to Buck Mode
+g_dcdcint_Error_Pack_I2C.bus_lock = 0
+as soon as the ACK Bit is continuously received for DebTime_Pass_I2C_BusLock .
+The steps (1), (2), (3), (4) are schematized in the picture "New_I2C_Diagnostic_1.JPG";
+The step (2) is schematized more in detail in the picture "New_I2C_Diagnostic_2.JPG"
+[Preconditions] CCU is up and Running ; DCDC is in Buck Mode (M_14DC_EN = 0)
+[Trigger] The failure detection mechanism will be enabled as soon as the DCDC is set in Buck Mode (g_dcdcrlt_dcdc_operating_state = 2)
+[Input Data]
+  
+/
+[Enterprise Architect Functional Model]
+n.a.
+[Timing requirements] the only specific timings are:
+the Debouncing Time of the I2C Error reaction DebTime_Fail_I2C_BusLock
+the Healing Time of the I2C Error reaction DebTime_Pass_I2C_BusLock
+
+[post conditions]   the post condition of the reactivation of the eFAN Relay (see above condition (3) in the description section) is:
+eFAN Relay ON===> g_thmgmtrlt_efan_drive_port = true
+
+[Output Data]
+ 
+1- DTC 0x030FD1 (g_dcdcint_Error_Pack_I2C.bus_lock)
+2- I2C error counter (g_dcdcrlt_i2c_error_counter_todiag)
+ 
+3- HW-Signal M_14DC_EN for switching on/off the DCDC (g_dcdcrlt_14dcdcenable)
+ 
+*[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+DiagJPSWC (for the setting of the DTC 0x030FD1 )
+DiagSWC (for the setting of the DTC 0x030FD1 )
+DEM (for the setting of the DTC 0x030FD1 )
+
+[Verification Measure] SYQT (System Qualification Test) by using
+   
+[Verification Criteria]  The  verification of this criteria has to be focused on the check of the condition (3) mentioned in the above section "Short Description"
+
+[Traceability to Requirement]
+<ReqID></ReqID> (Waiting for updated Req.s in KLH)
+ 
+*[Estimate] 3days [acceptance criteria] modelling Jira-Ticket set to "resolved"*
+</br></li><li>6.1.108 [SysReq][DCDC] Limiting DCDC Output current gradient to 100A/s</br></li><li>6.1.108.1 Description</br></li><li>6.1.108.1.0-1 [Short Description] This functionality implements the limitation of the LvDCDC Current Gradient to a max. value of 100A/s when DCDC switches from :
+Peak to Continuous Mode
+Peak to Extending Peak
+The transition conditions between the above mentioned DCDC mode are described in detail in the SysReq .CCU-23724 (BMW03-30360 in Pana-JIRA) .
+(1) When DCDC transits from Peak to Continuous Mode:
+the CC Command, i.e. g_dcdcrlt_available_current, will change from I_PEAK to I_CONTINUOUS, where:
+I_PEAK = p_DCDC_PEAK_I_LV * Factor_DCDC_WJ_Derating_Point_Peak (T)
+===> p_DCDC_PEAK_I_LV and Factor_DCDC_WJ_Derating_Point_Peak are both calibration parameters;
+furthermore, Factor_DCDC_WJ_Derating_Point_Peak(T) defines the DCDC peak derating curve based on the cooling liquid temperature.
+I_CONTINUOUS = p_DCDC_CONTINUOUS_I_LV * Factor_DCDC_WJ_Derating_Point_Continuous (T)
+===>_p_DCDC_CONTINUOUS_I_LV_ and _Factor_DCDC_WJ_Derating_Point_Continuous_ are both calibration parameters;
+furthermore, Factor_DCDC_WJ_Derating_Point_Continuous (T) defines the DCDC continuous derating curve based on the cooling liquid temperature.
+ 
+The gradient Δ(g_dcdcrlt_available_current)/ΔT = (I_PEAK - I_CONTINUOUS)/ΔT has the max. value of 100A/s.
+(2) When DCDC transits from Peak to Extending Peak Mode:
+the CC Command, i.e. g_dcdcrlt_available_current, will change from I_PEAK to I_EXTENDED, where:
+I_PEAK = p_DCDC_PEAK_I_LV * Factor_DCDC_WJ_Derating_Point_Peak (T)
+===> p_DCDC_PEAK_I_LV and Factor_DCDC_WJ_Derating_Point_Peak are both calibration parameters;
+furthermore, Factor_DCDC_WJ_Derating_Point_Peak(T) defines the DCDC peak derating curve based on the cooling liquid temperature.
+I_EXTENDED = 250A (calibratable through the parameter DCDC_ExPEAK_I_LV_min)
+The gradient Δ(g_dcdcrlt_available_current)/ΔT = (I_PEAK - I_EXTENDED)/ΔT has the max. value of 100A/s.
+  
+A logical schematic of the above mentioned gradient limitation in the context of the Peak/Continuous mechanism  is represented in the attached picture "Gradient_Limitation_100A_s.png".
+                 
+ 
+[Preconditions] CCU is up and Running ; DCDC Status is Buck Mode; DCDC is in Peak Mode;
+[Trigger] Trigger for the gradient limitation of the LvDCDC Output Current to 100A/s are the respective transition conditions of the DCDC Mode changes:
+Peak to Continuous
+Peak to Extending Peak
+These transition conditions are described more in details in the dedicated SysReq. CCU-23724 (BMW03-30360 in Pana-JIRA) .
+
+[Input Data]
+  
+For the transition Peak to Continuous:
+DCDC Output Current (g_dcdcrlt_BMW_i_Dcdc12vLv_rc.BMW_i_Dcdc12vLv)
+SEV_Status
+For the transition Peak to Extending Peak:
+DCDC Output Current (g_dcdcrlt_BMW_i_Dcdc12vLv_rc.BMW_i_Dcdc12vLv)
+DCDC Output Voltage (g_dcdcrlt_BMW_u_Dcdc12vLv_rc.BMW_u_Dcdc12vLv)
+DCDC HV-Input Voltage (g_dcdcrlt_BMW_u_Dcdc12vHv_rc.BMW_u_Dcdc12vHv)
+cooling temperature (g_dcdcrlt_dcdc_coolanttemp_phy_value)
+SEV_Status
+ 
+[Enterprise Architect Functional Model]
+n.a.
+[Timing requirements] there is no relevant timing requirement concerning the gradient limitation when switching from Peak to Continuous and from Peak to Extending Peak
+[post conditions]   the post conditions are different case by case. By referring to the above mentioned use-cases in the section "Short Description":
+ 
+1-When DCDC transits from Peak to Continuous Mode ===> Postcondition is DCDC in Continuous Mode , i.e. DCDC Output Current = Continuous Current (g_dcdcrlt_available_current = p_DCDC_CONTINUOUS_I_LV_ * Factor_DCDC_WJ_Derating_Point_Continuous (T) )
+ 
+2-When DCDC transits from Peak to Extending Peak Mode ===> Postcondition is DCDC in Extending Peak Mode , i.e. DCDC Output Current = 250A (g_dcdcrlt_available_current = p_DCDC_CONTINUOUS_I_LV_ * Factor_DCDC_WJ_Derating_Point_Continuous (T) )
+[Output Data]
+ 
+DCDC Available Current "g_dcdcrlt_available_current"  ;
+     
+*[Dependencies and Interactions]* The SWCs which are involved in this functionality are:
+DCDC (JP-Appl)
+SEV_Ctrl Application (BMW-SW)
+[Verification Measure] SYQT (System Qualification Test) by using
+ 
+[Verification Criteria]  The  verification of this criteria has to be focused on the check of the conditions (1) and (2), mentioned in the above section "Short Description "
+
+[Traceability to Requirement]
+<ReqID>27577</ReqID>
+ 
+*[Estimate] 3days [acceptance criteria] modelling Jira-Ticket set to "resolved"*
+Options
+Attachments
+</br></li><li>6.1.109 [SysReq][DCDC] Limitation of DCDC Target Voltage under 200V</br></li><li>6.1.109.1 Description</br></li><li>6.1.109.1.0-1 [Short Description]   In order to allow the DC/DC converter to deliver a minimum amount of current in the HV-Range (190-200)V, as required in the U11 carline, the Lv target voltage is limited to 13.5V whenever 190V < U_HvDCDC < 200V.
+Therefore, in case the LvDCDC Target Voltage has a higher value than 13.5V (normal case) ====> the CV Command will be limited to 13.5V .
+Furthermore, in order to avoid detection of Plausi-Error on LV Current side whenever  U_HvDCDC < 230V, different plausibility thresholds are being used.
+Summarizing, we will have 2 functionalities:
+1) If (BMW_u_Dcdc12vTar > 13.5V) ====> g_dcdcrlt_hwo_dac_cv = 13.5V (considering the corresponding hex value of the Look-Up table in the HW-Spec "【10-10】14V DCDC Flowrate_20180821-2")
+If (BMW_u_Dcdc12vTar <= 13.5V) ====> g_dcdcrlt_hwo_dac_cv = BMW_u_Dcdc12vTar (considering the corresponding hex value of the Look-Up table in the HW-Spec "【10-10】14V DCDC Flowrate_20180821-2" )
+2) Furthermore, the Fail/ Pass condition of the DTC 0x030F93 ( LvDCDC Current Plausibility) will be differentiated in cae HV Voltage < 230V, as it follows:
+Fail Condition of DTC 0x030F93
+when U_HvDCDC > Thresh_Switch_Plaus_LV_Curr_Calib_byHvVolt
+Fail Condition of DTC 0x030F93
+when U_HvDCDC > Thresh_Switch_Plaus_LV_Curr_Calib_byHvVolt
+
+
+{
+(Abs(LV_Current_master - LV_Current_redundant) > Thresh_Fail_Plaus_LV_Curr_Margin_byHvVolt)
+
+AND
+
+(Abs(LV_Current_master - LV_Current_redundant) / LV_Current_master > Thresh_Fail_Plaus_LV_Curr_Margin_Rate_byHvVolt)
+}
+
+OR
+
+{
+(Abs(LV_Current_master - LV_Current_slave) > Thresh_Fail_Plaus_LV_Curr_Margin_byHvVolt)
+
+AND
+
+(Abs(LV_Current_master - LV_Current_slave) / LV_Current_master > Thresh_Fail_Plaus_LV_Curr_Margin_Rate_byHvVolt)
+}
+{
+(Abs(LV_Current_master - LV_Current_redundant) > Thresh_Fail_Plausibility_LV_Curr_Margin)
+
+AND
+
+(Abs(LV_Current_master - LV_Current_redundant) / LV_Current_master > Thresh_Fail_Plausibility_LV_Curr_Margin_Rate)
+}
+
+OR
+
+{
+(Abs(LV_Current_master - LV_Current_slave) > Thresh_Fail_Plausibility_LV_Curr_Margin)
+
+AND
+
+(Abs(LV_Current_master - LV_Current_slave) / LV_Current_master > Thresh_Fail_Plausibility_LV_Curr_Margin_Rate)
+}
+Debouncing time: DebTime_Fail_LV_Curr_PlausiErr 550ms
+Pass Condition of DTC 0x030F93
+when U_HvDCDC > Thresh_Switch_Plaus_LV_Curr_Calib_byHvVolt
+Pass Condition of DTC 0x030F93
+when U_HvDCDC > Thresh_Switch_Plaus_LV_Curr_Calib_byHvVolt
+ 
+
+{
+(Abs(LV_Current_master - LV_Current_redundant) <= Thresh_Pass_Plausibility_LV_Curr_Margin)
+
+OR
+
+(Abs(LV_Current_master - LV_Current_redundant) / LV_Current_master <= Thresh_Pass_Plaus_LV_Curr_Margin_Rate_byHvVolt)
+}
+
+AND
+
+{
+(Abs(LV_Current_master - LV_Current_slave) <= Thresh_Pass_Plaus_LV_Curr_Margin_byHvVolt)
+
+OR
+
+(Abs(LV_Current_master - LV_Current_slave) / LV_Current_master <= Thresh_Pass_Plaus_LV_Curr_Margin_Rate_byHvVolt)
+}
+ 
+{
+(Abs(LV_Current_master - LV_Current_redundant) <= Thresh_Pass_Plausibility_LV_Curr_Margin)
+
+OR
+
+(Abs(LV_Current_master - LV_Current_redundant) / LV_Current_master <= Thresh_Pass_Plausibility_LV_Curr_Margin_Rate)
+}
+
+AND
+
+{
+(Abs(LV_Current_master - LV_Current_slave) <= Thresh_Pass_Plausibility_LV_Curr_Margin)
+
+OR
+
+(Abs(LV_Current_master - LV_Current_slave) / LV_Current_master <= Thresh_Pass_Plausibility_LV_Curr_Margin_Rate)
+}
+Healing time: DebTime_Pass_LV_Curr_PlausiErr 100ms
+[Preconditions]
+ 
+The DCDC is in Buck Mode ====> g_dcdcrlt_dcdc_operating_state = 2;
+(for what concerns the functionality 1) )the HVDCDC Voltage is in the range (190-200)V ====>
+190V < g_dcdcrlt_BMW_u_Dcdc12vHv_rc.BMW_u_Dcdc12vHv < 200V
+(for what concerns the functionality 2) )the HVDCDC Voltage is < 230V ====>
+ g_dcdcrlt_BMW_u_Dcdc12vHv_rc.BMW_u_Dcdc12vHv < 230V
+[Trigger] Two triggers can be considered for the activation of this mechanism:
+For functionality 1)
+HV DCDC Voltage < 200V
+LvDCDC Target Voltage > 13.5V
+For functionality 2)
+HV DCDC Voltage < 230V (Thresh_Switch_Plaus_LV_Curr_Calib_byHvVolt)
+[Input Data]
+  
+HV DCDC Voltage ====> g_dcdcrlt_BMW_u_Dcdc12vHv_rc.BMW_u_Dcdc12vHv
+LvDCDC Target Voltage  =====> BMW_u_Dcdc12vTar
+[Enterprise Architect Functional Model]
+n.a.
+[Timing requirements] The only relevant timing requirement is the debouncing time of the above mentioned DTC 0x030F93, i.e.:
+DebTime_Fail_LV_Curr_PlausiErr = 550ms , which is agreed in the Fusa-deviation list with BMW
+
+[post conditions]   The only relevant post condition from System side is:
+The limitation of the LvDCDC output voltage at 13.5V
+
+[Output Data]
+      
+For the functionality 1)
+CV Command to the DAC (which outputs an analogic value which is used as input for the CV Error Amplifier) : g_dcdcrlt_hwo_dac_cv
+For the functionality 2)
+DTC 0x030F93
+ 
+[Dependencies and Interactions] The only SWC which is involved in the described mechanism is the DCDC-Appl)
+[Verification Measure] SYIT (System Integration Test)
+[Verification Criteria]  The  verification of this criteria has to be focused on the:
+activation of the CV Limitation mechanism in the HV-Range (190-200)V ==> functionality 1) in the "Description"
+change of the plausi-threshold when HV-Voltage < 230V ==> functionality 2) in the "Description"
+
+[Traceability to Requirement]
+ 
+<ReqID>(waiting for new CRQs in KLH related to the CR-803)</ReqID>
+ 
+[Estimate] 3days [acceptance criteria] modelling Jira-Ticket set to "resolved"
+</br></li><li>6.2 Non-functional System Requirements </br></li><li>6.2.0-1 In this chapter all non-functional system requirements which are valid for software, hardware and mechanic sections are listed.
+
+Note: All non-functional customer requirements in CSR shall at least be linked to one SYR_NF for the section in charge of it.
+
+Note: For clarification with owner of CRS you can temporary use the sub-chapters “Differences to CRS” and “Questions and Answers” but in final release clear judgment is mandatory.</br></li>

@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC80</h1></br><li>2.1.8 SYR_ACC80: Function: "Messwertermittlung"-measure  DC-HV voltage output</br></li><li>2.1.8.1 Description</br></li><li>2.1.8.1.0-1 Brief description:</br></li><li>2.1.8.1.0-2 determine the DC‐HV voltage output</br></li><li>2.1.8.1.0-3 Preconditions:</br></li><li>2.1.8.1.0-4 none (always)</br></li><li>2.1.8.1.0-5 Trigger:</br></li><li>2.1.8.1.0-6 Input data:</br></li><li>2.1.8.1.0-7 E_U_LT4</br></li><li>2.1.8.1.0-8 Description of behaviour:</br></li><li>2.1.8.1.0-9 measure mean HV DC voltage value over one monitoring cycle. Distribute over the respective signals. The required accuracy should be respected.
+Implementation hint.
+Signal name:  send the voltage on E_U_LT4  over signal "LT4_U_Sig"
+accuracy
+E_U_LT4< 10V: +/‐ 1V
+10V <= E_U_LT4< 1000V: +/‐ 5%
+conversion formula:
+HVDC_Voltage = ( ADC_HVDC_Volt * 4.096V / 2^15 ) * ( 1 / 0.0076159704592661 ) * ( 1 / ¿ )
+¿¿¿Refer to ¿10-4¿HVDC¿¿¿¿(161028-4).xlsx > 10-4 HVDC¿¿(¿¿¿¿¿¿¿¿
+Filter, Debounce : moving average 8 times
+Safe State : Respective Qualifier set to not valid.</br></li><li>2.1.8.1.0-10 Timing Requirements:</br></li><li>2.1.8.1.0-11 monitoring cycle 10ms, FTT: 50ms (Measurament)
+FTT: 1000ms (limit the output voltage)</br></li><li>2.1.8.1.0-12 Output Data:</br></li><li>2.1.8.1.0-13 LT4_U_Sig</br></li><li>2.1.8.1.0-14 Postconditions:</br></li><li>2.1.8.1.0-15 none</br></li><li>2.1.8.1.0-16 Descriptions of exceptions:</br></li><li>2.1.8.1.0-17 Safe state: Qualifier is equal to "Signal invalid"</br></li><li>2.1.8.1.0-18 Dependencies and interactions:</br></li><li>2.1.8.1.0-19 Other modules/components
+LDK
+Customer requirements:  [11154][21542]
+Safety requirements: SZ-AC3(SF04) with ASIL B
+Mean error probability: 10 FIT
+outage metrics: SPFM: > 97%  ; LFM: > 80%
+EPIC:  Implemented in sprint 1705
+EPIC/Task(s): 288/ 229and 230</br></li><li>2.1.8.2 Differences to CRS</br></li><li>2.1.8.3 Questions and Answers</br></li><li>2.1.8.3.0-1 [Kiyosawa-San, 2017.06.16]
+ • do we have an internal limit due to HW requirements ? For Output to the battery as well as for current input to the battery for distribution to DCDC Converter and LT5/LT7.
+  ○ [Koizumi-San 2016.06.19]: no additional requirements, besides the ones from the KLH (usecase: SYR_ACC150)
+ • Max. current to the DC/DC converter ? (7kW for 400ms)
+  ○[Koizumi-San 2016.06.19]: Max power consumption: 4950 W, Max Current @ 200 V DC input: 24,75 A
+ • Is the current measurement at LT4 the hall sensor at the output? Or the shunt resistors at C22-1-L1 ?
+  ○  Kiyosawa-San: only shunts. Output to DSP
+  ○ [Koizumi-San 2016.06.19]:  All sensors are available: Current measurement at LT4 and the shunt resistors  at the exit to the DSP</br></li>

@@ -1,0 +1,31 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-12-0001-0006#</h1>
+[Charging],[14V_DCDC],[DCDC_Control]</br>Test Objective: LVDC output current check
+(Within LVDC output voltage normal range)<br>
+<h2>Requirements</h2><ul><li><strong>9924</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The DC/DC converter HV/LV must fullfill the following requirements for the complete unlimited operation range, see section "Operating range of CCU".
+
+Differences in the boundary conditions are mentioned explicitely in the requirement text if necessary.</li>
+<li><strong>6513</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The CCU must be designed for a minimum LV voltage of 10.5 V for unlimited operation.</li>
+<li><strong>6514</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The CCU must be designed for a maximum LV voltage of 15.5 V for unlimited operation.</li>
+<li><strong>9988</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)][Requirement]</div>The CCU must be designed for a maximum DC voltage of 460 V in the unlimited operation mode.
+</li>
+<li><strong>14506</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The subfunction "Zustandsmanagement" serves for managing the operating states of the "DC/DC" function: "Init", "Standby", "Buck", "Error" and "Crash". The respective active states are communicated to other functions. The respective operating mode adopted by the subfunction "Zustandsmanagement" corresponds with the operating mode of the "DC/DC" function. </li>
+<li><strong>14508</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Information]</div> </li>
+<li><strong>14524</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The subfunction "Gleichspannungswandlung" shall ensure the transfer of electrical power from the high-voltage to the low-voltage network if the "DC/DC" converter function is in the "Buck" operating mode.</li>
+<li><strong>14529</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>The subfunction "Gleichspannungswandlung" shall be fully operational in the range between "p_DCDC_MIN_U_LV" and "p_DCDC_MAX_U_LV", in the range between "p_DCDC_MIN_U_HV" and "p_DCDC_MAX_U_HV" and for ambient temperatures in the range between "p_DCDC_MIN_T" and "p_DCDC_MAX_T". </li>
+<li><strong>14531</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The subfunction "Gleichspannungswandlung" shall limit the LV current to "p_DCDC_CONTINUOUS_I_LV" if the "DC/DC" converter function is in "Buck" operating mode.
+</li>
+<li><strong>11464</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Pre-Condition:
+a) connect the development object with resistive load.
+b) activate and operate the development object at the constant-voltage output mode with the output voltage being a set value Uz0 in the range of output voltage of the development object.</li>
+<li><strong>11465</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Action:
+a) adjust the input voltage of the development object such that it varies within ± 15% of the rated value.
+b) adjust the output current such that it varies within the range between no load to rated current.
+b) measure actual output voltage Uz.</li>
+<li><strong>17648</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Post-Condition:
+a) output voltage tolerance must be not more than ± 1% calculated per formula: 
+  
+Of which,
+ξU 	-- 	Output voltage tolerance;
+Uz 	-- 	Actual output voltage (V);
+Uz0	-- 	Set output voltage (V).</li>
+</ul></html>

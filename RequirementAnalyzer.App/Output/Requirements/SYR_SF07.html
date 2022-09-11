@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SF07</h1></br><li>7.11.2.8 SYR_SF07 I/O modules Protection using PBRIDGE </br></li><li>7.11.2.8.1 Description</br></li><li>7.11.2.8.1.0-1 Brief description: PBRIDGE shall be used to  restrict read and write access to individual I/O modules  based QM and ASIL  (user mode/supervisor mode)
+All the QM  IO modules to be configured as QM Master
+All the ASIL  IO modules to be configured as ASIL Master
+ASIL master shall be configured as TRUSTED 
+QM master shall be configured as Non-TRUSTED
+ASIL Master shall be Supervisor protect /Trusted protect   and QM Matser shall be No Protect
+ If a master,  is configured as Non-TRUSTED and if the same core executes a TRUSTED , then PBRIDGE configuration can be  dynamic changed.
+
+ </br></li><li>7.11.2.8.1.0-2 Preconditions: NA</br></li><li>7.11.2.8.1.0-3 Trigger: NA</br></li><li>7.11.2.8.1.0-4 Input data: NA</br></li><li>7.11.2.8.1.0-5 Description of behaviour: NA</br></li><li>7.11.2.8.1.0-6 Timing Requirements: NA</br></li><li>7.11.2.8.1.0-7 Output data: NA</br></li><li>7.11.2.8.1.0-8 Postconditions: NA</br></li><li>7.11.2.8.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.2.8.1.0-10 Dependencies and interactions: NA</br></li><li>7.11.2.8.2 Differences to CRS</br></li><li>7.11.2.8.2.0-1 xxx</br></li><li>7.11.2.8.3 Questions and Answers</br></li><li>7.11.2.8.3.0-1 xxx</br></li><li>7.11.2.9 SYR_SF13  FuSa : Safe NVM Support</br></li><li>7.11.2.9.1 Description</br></li><li>7.11.2.9.1.0-1 Brief description: The CCU may need support for safe NVM storage ensuring that NVM data from FuSa relevant partitions is stored in a safe way although the infrastructure located in BSW has only QM safety level.
+
+SM: Application level redundant storage 
+
+ASIL data storage to be handled in the respective application component. 
+Use redundant copies of safety relevant data and perform coherence check before use
+To address missing writes on EEPROM cells, it is required that the application software executes a read-back of written data after an update of the EEPROM values. Missing writes will be handled as a hardware fault
+AUTOSAR memory stack(NVRAMManager->MemoryAbstractionInterface->FlashEEPROMEmulation->FlashDriver) shall remains QM 
+Application shall store the redundant data in different memory blocks.
+Application shall readback and check the data after writing in to the memory 
+Application shall also do the plausibility check each time before using the safety data.
+
+Safe State: 
+Missing writes will be handled as a hardware fault and the safe state is Reset
+
+
+Note: 05/02/2021(Rajesh.Muraleedharan): Due to the following CRs are droped by BMW no implemenation of Safe NVM is needed for I20 SOP-1 as no Safety data to be stored at present in CCU I20 SOP-1 release.
+CR-908 E-Fan Shut Off Path Test according to eFAN model
+CR-580 eFAN Switch off after CPU-Reset and start-up test (KLH 28654 & KLH 28655  ). 
+
+See the the justifcation in the FuSa Deviation list FuSa_BEV21_Dev043 & FuSa_BEV21_Dev044
+
+</br></li><li>7.11.2.9.1.0-2 Preconditions: NA</br></li><li>7.11.2.9.1.0-3 Trigger: NA</br></li><li>7.11.2.9.1.0-4 Input data: NA</br></li><li>7.11.2.9.1.0-5 Description of behaviour: NA</br></li><li>7.11.2.9.1.0-6 Timing Requirements: NA</br></li><li>7.11.2.9.1.0-7 Output data: NA</br></li><li>7.11.2.9.1.0-8 Postconditions: NA</br></li><li>7.11.2.9.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.2.9.1.0-10 Dependencies and interactions: NA</br></li><li>7.11.2.9.2 Differences to CRS</br></li><li>7.11.2.9.2.0-1 xxx</br></li><li>7.11.2.9.3 Questions and Answers</br></li><li>7.11.2.9.3.0-1 xxx</br></li>

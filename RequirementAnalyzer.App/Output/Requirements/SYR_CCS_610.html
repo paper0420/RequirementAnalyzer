@@ -1,0 +1,73 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_610</h1></br><li>1.1.31.24 SYR_CCS_610: Installation of Contract Certificate and associated Private Key for Plug-and-Charge functionality</br></li><li>1.1.31.24.1 Description</br></li><li>1.1.31.24.1.0-1 Brief description:
+Each CCU shall contain contract certificates and their associated private keys. It is used for authentication of EVs and for XML signature creation & validation, during V2G session.
+
+The routine data will be in the same format as the data in the certificate installation response in the Plug and Charge V2G sequence.
+
+Note: For Meta.2151, due to HSM keyslots limitation, only 4 contract certificate will be used and corresponding private key shall be stored in HSM.</br></li><li>1.1.31.24.1.0-2 Preconditions: 
+Sessions - DEFAULT_SESSION APP, EXTENDED_DIAGNOSTIC_SESSION APP
+Secure ECU Mode - Field, Plant and Engineering
+
+Installation via diagnostic routine is only processed when V2G session is not on-going.
+
+V2G certificate, and OEM Provisioning certificate and private key installed in CCU.</br></li><li>1.1.31.24.1.0-3 Trigger: Diagnostic Routine is executed "STEUERN_PNC_CONTRACT_ZERTIFIKAT_SCHREIBEN 0x31 0x01 0xA3AC"</br></li><li>1.1.31.24.1.0-4 Input data: 
+Diagnostic Routine Request (Zedis v30 integration) and CAN PDUs for Plug and Charge (NK integration)
+Ref:
+https://asc-repo.bmwgroup.net/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2143/BMW/Doc/NK/NK_SP2021_21KW37_V92_AE_CAN_FD_V98.pdf
+
+NK PPT
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/PnC/PlugCharge_SWArchitecture_Gen5_V6.pptx</br></li><li>1.1.31.24.1.0-5 Description of behaviour:
+When request job (startRoutine) is executed, CCU SW shall provide the response "positive" or "negative" to tester/MGU depending on installation "success" or "fail". 
+
+CCU SW does not recieve directly just contract cert. and associated private key from backend within the diagnostic routine request. Instead  cert. related data will be packed and received in the form of efficient XML format (as "EXIResponse") from backend within the diagnostic routine request. This "EXIResponse" is as same as "EXIResponse" received for ContractInstallationRes message from EVSE in a V2G session (refer Table 45 ISO 15118-2 standard).
+
+In diagnostic req data, "EXIResponse" is divided into chunks/packets and provided as "ZERTIFIKAT_DATA" elements. This data can be big enough to fit into 1 diagnostic request therfore multiple times same job can be executed to provide the complete data to CCU.
+
+When the 1st diagnostic job request is executed, CCU SW shall check if there is any empty NVM slot. If NOK, certificate installation process shall fail and diag job shall send negative response. 
+
+CCU SW shall identify with below parameters how many jobs are going to be executed in total for complete transfer of contract cert. related data and what is number of currently executed job. If below parameters are not correctly defined then installation process shall fail and diag job shall send negative response. 
+ZERTIFIKAT_ANZAHL_JOBS	
+Number of executions of the diagnostic job for the transfer of the contract certificate package
+NUMMER_JOB	Number of the transfer job
+
+CCU SW shall receive and store the "ZERTIFIKAT_DATA" data (i.e. ZERTIFIKAT_DATA_1 to ZERTIFIKAT_DATA_14) from each diag req. execution and then assemble in sequence the received data in current diag req. execution with the previous diag req execution (i.e. last execution would be when in req., NUMMER_JOB becomes equal to ZERTIFIKAT_ANZAHL_JOBS). Padding can be present in received certificate data in req. (if less than 255*14 bytes) however padding shall be excluded while packing internally EXI stream together.
+
+As soon as, when both the diag req. are executed and accepted, and then installation process is started, CCU SW shall trigger PDU "PlugAndChargeContractInstallation" "PlugAndChargeCertificateChange" on CANFD towards MGU with signal value. 
+StatusInstallationContractCertificatePlugAndCharge	1h: Neue_Zertifikate_werden_installiert
+Also, for the free slot index where cert. installation is triggered and on-going, CCU SW shall set "StoredCertificateStatusPlugAndCharge" signal value to 2h: Installation in the PDU "PlugAndChargeCertificateStatus" with "StoredCertificateTypePlugAndCharge" set to 1h : Vertragszertifikat and "StoredCertificateSlotNumberPlugAndCharge" set to (between 1 to 4).
+
+******
+Additionally, when the installation has started (PlugAndChargeCertificateChange PDU is sent out with 1h now which means both the jobs are accepted), timer shall be started immediately internally in BSW. Timeout value is currently defined as 10 sec and should be calibratable. 
+If installation does not finish within 10 seconds and timeout happens then installation process shall be aborted and PlugAndChargeCertificateACKRes shall be sent out with value Ah.
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/PnC/MF_Concept_Plug&Charge_CCU-31907_CCU-30877.pptx
+*******
+
+CCU SW shall perform CRC calculation (CRC-32) on the assembled "ZERTIFIKAT_DATA" data and validate if it matches to the received CRC in the request "CHECKSUM" which means checksum of the certificate packet before the split. "ZERTIFIKAT_LAENGE_WERT" is the EXI payload length of the certificates which is input to CRC calc.. 
+
+After CRC validation is OK, CCU SW shall pass the assembled "ZERTIFIKAT_DATA"  and payload length "ZERTIFIKAT_LAENGE_WERT" to internal SW API and perform EXI decoding and then perform actions on the decoded response, 
+1. CCU SW shall validate the domain component of SA Prov. certificate (leaf certificate) if it is set to "CPS".
+2. CCU SW shall validate the SA prov. certificate chain in the response if it is traceable upto one of the installated V2G root certificates.
+3. CCU SW shall validate the XML signature added into the response header using the public key of SA prov. certificate (leaf certificate). 
+4. CCU SW shall validate the EMAID received in response if it matches to the EMAID in the contract cert. itself (leaf certificate).
+5. CCU SW calculate ECDH shared secret (utilizing DHpublickey received in response and OEM cert. private key stored in HSM). Then, CCU SW shall decrypt the encrypted contract. cert. private key received in response using secret key. CCU SW shall store the contract. cert. private key in HSM.
+6. CCU SW shall validate the contract cert. public and private key pair (decrypted) in HSM.
+7. CCU SW shall store the contract cert. chain in NVM and map to free available slot index.   
+
+Similarly, if CRC check or SW API processing the EXI payload, return NOK then certificate installation shall fail.  
+
+When the installation is finished (either certificate chain and associated key are stored successfully or installation failed (validation failed or NVM/memory issue or HSM error), CCU SW shall immediately trigger the "PlugAndChargeCertificateACKRes" PDU over CAN FD . Below table shows the value set for PDU signals.
+InstalledCertificateTypePlugAndCharge
+	1h: Vertragszertifikat
+CertificateInstallationStatusPlugAndCharge
+	0h: Vorgang_erfolgreich_abgeschlossen
+Or 
+1h: Fehler_Code_1
+InstalledCertificateSlotNumberPlugAndCharge
+	1h – Ah (depending on used slot while installation)
+InstalledCertificateIdentifierPlugAndCharge	EMAID from the diag req. 
+
+Also, for the free slot index where cert. installation is finished (success or fail), CCU SW shall set "StoredCertificateStatusPlugAndCharge" signal value to 0h: Inaktiv (when success) or 4h: Speicher_Slot_nicht_belegt (when fail) in the PDU "PlugAndChargeCertificateStatus" with "StoredCertificateTypePlugAndCharge" set to 1h : Vertragszertifikat and "StoredCertificateSlotNumberPlugAndCharge" set to (between 1 to 4).</br></li><li>1.1.31.24.1.0-6 Timing Requirements: NA</br></li><li>1.1.31.24.1.0-7 Output data: 
+Contract Cert. Chain is stored in NVM and associated private key for leaf certificate in HSM.
+Transmission of PDU on CANFD to MGU ("PlugAndChargeCertificateACKRes").</br></li><li>1.1.31.24.1.0-8 Postconditions: 
+CCU shall be able to perform V2G session using installed contract cert. chain and key i.e. "PaymentDetailsReq/-Resp" and "AuthorizationReq/-Resp" shall be successful.</br></li><li>1.1.31.24.1.0-9 Descriptions of exceptions: 
+NA</br></li><li>1.1.31.24.1.0-10 Dependencies and interactions:
+vSCC, SCCAdaptor, Diag, ECUconfig, BAC Crypto, NVM, RTE, CRC, HSM, CSM, CRY IF, CRY DRV</br></li><li>1.1.31.24.2 Differences to CRS</br></li><li>1.1.31.24.2.0-1 NA</br></li><li>1.1.31.24.3 Questions and Answers</br></li><li>1.1.31.24.3.0-1 NA</br></li>

@@ -1,0 +1,25 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_613</h1></br><li>1.1.31.27 SYR_CCS_613 : PnC diagnostics - DTCs and Freeze Frames</br></li><li>1.1.31.27.1 Description</br></li><li>1.1.31.27.1.0-1 Brief description: PnC DTCs and FreezeFrames information is present in Zedisv34 onwards and must be implemented in CCU.</br></li><li>1.1.31.27.1.0-2 Preconditions: 
+DTCs can only be triggered during PnC V2G sequence (only when charging sequence execution is possible which means activation signal in Control PDU from MGU is 1 and when SkipPlugAndCharge is not 1).
+
+Also refer Zedis document
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2307/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/Req_Spec/Diag/Zedis_Export/ZEDIS_EXPORT_V34/SGBD_ - CCU-01 - G60 BEVE - A-420 - 220503.xlsx</br></li><li>1.1.31.27.1.0-3 Trigger: 
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/PnC/PnC_UWBs_ConcepT_MFv2.xlsx</br></li><li>1.1.31.27.1.0-4 Input data: 
+NA</br></li><li>1.1.31.27.1.0-5 Description of behaviour: 
+In SP21 2307 G60, new PnC DTCs [0xBA00BC, 0xBA00BD] with related UWBs as given below shall be implemented.
+
+DTC	Description	UWBs
+0xBA00BC	Plug & Charge: Charging not possible due to vehicle error	0x1768, 0x1769, 0x4021, 0x4022, 0x4023, 0x71F3, 0x71F8, 0x71F9, 0x71FA, 0x71FD
+0xBA00BD	Plug & Charge: Charging not possible due to station error	0x1768, 0x1769, 0x4021, 0x4022, 0x4023, 0x71F4, 0x71F7, 0x71FA, 0x71FC, 0x71FD
+
+Old UWBs (0x01768, 0x01769, 0x4021, 0x4022, 0x4023) are already implemented (for example, refer SYR_PLC_12) in BSW. They shall be reused and connected to PnC DTCs and shall be captured when DTC is set. 
+New UWBs for PnC DTCs are added into ZEDISv34 and shall be implemented and captured when DTC is set. 
+ 
+*0x71FC is not required to be implemented. It can have garbage or Zeroes value. 
+
+Below document provides  the list of failure scenarios which would lead to setting of DTC (station error or vehicle error) respectively and also maps the failure scenario with related UWB (which basically reflects the failure scenerio due to which PnC charging is not possible).
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/PnC/PnC_UWBs_ConcepT_MFv2.xlsx
+
+Below document provides the set of values defined for each Freeze frame/UWB.
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/CCS/PnC/SccAdaptorFreezeFrameValues.xlsx
+
+DTCs can be cleared as soon as PnC V2G sequence is successfully completed. </br></li><li>1.1.31.27.1.0-6 Timing Requirements: NA</br></li><li>1.1.31.27.1.0-7 Output data: When DTCs are captured, UWBs shall also captured for Secondary DTCs.</br></li><li>1.1.31.27.1.0-8 Postconditions: MGU can retry to trigger the PnC V2G sequence again to see if error is recovered (with this DTCs can be cleared and PnC V2G session can be sucessfully done).</br></li><li>1.1.31.27.1.0-9 Descriptions of exceptions: Unconnected/Non-implemented UWB (eg. SalesTariff) will be sent as garbage or zeroes value. </br></li><li>1.1.31.27.1.0-10 Dependencies and interactions: DEM, SCC Adaptor, HSM, TLS, SCC</br></li><li>1.1.31.27.2 Differences to CRS</br></li><li>1.1.31.27.2.0-1 xxx</br></li><li>1.1.31.27.3 Questions and Answers</br></li><li>1.1.31.27.3.0-1 xxx</br></li>

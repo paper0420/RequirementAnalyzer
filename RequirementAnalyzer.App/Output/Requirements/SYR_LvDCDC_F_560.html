@@ -1,0 +1,11 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_560</h1></br><li>6.1.73 SYR_LvDCDC_F_560: Stop energy transfer in case of the coolant overtemperature</br></li><li>6.1.73.1 Description</br></li><li>6.1.73.1.0-1 Brief description:</br></li><li>6.1.73.1.0-2 Stop energy transfer in case of the Overtemperature of the coolant.</br></li><li>6.1.73.1.0-3 Preconditions:</br></li><li>6.1.73.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.73.1.0-5 Trigger:</br></li><li>6.1.73.1.0-6 Measured_T_coolant > p_DCDC_DERAT_MAX_T
+p_DCDC_DERAT_MAX_T = 80°C.</br></li><li>6.1.73.1.0-7 Input data:</br></li><li>6.1.73.1.0-8 Description of behaviour:</br></li><li>6.1.73.1.0-9 The LvDCDC shall stop the power conversion at high coolant temperatures greater or equal 80°C. The LvDCDC shall switch its operating mode to Error.
+A primary DTC shall be stored. The failure state must be communicated.</br></li><li>6.1.73.1.0-10 Timing Requirements:</br></li><li>6.1.73.1.0-11 Output Data:</br></li><li>6.1.73.1.0-12 Deratingstatus_DCDC_Wandler_Ist is still active.
+Fehlerstatus_DCDC-Wandler_Ist must be updated.</br></li><li>6.1.73.1.0-13 Postconditions:</br></li><li>6.1.73.1.0-14 The DTC 0x030FA8 DC/DC converter - component protection - Overtemperature shall be stored.
+Fehlerstatus_DCDC-Wandler_Ist = </br></li><li>6.1.73.1.0-15 Descriptions of exceptions:</br></li><li>6.1.73.1.0-16 Dependencies and interactions:</br></li><li>6.1.73.1.0-17 Other components/modules
+Customer requirements: 21988, 21989, 18177, 14464
+Usecases 
+EPICs : CCU-282
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.73.2 Differences to CRS</br></li><li>6.1.73.3 Questions and Answers</br></li><li>6.1.73.3-1 Q: Is the KLH 18177 is also valid for the p_DCDC_DERAT_MAX_T as the max. temperature?</br></li>

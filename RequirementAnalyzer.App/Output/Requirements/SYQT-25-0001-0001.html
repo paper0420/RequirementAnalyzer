@@ -1,0 +1,26 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-25-0001-0001#</h1>
+[Charging],[Component_Protection],[DC_Undervoltage]</br>Test Objective: Low Voltage Detection Confirmation of HVDC Output Voltage
+AC -> HV battery
+(Single phase L1)<br>
+<h2>Requirements</h2><ul><li><strong>6423</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Compliance with the high voltage operating condition B3/B4 for overvoltage shall be demonstrated, see table “High voltage operating conditions (ENBN_PR_2277)”.</li>
+<li><strong>6426</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The voltage increase and fall for the test pulse overvoltage shall occur with the maximum voltage dynamics in accordance with the table “Maximum voltage dynamics”(ENBN_PR_2550)..</li>
+<li><strong>6432</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>For the test, the test parameters shall be selected according to the table “Test parameters for overvoltage” (ENBN_PR_2730).</li>
+<li><strong>6434</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>For the test, the test pulse shall be selected according to the figure “Test pulse for overvoltage” (ENBN_PR_2732).</li>
+<li><strong>6449</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>During the Test the objekt of development must  create an error memory entry with the content Undervoltage, if an output requirement is present</li>
+<li><strong>18393</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Komponentenschutz und Derating" function shall detect the following protection conditions (detect errors and monitor limit values) in order to adjust operation of the charging electronics without damaging the hardware:
+- AC undervoltage
+- DC-HV undervoltage
+- AC overvoltage
+- DC-HV overvoltage
+- Maximum AC current
+- Maximum DC-HV current
+- Hardware fault (e.g. short circuit)
+- Excess temperature
+- Broken N-Line</li>
+<li><strong>18405</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The function "Komponentenschutz und Derating" shall detect a DC-HV undervoltage error if the charger measures a DC voltage below the DC voltage operating limit for a parameterizable period.
+</li>
+<li><strong>18406</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>If a DC undervoltage is detected, the function "Komponentenschutz und Derating" shall the "Abschaltung Unterspannung DC-HV" bit error status word.</li>
+<li><strong>18407</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>These diagnostics shall be performed only if the "Charge" target operating mode (2) is commanded by the "LDK" function on the respective charging module.
+</li>
+<li><strong>18415</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The diagnostics for DC-HV overvoltage diagnostics shall be performed in every operating state.</li>
+</ul></html>

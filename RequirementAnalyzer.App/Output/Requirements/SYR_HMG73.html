@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG73</h1></br><li>3.1.17 SYR_HMG73: AKKS - Blockade reaction</br></li><li>3.1.17.1 Description</br></li><li>3.1.17.1.0-1 Brief description: In case an unexpected blockade is being detected:
+1.  during the normal running of the AKKS, i.e. when the target position of the AKKS is being set based on the input of the BMW Thermal Management SW (eTMC)
+OR
+2. during a Stop-Test Open, a System Check or Plant System Test</br></li><li>3.1.17.1.0-2 Preconditions: Ignition ON and LIN Communication is correctly working</br></li><li>3.1.17.1.0-3 Trigger: a blockade has to be detected (ST_BLK_AKKS_LIN=0x01)</br></li><li>3.1.17.1.0-4 Input data: the following LIN Signals will be used as input data within the ambit of the Blockade reaction:
+- ST_BLK_AKKS_LIN -----> for the detection of the blockade and of the removal of the blockade;
+- ST_SMOT_AVL_PO_AKKS_LIN -----> for determining the current position of the flap</br></li><li>3.1.17.1.0-5 Description of behaviour: During the movement of the flap towards a certain target position Ptarget_original (identified by the LIN Signal ST_SMOT_PO_AKKS_LIN=Ptarget_original), if an early blockade has been detected at the position Pblock (identified by the LIN Signal ST_SMOT_AVL_PO_AKKS_LIN=Pblock ) under the above mentioned conditions, then:
+1. the flap will be moved 50 LIN-Steps away from the blockade position Pblock ---->ST_SMOT_PO_AKKS_LIN=Pblock - 50;
+2. the flap will move again towards the original target position -----> ST_SMOT_PO_AKKS_LIN=Ptarget_original;
+3. if during the step 2. no blockade has been detected AND the final position is ST_SMOT_AVL_PO_AKKS_LIN=Ptarget_original the blockade reaction has been successfully terminated;
+4. in case during the step 2. a new blockade has been detected, then the steps 1. and 2. will be re-executed again until the the reaction can be declared as successfully terminated for a max. of 2 further attempts (total 3);
+5. in case after the 3 attempts the blockade has been not shaked, i.e. 
+ST_SMOT_AVL_PO_AKKS_LIN != Ptarget_original, then the blockade reaction has been unsuccessfully terminated and the DTC  DFC_RadShtPostTopBlk\DFC_RadShtPostBotmBlk for the AKKS1\2 will be set</br></li><li>3.1.17.1.0-6 Timing Requirements:</br></li><li>3.1.17.1.0-7 Output data: the output data of this functionality can be considered
+1. the target position, speed and torque which are being sent during the blockade reaction;
+2. the DTC DFC_RadShtPostTopBlk\DFC_RadShtPostBotmBlk which is set in case the procedure is unsuccessful </br></li><li>3.1.17.1.0-8 Postconditions: after the blockade reaction the AKKS will be set:
+- in case the procedure has been successfully executed in Normal Mode;
+- in case the procedure has been NOT successfully executed in Stop-Mode </br></li><li>3.1.17.1.0-9 Descriptions of exceptions:
+AKKS1 is not mounted for SP21 car lines.</br></li><li>3.1.17.1.0-10 Dependencies and interactions: the main dependency and interaction is with the LIN Communication</br></li><li>3.1.17.2 Differences to CRS</br></li><li>3.1.17.2.0-1 xxx</br></li><li>3.1.17.3 Questions and Answers</br></li><li>3.1.17.3.0-1 xxx</br></li>

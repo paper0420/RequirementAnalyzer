@@ -1,0 +1,19 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-05-0001-0037#</h1>
+[Charging],[AC_Charging],[AC_Charging_Control]</br>Test Objective: Confirmation that the HVDC output current is limited (single phase L1)
+*) Requirement is "not exceed 51.5 A<br>
+<h2>Requirements</h2><ul><li><strong>23667</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>While AC charging, the CCU shall limit the output current on HVDC as follows:
+- 16,5A for 3,5KW charger
+- 32,5A for 7KW charger
+- 51,5A for 11KW charger
+- 51,5A for 15KW charger
+- 69,5A for 22KW charger (Calibrateable)
+Note: The current limit is depends on cables rated current value</li>
+<li><strong>17644</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Pre-Condition:
+a) set the output current limitation value of development object as specified by BMW.
+b) activate the development object.</li>
+<li><strong>17645</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Action:
+a) operate the development object at the constant-voltage state
+b) adjust the load resistance such that the output current of the development object increases and gradually reaches the set value for current limitation as specified by BMW.</li>
+<li><strong>17646</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>Post-Condition:
+a) during operation, the development object must automatically limit the increment of its output current when the output current attains the current limitation setting value as specified by BMW.</li>
+</ul></html>

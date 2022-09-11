@@ -1,0 +1,20 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-05-0004-0001#</h1>
+[Charging],[AC_Charging],[AC_Charging_Control]</br>Test Objective: Adaptation of SW CCU-01 for 2 phase charging (CR-1127)(CCU-31878)<br>
+<h2>Requirements</h2><ul><li><strong>11308</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SWQT (ENG.8)][Requirement]</div>The "Ansteuerung_Ladegerät_AC/DC_Hochvolt" function shall output the cause of the "Error in the charging electronics" state via the "Grund_Betriebsart-Fehler_Ladegerät-AC/DC_Ist" signal to the LDK function.</li>
+<li><strong>11309</strong> - <div>[Not Changed][accepted][SYIT (ENG.9)][Requirement]</div>The "Ansteuerung_Ladegerät_AC/DC_Hochvolt" function shall assign the following information to the "Grund_Betriebsart-Fehler_Ladegerät-AC/DC_Ist" signal:
+0--- ---- ---- ---1 Hardware error including sensor defect, cable break, short circuit
+0--- ---- ---- --1- Undervoltage AC
+0--- ---- ---- -1-- Overvoltage AC
+0--- ---- ---- 1--- Overcurrent AC
+0--- ---- ---1 ---- Undervoltage DC
+0--- ---- --1- ---- Overvoltage DC
+0--- ---- -1-- ---- Overcurrent DC
+0--- ---- 1--- ---- Temperature
+0--- ---1 ---- ---- Communication failure
+0--- --1- ---- ---- Target operating mode not possible
+0--- -1-- ---- ---- Efficiency too low and target power not possible
+0--- 1--- ---- ---- Other causes
+0--1 ---- ---- ---- N-Line error
+0-1- ---- ---- ---- FUSI Difference of AC-current larger than 2A
+01-- ---- ---- ---- Reserved</li>
+</ul></html>

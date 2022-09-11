@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CHAOJI-1_03</h1></br><li>1.1.32.3 SYR_CHAOJI-1_03 : provide functionality in SW for handling of SM_RM ACK reception and retry mechanism</br></li><li>1.1.32.3.1 Description</br></li><li>1.1.32.3.1.0-1 Brief description: 
+Supplier-SW shall update the LIM-C when ACK is received for sent SM_RM message and re-try transmission of SM_RM if timeout happens.</br></li><li>1.1.32.3.1.0-2 Preconditions: Vehicle is coded as Chaoji vehicle (VehChrTypDC = 4).  BMW_nr_DcCanProtReq is set to 2 (Chaoji vehicle charges at chaoji-1 charger)</br></li><li>1.1.32.3.1.0-3 Trigger: Vehicle (CCU) is waiting for ACK after sending the SM_RM frame over DC-CAN.</br></li><li>1.1.32.3.1.0-4 Input data: 
+
+******
+(change for new draft CDV2)
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1/CCU-31198
+new DBC in sprint.2219
+https://asc-prod-ha-wig.bmw.com/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2219/BMW/Doc/NK/PATCH_v1_EADBN-1710_220324_DBC_EAPC_DC_CAN.dbc
+
+Note: new DBC is integrated in SW. 
+In accordance with new draft CDV2, there is change in values of CAN identifiers of all messages.
+a) change in CAN addresses for charger and CCU
+b) change in PDU format (PF) values for all message types
+
+*******
+</br></li><li>1.1.32.3.1.0-5 Description of behaviour:
+During Chaoji-1  Chaoji CDV2 charging sequence, as per the messages in SYR_CHAOJI_01, vehicle (CCU) is expected to receive ACK message after SM_RM message transmission.
+
+When any ACK is received at CCU, having 29-bit identifier, ACK has to identified from the first byte of data field in frame. 
+Supplier-SW (at TP layer) provides the status update to Supplier-SW (at RTE level) when ACK is received. Based on input read, Supplier-SW updates the LIM-C on ACK status as “3: Message sent, ACK received” via RTE interface.
+
+Retry Mechanism
+If ACK is not received within timeout (set as 200ms) 250ms. Supplier-SW shall implement the mechanism to trigger the same TX-PDU (send PGI signal) via COM and send it over DC-CAN.
+
+Supplier-SW shall monitor the retransmission times and transmission shall be aborted when re-send if retransmission reaches limit (total 4 frames on bus, including first one). In this situation, Supplier-SW shall update LIM-C the ACK status as “4: Message Sent, ACK Timeout” via RTE interface.
+
+Reset State
+Once ACK is received or ACK timed-out, Supplier-SWC shall wait for defined time (configured as 500ms) before resetiing ACK status interface as “0: No message sent” and internal states / variables.</br></li><li>1.1.32.3.1.0-6 Timing Requirements: Timeouts,
+200ms 250 ms for timeout for retransmission (resending interval as per draft CDV2)
+500ms for debounce before resetting state/interface	</br></li><li>1.1.32.3.1.0-7 Output data: ACK status interface update and SM RM frame on DC-CAN if retry happens</br></li><li>1.1.32.3.1.0-8 Postconditions: NA		</br></li><li>1.1.32.3.1.0-9 Descriptions of exceptions: 
+Strict check on unused data bytes in a frame (such as from byte 2 to 8 in SM RM ACK) is not desired.</br></li><li>1.1.32.3.1.0-10 Dependencies and interactions: Supplier-SWC (Chaoji-Adaptor), RTE, COM, CAN IF, Supplier SW (Chaoji-TP), PduR, BSWM</br></li><li>1.1.32.3.2 Differences to CRS</br></li><li>1.1.32.3.2.0-1 xxx</br></li><li>1.1.32.3.3 Questions and Answers</br></li><li>1.1.32.3.3.0-1 xxx</br></li>

@@ -1,0 +1,18 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-99-0001-0015#</h1>
+[Functional_Safety],[Functional_Safety],[Functional_Safety]</br>Test Objective: HVDC output current is limited to limit value
+(3 phase)<br>
+<h2>Requirements</h2><ul><li><strong>23666</strong> - <div>[Not Changed][partly accepted][SYQT (ENG.10)SYIT (ENG.9)][Requirement]</div>While AC charging, the CCU shall limit the output current on HVDC (H_I_LT4) as follows:
+- 17A for 3,5KW charger
+- 33A for 7KW charger
+- 52A for 11KW charger
+- 52A for 15KW charger
+- 70A for 22KW charger (Calibratable)
+
+FTT: 1000ms
+Safe state: Disable the AC charging and inform BMW SW
+
+Note: It is assumed that no loads are present on the CCU (LT5,LT7 and DC/DC current consumption equal to 0A), then above values refer to AC/DC converter
+
+Note: The current limit is depends on cables rated current value (Relaxed for 22KW)
+</li>
+</ul></html>

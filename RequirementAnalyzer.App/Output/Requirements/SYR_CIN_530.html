@@ -1,0 +1,12 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_530</h1></br><li>8.1.50 SYR_CIN_530 : ComAdapter Rx Partial Network Handling</br></li><li>8.1.50.1 Description</br></li><li>8.1.50.1.0-1 Brief description:</br></li><li>8.1.50.1.0-2 Preconditions:</br></li><li>8.1.50.1.0-3 Trigger:</br></li><li>8.1.50.1.0-4 Input data:
+1. NM PDU
+2. CAN Signals</br></li><li>8.1.50.1.0-5 Description of behaviour:
+Please see the deatiled behavior description for Partial Network PDU and SW-C signal and its Qualifier evaluation in the document:
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Documentation/COMAdapter/ComAdapter_Nutshell.pdf
+
+Based on Network Management message from BDC/ZGW (ECUID: 0x10) - 0x510 (CanId) - CCU must control the PDU Groups - Rx PDUs are disabled 1.28s after the Active Partial network is 0 and Tx PDUs are to be disable 1.92s after Active Partial Netwokr is 0 (Requirement from Zustandssteurungclient - not detailed in this ComAdapter SYR)
+
+See pages : 8
+Also refer to the table of each usecases specified and its behavior for Input and Output defined in:
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Documentation/COMAdapter/ComAdapter_Usecases.xlsx
+</br></li><li>8.1.50.1.0-6 Timing Requirements: See the documents described in Description timing also specified in the docuement.</br></li><li>8.1.50.1.0-7 Output data: SW-C variable / Record</br></li><li>8.1.50.1.0-8 Postconditions:</br></li><li>8.1.50.1.0-9 Descriptions of exceptions:</br></li><li>8.1.50.1.0-10 Dependencies and interactions:</br></li><li>8.1.50.2 Differences to CRS</br></li><li>8.1.50.2.0-1 xxx</br></li><li>8.1.50.3 Questions and Answers</br></li><li>8.1.50.3.0-1 xxx</br></li>

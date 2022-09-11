@@ -1,0 +1,24 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG60</h1></br><li>3.1.6 SYR_HMG60: AKKS Activation</br></li><li>3.1.6.1 Description</br></li><li>3.1.6.1.0-1 Brief description:</br></li><li>3.1.6.1.0-2 CCU shall activate/deactivate the AKKS functions (which controls separate actuators) according to the following values of an application switch :
+- Hard Activation
+- Hard Deactivation
+- SECO (Self-Learning\Coding)</br></li><li>3.1.6.1.0-3 Preconditions: LIN Wake-Up, LIN-Communication correctly working (no physical failure on the LIN Network)</br></li><li>3.1.6.1.0-4 Trigger: if the application switch is set to one of the 3 above mentioned values depends on:
+1. the country (TBD by BMW)
+2. an XCP Variable which can be set to "Hard Deactivation\Hard Activation\SECO"</br></li><li>3.1.6.1.0-5 Input data: see "Trigger"</br></li><li>3.1.6.1.0-6 Description of behaviour: based on an application switch which can be set to: 
+ - Hard Activation
+ - Hard Deactivation
+ - SECO (Self-Learning\Coding)
+the CCU can separately activate\deactivate the 2 AKKSs.
+These values will not be changed until the (re-)activation.
+Activation and deactivation of the AKKS1 and AKKS2 can be performed separately</br></li><li>3.1.6.1.0-7 Timing Requirements: there are no timing requirements of BMW: nevertheless, the activation\deactivation of the AKKS has to be performed before the arrival of the INIT Request by the AKKS in order to be able to perform the corresponding INIT Procedure</br></li><li>3.1.6.1.0-8 Output Data:
+Activation: in case of activation of the functionality, the AKKS, after proper initialization, will be controlled by the CCU as per-default, i.e. accordingly with  input values for the LIN Signals transmitted by the BMW Thermal Management.
+Deactivation: in case of deactivation, the CCU will set the AKKS in Emergency Run, i.e. it will sent on LIN
+Broadcast_Steuerung_LIN.SMOT_PO_AKKS_LIN==0x7FFF ----> for the deactivation of the AKKS1
+Steuerung_AKKS_2_LIN.SMOT_PO_AKKS_2_LIN==0x7FFF ----> for the deactivation of the AKKS2</br></li><li>3.1.6.1.0-9 Postconditions:
+Activation: the AKKS  runs and is controlled via LIN by the CCU as per-default;
+Deactivation: the AKKS is set in Emergency Run, i.e. the flaps are open</br></li><li>3.1.6.1.0-10 Descriptions of exceptions: 
+In case :
+1. no coding flag is available---> the AKKS1 and AKKS2 have to be per-default deactivated . For I300 no coding mechanisms has been implemented, therefore, AKKS1 and AKKS2 will be per-default ACTIVE;
+2. the self-learning function cannot be started due to a LIN-Timeout or due to a LIN-physical failure ---> TBD by BMW</br></li><li>3.1.6.1.0-11 Dependencies and interactions: 
+1.Self-Learning (detection of AKKS via LIN) 
+2.Coding function (coding flag of the AKKS)
+3. LIN Communication (see "Description of behaviour")</br></li><li>3.1.6.2 Differences to CRS</br></li><li>3.1.6.3 Questions and Answers</br></li>

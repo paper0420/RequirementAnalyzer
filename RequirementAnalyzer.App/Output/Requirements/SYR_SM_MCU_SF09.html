@@ -1,0 +1,26 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SM_MCU_SF09</h1></br><li>7.11.2.11 SYR_SM_MCU_SF09  Chorus Overvoltage Protection</br></li><li>7.11.2.11.1 Description</br></li><li>7.11.2.11.1.0-1 Brief description: 
+
+SM1: H/w Requirement:
+
+“In any circumstances main Micro input voltage shall not exceed maximum absolute voltage i.e 6v”. 
+To avoid this situation we need an h/w voltage limiter outside the Micro which will guarantee that always the voltage applied to the main Micro is less than 6v.
+
+ADC channel to be added for voltage monitoring 
+
+s/w Requiremt: 
+SM2: CCU must use a voltage monitoring mechanism to monitor time operating in the yellow region if  SM1 failed.
+SM3: STM already have an internal monitoring mechanism(UVD400) to monitor  the voltage in yellow region which shall be used to implement SM2. But as per ST, internal monitoring mechanism alone not stuffiest as the internal monitoring region may very between 5.72v to 5.84v due ST HW limitation. Hence it is highly recommended to have CCU specific safety mechanism to monitor the yellow region(Highlighted in doted pattern ).
+
+Using Chorus ADC, voltage shall monitor continiouslly to detect voltage above 5.5v. 
+
+ADC to read the supply voltage in every FTTI (50 ms )
+If the supply voltage goes above 5.5v( 5.0V+10%  Max tolerance ) i.e. in yellow region, start maturing fault status.
+After two consecutive cycle if the voltage is high immediate reset should apply
+And the total time stayed in yellow region to be stored in NVM before applying reset and during start-up it is to be checked whether it is reached cumulative time 10 hours. 
+And in each time during start-up input voltage to be verified before staring safety application.
+
+
+ 
+
+
+ </br></li><li>7.11.2.11.1.0-2 Preconditions: NA</br></li><li>7.11.2.11.1.0-3 Trigger: ADC votage monitroing</br></li><li>7.11.2.11.1.0-4 Input data: NA</br></li><li>7.11.2.11.1.0-5 Description of behaviour: Safe state : Immediate Reset </br></li><li>7.11.2.11.1.0-6 Timing Requirements: 100 ms</br></li><li>7.11.2.11.1.0-7 Output data: NA</br></li><li>7.11.2.11.1.0-8 Postconditions: Immediate Reset </br></li><li>7.11.2.11.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.2.11.1.0-10 Dependencies and interactions: NA</br></li><li>7.11.2.11.2 Differences to CRS</br></li><li>7.11.2.11.2.0-1 xxx</br></li><li>7.11.2.11.3 Questions and Answers</br></li><li>7.11.2.11.3.0-1 xxx</br></li>

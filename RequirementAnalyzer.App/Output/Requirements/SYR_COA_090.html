@@ -1,0 +1,19 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_COA_090</h1></br><li>7.9.1.16 SYR_COA_090: Support partial networking via BSWM rules</br></li><li>7.9.1.16.1 Description</br></li><li>7.9.1.16.1.0-1 Brief description:
+This UC gives brief description of the COM Adapter determining partial networking 
+COM Adapter shal detect all the signals that are not available in the current subnet by reading the mode switch notifications from BSWM and comparing with the message catalogue information.
+
+During the Standby, Ready, Active modes the system bus CAN communication is active. In these states the system state Park, Dwell, Drive is communicated and mapped to sub states. Com Adapter updates suitable value in the internal qualifier depending on the subnetwork status.
+
+The BswM shall receive the current COM communication status as active or not. For example the Network management message NM3 received from sub net master "CON_VEH" is used to  by COM adapter to get the partial network information and also gets this information from mode switch notifications.
+
+When the NM3 message is active for particular partial network then the  the partial network status is set as ON and when the NM3 message is inactive for particular partial network then the  the partial network status is set as OFF.
+
+COM Adapter shall consider the message catalogue and Xml schema information to create IPDU groups and setting the qualifiers to the signals.
+
+ </br></li><li>7.9.1.16.1.0-2 Preconditions:</br></li><li>7.9.1.16.1.0-3 Trigger:</br></li><li>7.9.1.16.1.0-4 Input data:
+NM3 message CON_VEH and BSWM mode status</br></li><li>7.9.1.16.1.0-5 Description of behaviour:</br></li><li>7.9.1.16.1.0-6 Timing Requirements:
+NM3 message is received by 150ms after a valid wakeup event
+NM3 message is received by 100ms after a valid wakeup event during partition</br></li><li>7.9.1.16.1.0-7 Output data:
+Qualifier status of active and inactive Partial sub network</br></li><li>7.9.1.16.1.0-8 Postconditions:</br></li><li>7.9.1.16.1.0-9 Descriptions of exceptions:</br></li><li>7.9.1.16.1.0-10 Dependencies and interactions:
+Epic No. CCU-2851
+Vehicle condition and Interaction with BMW components</br></li><li>7.9.1.16.2 Differences to CRS</br></li><li>7.9.1.16.2.0-1 xxx</br></li><li>7.9.1.16.3 Questions and Answers</br></li><li>7.9.1.16.3.0-1 xxx</br></li>

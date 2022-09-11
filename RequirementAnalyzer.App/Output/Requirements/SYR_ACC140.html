@@ -1,0 +1,60 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC140</h1></br><li>2.1.15 SYR_ACC140: Component protection / Safety function -Detect and handle over current AC</br></li><li>2.1.15.1 Description</br></li><li>2.1.15.1.0-1 Brief description:</br></li><li>2.1.15.1.0-2 Detect over current on the AC side, set error status bit "Abschaltung Maximalstrom  AC"</br></li><li>2.1.15.1.0-3 Preconditions:</br></li><li>2.1.15.1.0-4 LDK commands the target operation state "charge".</br></li><li>2.1.15.1.0-5 Trigger:</br></li><li>2.1.15.1.0-6 HVAC_Curr > Threshold_MaximumCurrent_AC</br></li><li>2.1.15.1.0-7 Input data:</br></li><li>2.1.15.1.0-8 LT4_I_Sig</br></li><li>2.1.15.1.0-9 Description of behaviour:</br></li><li>2.1.15.1.0-10 * Detect current over the maximum current threshold on the AC side:
+  HVAC_Curr > Threshold_MaximumCurrent_AC
+* The Charger should stop operation  -> msg PMG/LDK
+* Register the respective DTC and set bit "Abschaltung Maximal-strom AC" in the error status word
+* Implement as ASIL B. With Mean error probability: 10 FIT
+outage metrics: SPFM: > 90%  ; LFM: > 60%
+implementation hint  
+if
+The AC charging current (rms) (about 100 ms) per AC phase (AC
+/ DC converter) > Maximum allowed Limits(Configurable)
+then
+The AC charging must be aborted.
+configurable limits:
+For the 3.5kW variant it is provided 16 A per Phase
+For the 7.0kW variant it is provided 32 A per Phase
+For the 11kW variant it is provided 16 A per Phase
+DTC Codes: Bauteilschutz - AC Überstrom
+Modul 1 0x318E2
+Modul 2 0x318E9
+Modul 3 0x318F1</br></li><li>2.1.15.1.0-11 Timing Requirements:</br></li><li>2.1.15.1.0-12 * FTT: 1000ms [SZ_AC7]
+*On the three phase variant during AC
+charging, any phase error internal to CCU
+that provokes to disable the phase shall
+be detected in 2,5 seconds. .[23683]
+* On the three AC phases variant during AC
+charging, in case an internal CCU phase
+error is detected, then the CCU shall start
+to charge on one phase within 2,5s.[23684]</br></li><li>2.1.15.1.0-13 Output Data:</br></li><li>2.1.15.1.0-14 Abschaltung  Maximalstrom AC
+Status word
+error status word:
+Grund_Betriebsart-Fehler_Ladegerät-
+AC/DC-1_Ist: 0--- ---- 1--- Overcurrent AC</br></li><li>2.1.15.1.0-15 Postconditions:</br></li><li>2.1.15.1.0-16 Descriptions of exceptions:</br></li><li>2.1.15.1.0-17 safe state: no AC charging & no Energy in DC‐HV
+Safe state: AC current = 00A +/‐ 10mA
+Safe state: Disable the AC charging and inform BMW SW
+If an error was found "Abschaltung Maximalstrom AC"  bit shall be set in the error status word.
+CCU has stop operations
+DTC Codes: Bauteilschutz - AC Überstrom
+Modul 1 0x318E2
+Modul 2 0x318E9
+Modul 3 0x318F1</br></li><li>2.1.15.1.0-18 Dependencies and interactions:</br></li><li>2.1.15.1.0-19 Other components/modules
+Diagnostic - LDK
+Usecases  SYR_PMG130 and SYR_PMG140  (Power Management)
+SYR_ACC90,
+Customer requirements:  [18417,18418,18419,18392,23683,23684] [21574,21578,21579]
+Safety requirements: SZ‐AC7 as ASIL B
+Mean error probability: 10 FIT
+outage metrics: SPFM: > 90%  ; LFM: > 60%
+EPIC: Implemented in sprint 1705 EPIC/Task(s): 287/ 428
+FuSa EPIC: CCU-1192 (open)</br></li><li>2.1.15.2 Differences to CRS</br></li><li>2.1.15.2.0-1 FTT
+configurable current limits for the 3.5kW, 7kW and 11kW Variants respectevely
+KLH (21579)
+18A, 32A, 18A
+SZ‐AC7
+16A, 32A, 16A</br></li><li>2.1.15.3 Questions and Answers</br></li><li>2.1.15.3.0-1 [Kiyosawa-San]:implemented at all times due to errors in the english translation
+
+[Jian Wang, BMW] 18419 AC-Overcurrent -> Can be run all the time. You can keep the implementation.
+
+[Kiyosawa-San 2017.06.16] Is the LDK taking the decision which phase will be used, in case one phase fails? Analog to the derating as LDK is monitoring the phases anyway.
+
+[Jian Wang, 2017.06.19] If one phase fails, LDK shall choose the phase to be used. In case of derating, LDK decides the charging strategy (one phase or three phase) and the charging load.</br></li>

@@ -1,0 +1,17 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-64-0001-0004#</h1>
+[Thermal_Management],[AKKS],[Basic_Operation]</br>Test Objective: AKKS2
+Before and after learning the lower limit position
+Check the position move operation.<br>
+<h2>Requirements</h2><ul><li><strong>25171</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The stepper motor position (target position) shall be calculated.</li>
+<li><strong>25181</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The stepper motor mode (normal, service, stop) shall be calculated.</li>
+<li><strong>25186</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The speed (TURN_V_AKKS_LIN) shall be set in a configurable manner depending on the requirement (stop test OPEN, stop test CLOSED, opening, closing).</li>
+<li><strong>25187</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The torque delimiter (SMOT_TORQ_AKKS_LIN) shall be set in a configurable manner depending on the requirement (stop test OPEN, stop test CLOSED, opening, closing).</li>
+<li><strong>25242</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>If there is a movement request and the lower stop has not been learned yet, this shall be learned and then the target position shall be approached.</li>
+<li><strong>25243</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>If there is a movement request and the lower stop has already been learned (stop test CLOSED was successful), the target position shall be approached directly.</li>
+<li><strong>25246</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>A function for checking the upper limit stop shall be provided, which is activated (stop test OPEN) by a selectable trigger (error, vehicle status, vehicle speed, tester job, status stop test CLOSED). (see Picture 1)</li>
+<li><strong>25248</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>An applicable vehicle speed value shall be realized as trigger for stop test OPEN.</li>
+<li><strong>25250</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>After triggering of stop test OPEN, the target position is set to an applicable high value.</li>
+<li><strong>25251</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>During the stop test OPEN the travel path of the flap shall be checked.</li>
+<li><strong>25252</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>If a blockade is detected within the traversing range the stop test OPEN is finished successfully.</li>
+<li><strong>25266</strong> - <div>[Not Changed][accepted][SWQT (ENG.8)][Requirement]</div>It shall be possible to set the blocking detection ON or OFF (SMOT_BLK_AKKS_LIN) per application.</li>
+</ul></html>

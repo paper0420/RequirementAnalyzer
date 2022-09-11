@@ -1,0 +1,36 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_615</h1></br><li>8.1.70 SYR_CIN_615: Coding parameter for VWM2.0 Feature </br></li><li>8.1.70.1 Description</br></li><li>8.1.70.1.0-1 Brief description:
+Coding parameter ‘‘AvlHvsTmManAut’’ will be added in caf file ‘caf 014_001_002‘ and above version which determines the availability of HVS thermal Management Manuel/Automatic
+
+The coding parameter should be used by BMW component BMW_CPS_Pff using the signal interface ‘BMWcod_st_AvlHvsTmManAut’
+
+The PDU PredictiveThermalManagement_UIStatus should be activated/deactivated based on the coding.
+
+New Timeout DTC 0xD79992 is added in ZEDIS for the PDU PredictiveThermalManagement_UIStatus In SW.2137.60 BMW arxml, the timeout DTC 0xD79992 is removed from ZEDIS as PDU type of PDU ‘PredictiveThermalManagement_UIStatus’ is changed from PERIODIC to EVENT_TRIGGERED. (Refer EPICEPIC #94717)
+
+
+</br></li><li>8.1.70.1.0-2 Preconditions:
+NA</br></li><li>8.1.70.1.0-3 Trigger:
+- BMWcod_st_AvlHvsTmManAut has value 0, 1 and 2 
+- PDU PredictiveThermalManagement_UIStatus is received/not received by the CCU</br></li><li>8.1.70.1.0-4 Input data:
+caf 014_001_002, updated FA file, signal interface(BMWcod_st_AvlHvsTmManAut) from BMW_CPS_Pff, BMW NK</br></li><li>8.1.70.1.0-5 Description of behaviour:
+
+Task of this EPIC is to :
+- Integrate the new coding paramter and connect it to BMW HL application.
+
+- Control the PDU PredictiveThermalManagement_UIStatus activation/deactivation based on the coding parameter value as mentioned in below table.
+
+- Connect the coding parameter to the timeout DTC 0xD79992, so as to prevent unexpected DTC when the PDU PredictiveThermalManagement_UIStatus  will not be received on the bus, due to variant management. The DTC will be present with new Zedis versions (v29.2 and v25.6) In SW.2137.60 BMW arxml, the timeout DTC 0xD79992 is removed from ZEDIS as PDU type of PDU ‘PredictiveThermalManagement_UIStatus’ is changed from PERIODIC to EVENT_TRIGGERED. (Refer EPICEPIC #94717)
+
+
+ 
+
+
+</br></li><li>8.1.70.1.0-6 Timing Requirements: NA</br></li><li>8.1.70.1.0-7 Output data: 
+- BMWcod_st_AvlHvsTmManAut signal interface to BMW_CPS_Pff module has the physical value as per the coding parameter 'AvlHvsTmManAut'
+- Timeout DTC 0xD79992 is not active if the PDU is deactivated. The timeout DTC is active if the coding value is 1/2 and the PDU is not received by CCU.In SW.2137.60 BMW arxml, the timeout DTC 0xD79992 is removed from ZEDIS as PDU type of PDU ‘PredictiveThermalManagement_UIStatus’ is changed from PERIODIC to EVENT_TRIGGERED. (Refer EPICEPIC #94717)</br></li><li>8.1.70.1.0-8 Postconditions: NA</br></li><li>8.1.70.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.70.1.0-10 Dependencies and interactions:
+Software refference interaction
+
+ 
+
+
+ </br></li><li>8.1.70.2 Differences to CRS</br></li><li>8.1.70.2.0-1 xxx</br></li><li>8.1.70.3 Questions and Answers</br></li><li>8.1.70.3.0-1 xxx</br></li>

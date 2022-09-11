@@ -1,0 +1,28 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SF12</h1></br><li>7.11.2.13 SYR_SF12 FuSa Compliant Watchdog</br></li><li>7.11.2.13.1 Description</br></li><li>7.11.2.13.1.0-1 Brief description: 
+
+WATCHDOG CONCEPT
+
+Description is here: https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.03_SystemArchitecturalDesign/ENG.03_SystemArchitecturalDesignSpecification/AdditionalDocuments/WatchdogConcept/bmw_ccu_watchdog_concept.pptx
+
+External Watchdog to be triggered by FCCU. 
+FCCU must be configured using FCCU driver during startup and the configuration should be monitored in every FTTI.(Detailed FCCU safety requirements are available as aprt of ST safety manual requirements ).
+
+
+The following timing- and Execution-related faults are not monitored using external WDG
+Blocking of execution
+ Deadlocks
+ Livelocks
+ Incorrect allocation of execution time
+ Incorrect synchronization between software elements
+
+The following timining monitoring funcation to be implemented in software using AUTOSAR WDG Manager.And the WDG manager should use SWT timer using AUTOSAR MCAL WDG driver . General time monitoring window mode to be configured in SWT. 
+
+
+ The Watchdog Manager supervises the execution of Application Software in an
+AUTOSAR ECU.Atleast one Supervised Entities (SWCs/Runnable within an SW-C/BSW module/ CDD ) must be perset for all the safety TASK. Checkpoints should be defeined inside the Supervised Entities and Supervised Entities is interlaced with function calls of the Watchdog Manager. 
+
+For the monitoring concept please refer the SYR_SF05 for the monitoring concept and safe state 
+
+</br></li><li>7.11.2.13.1.0-2 Preconditions: Before Safety application start 
+</br></li><li>7.11.2.13.1.0-3 Trigger: Safety TASK
+</br></li><li>7.11.2.13.1.0-4 Input data: NA</br></li><li>7.11.2.13.1.0-5 Description of behaviour: Safe state : Immediate Reset </br></li><li>7.11.2.13.1.0-6 Timing Requirements: 50 ms</br></li><li>7.11.2.13.1.0-7 Output data: NA</br></li><li>7.11.2.13.1.0-8 Postconditions: Immediate Reset </br></li><li>7.11.2.13.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.2.13.1.0-10 Dependencies and interactions: NA</br></li><li>8 Car Interface</br></li><li>8.1 Functional System Requirements</br></li>

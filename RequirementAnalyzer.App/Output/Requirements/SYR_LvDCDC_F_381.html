@@ -1,0 +1,28 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_381</h1></br><li>6.1.52 SYR_LvDCDC_F_381: Stop energy transfer during KL_30 or 12V onboard supply lower 6V and greater 4,5V for longer than 500ms</br></li><li>6.1.52.1 Description</br></li><li>6.1.52.1.0-1 Brief description:</br></li><li>6.1.52.1.0-2 The energy transfer terminates with the current operating mode equals error when the KL_30 or the LV voltage drops for longer 500ms below 6V.</br></li><li>6.1.52.1.0-3 Preconditions:</br></li><li>6.1.52.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.52.1.0-5 Trigger:</br></li><li>6.1.52.1.0-6 Measured_U_LV = 4,5V, duration = 501ms</br></li><li>6.1.52.1.0-7 Input data:</br></li><li>6.1.52.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = 11V, 9V (10s), 4,5V (501ms), 9V (1s), 11V
+Measured_U_HV = 380V,
+Min_Permitted_HV_Voltage = 300V,
+Max_Permitted_HV_Power = 4000 W,
+p_DCDC_CONTINUOUS_I_LV = 221 A,
+p_DCDC_CONTINUOUS_P_LV = 3100 W,
+Coolant temperature = 35°C</br></li><li>6.1.52.1.0-9 Description of behaviour:</br></li><li>6.1.52.1.0-10 Below 4,5V the LvDCDC may do a reset for undervoltage reason</br></li><li>6.1.52.1.0-11 Timing Requirements:</br></li><li>6.1.52.1.0-12 Output Data:</br></li><li>6.1.52.1.0-13 Current_Operating_State = Error
+Measured_LVcurrent=  reduced currents below 14V, later 0A
+Measured_U_LV = 11V, 9V (10s), 4,5V (501ms), 9V (1s), 11V
+Strom_DCDC-Wandler_Niedervoltteil_maximal_verfügbar = 0A
+Spannung_DCDCWandler_Niedervoltteil_gemessen_Ist > 0,
+Strom_DCDC-Wandler_Hochvoltteil_gemessen_Ist = 0,
+Spannung_DCDC-Wandler_Hochvoltteil_gemessen_Ist > 0</br></li><li>6.1.52.1.0-14 Postconditions:</br></li><li>6.1.52.1.0-15 Descriptions of exceptions:</br></li><li>6.1.52.1.0-16 Dependencies and interactions:</br></li><li>6.1.52.1.0-17 Other components/modules
+Customer requirements: 21873, 23186, 6249
+Usecases :
+Test 1 - Cold start
+Test pulse "normal": Functional status C [GS 95024-2-1]
+Test pulse "Severe": Functional status C [GS 95024-2-1]
+
+Test 2 - Warm start:
+Test sequence "short": Functional status A [GS 95024-2-1]
+Test sequence "long": Functional status A [GS 95024-2-1]
+
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.52.2 Differences to CRS</br></li><li>6.1.52.3 Questions and Answers</br></li>

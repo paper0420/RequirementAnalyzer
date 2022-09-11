@@ -1,0 +1,15 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_573</h1></br><li>6.1.77 SYR_LvDCDC_F_573: Removing a DTC by status condition vehicle change 40 times (under work)</br></li><li>6.1.77.1 Description</br></li><li>6.1.77.1.0-1 Brief description:</br></li><li>6.1.77.1.0-2 Triggered by a special change of the status condition vehicle (ST_CON_VEH) the component shall leave the error state into standby.</br></li><li>6.1.77.1.0-3 Preconditions:</br></li><li>6.1.77.1.0-4 The current operation mode is equal to error. Only valid as long as there is other error cause active than: 
+LV undercurrent,
+LV overcurrent,
+HV overcurrent.</br></li><li>6.1.77.1.0-5 Trigger:</br></li><li>6.1.77.1.0-6 status condition vehicle (ST_CON_VEH) change from:
+5->7: Wohnen -> Pruefen_Analyse_Diagnose
+5->8: Wohnen -> Fahrbereitschaft herstellen
+5->10: Wohnen->Fahren</br></li><li>6.1.77.1.0-7 Input data:</br></li><li>6.1.77.1.0-8 Description of behaviour:</br></li><li>6.1.77.1.0-9 Triggered by a special change of the status condition vehicle (ST_CON_VEH) the component shall leave the error state into standby. The DEM is informed that the error has "failed passed". After 40 successful triggers the application can inform the DEM to remove the appropriate DTC from the list.</br></li><li>6.1.77.1.0-10 Timing Requirements:</br></li><li>6.1.77.1.0-11 < 100ms</br></li><li>6.1.77.1.0-12 Output data:</br></li><li>6.1.77.1.0-13 current operation mode is equal to standby. 
+If the target operation mode is equal to buck, then the component switches further to buck mode.</br></li><li>6.1.77.1.0-14 Postconditions:</br></li><li>6.1.77.1.0-15 Descriptions of exceptions:</br></li><li>6.1.77.1.0-16 The error state shall be not left, if there are other error reasons are active.</br></li><li>6.1.77.1.0-17 Dependencies and interactions:</br></li><li>6.1.77.1.0-18 Other components/modules: 
+Customer requirements: 18154, 22869, 22877, 22882
+Customer info: 
+EPIC: CCU-4307
+META: 1815
+Usecases 
+Safety requirements 
+Technical Safety requirements</br></li><li>6.1.77.2 Differences to CRS</br></li><li>6.1.77.2.0-1 xxx</br></li><li>6.1.77.3 Questions and Answers</br></li><li>6.1.77.3.0-1 xxx</br></li>

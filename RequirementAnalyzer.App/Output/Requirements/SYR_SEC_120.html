@@ -1,0 +1,74 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_120</h1></br><li>7.7.1.11 SYR_SEC_120: Safety / security – disable reaction of detected security-check fail</br></li><li>7.7.1.11.1 Description</br></li><li>7.7.1.11.1.0-1 Brief description: CCU shall use SFA triggered flags to either temporarily disable a security reaction or to permanently instate it.</br></li><li>7.7.1.11.1.0-2 Preconditions: none</br></li><li>7.7.1.11.1.0-3 Trigger: Detected security-check fail</br></li><li>7.7.1.11.1.0-4 Input data: SW binaries</br></li><li>7.7.1.11.1.0-5 Description of behaviour: SFA_TempX_IsEnabled pseudonym shall be used for the toggeleable Reaction switch.
+SFA_PermX_IsEnabled pseudonym shall be used for the permanent enabelment of security reaction.
+A request flag shall be writen in Appl and evaluated in the trust anchor; the bootmanager, at which it will set the feedback flags.
+
+The affected security reactions shall be:
+1. Lock SecOC Keys resulted by RTMD
+2. Stay in Bmgr resulted by SecureBoot
+
+SFA_TempX_IsEnabled shall be revocable.
+SFA_PermX_IsEnabled  shall be irrevocable.
+
+SFA Flag Setting in Bmgt
+
+The "TB_ConfigurationUpdate" possible values shall indicate:
+Nibble#1
+1. Perm
+2. Temp
+Nibble#2
+1. Add RTMD Reaction.
+2. Remove RTMD Reaction.
+3. Add AuthBoot Reaction.
+4. Remove AuthBoot Reaction.
+5. Nothing == 0.
+
+When the "ConfigurationUpdateCheck" is evaluated as TRUE, the bmgr shall:
+1. Configure HMS's TBRT RTMD Reaction to SecOC Key Tag ID, when TB_ConfigurationUpdate is "Add RTMD Reaction".
+2. Configure HMS's TBRT RTMD Reaction to no Tag ID when TB_ConfigurationUpdate is "Remove RTMD Reaction".
+
+When the HSM CSAI confirmation is received for TBRT update, the bmgr shall set the SFA flags as in the figure: Nibble Matrix.
+
+SFA Token A
+SFA Token ID shall be:
+1. RTMD: #TBD
+2. AuthBoot: #TBD
+
+SFA Token A shall be used for the revocable enablement of Security Reactions.
+When a valid SFA Token A is available AND "SFA_TempX_IsEnabled" == FALSE, the Appl shall set the request flag "TB_ConfigurationUpdate" as "Add".
+
+SFA Token A shall be supported in all ECU Modes.
+SFA Token A shall have no Mileage expirey conditions.
+SFA Token A shall have no Time expirey conditions.
+
+The RID 0x0F29 SFA_READ_STATUS for Token A shall report the "SFA_TempX_IsEnabled" flag in Byte#8 "Status of Feature ID"
+
+The RID 0x0F28 SFA_DISCOVER_FEATURE_IDS for Token A shall report the "SFA_TempX_IsEnabled" flag in Byte#10 "Status of Feature ID"
+
+For Token A: The RID 0x0F2D SFA_DELETE_TOKEN shall  set the request flag "TB_ConfigurationUpdate" as "Remove".
+
+For Token A: The RID 0x0F2B SFA_CLEAR_FEATURE shall  set the request flag "TB_ConfigurationUpdate" as "Remove".
+
+SFA Token B
+
+SFA Token ID shall be:
+1. RTMD: #TBD
+2. AuthBoot: #TBD
+
+SFA Token B shall be used for the permenant enablement of Security Reactions.
+
+When a valid SFA Token B is available AND "SFA_PermX_IsEnabled" == FALSE, the Appl shall set the request flag "TB_ConfigurationUpdate" as "Add".
+
+SFA Token B shall be supported in all ECU Modes.
+SFA Token B shall have no Mileage expiry conditions.
+SFA Token B shall have no Time expiry conditions.
+
+The RID 0x0F29 SFA_READ_STATUS for Token B shall report the "SFA_PermX_IsEnabled" flag in Byte#8 "Status of Feature ID".
+
+The RID 0x0F28 SFA_DISCOVER_FEATURE_IDS for Token B shall report the "SFA_PermX_IsEnabled" flag in Byte#10 "Status of Feature ID".
+
+For Token B: The RID 0x0F2D SFA_DELETE_TOKEN shall be rejected with NRC 0x22.
+For Token B: The RID 0x0F2B SFA_CLEAR_FEATURE shall be rejected with NRC 0x22.
+
+DTC Setting
+TBD
+</br></li><li>7.7.1.11.1.0-6 Timing Requirements: none</br></li><li>7.7.1.11.1.0-7 Output data: CCU shall use SFA triggered flags to either temporarily disable a security reaction or to permanently instate it.</br></li><li>7.7.1.11.1.0-8 Postconditions: none</br></li><li>7.7.1.11.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.11.1.0-10 Dependencies and interactions: none</br></li><li>7.7.1.11.2 Differences to CRS</br></li><li>7.7.1.11.2.0-1 xxx</br></li><li>7.7.1.11.3 Questions and Answers</br></li><li>7.7.1.11.3.0-1 xxx</br></li>

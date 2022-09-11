@@ -1,0 +1,28 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PMG_370</h1></br><li>7.2.1.34 SYR_PMG_370: Handling ILD ST_KL30F to avoid emergency release of charging plug</br></li><li>7.2.1.34.1 Description</br></li><li>7.2.1.34.1.0-1 Brief description:
+In KOM_PARKEN_BN_NIO, when CCU state machine switched from iLD Active to iLD shutdown, 
+EAPC_ST_KL30_F is sent as Nachlauf permanently. EAPC private CAN transmission does not stop and thus ILD does not go to sleep.
+If the charging socket wake-up condition occurs (KL30F_Active or via the charging flap) during that time, ILD throws an Emergency unlock for the charging cable. As a consequence, the charging cable could be stolen.
+
+SYR handles the adaptations applied in ilD shutdown state to avoid Emergency Unlock issue.</br></li><li>7.2.1.34.1.0-2 Preconditions: CCU is in iLD active state</br></li><li>7.2.1.34.1.0-3 Trigger:
+Transition from iLD active state to iLD shutdown state
+
+condition:
+(iLD_Shutdown_LockTmr Elapsed) && ((CAN_FD == NO_COM) || (BasePn == KOM_PARKEN_BN_NIO) || (BasePn == Keine_Kom && FuncPn != TN_LADEN))&& (ComNetReq && 0x1F == 00)</br></li><li>7.2.1.34.1.0-4 Input data: 
+ILD State Machine is adapted, 
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/iLD/CCU-30989_ILD_SM_v3.pdf</br></li><li>7.2.1.34.1.0-5 Description of behaviour: 
+when CCU enters iLD shutdown state from iLD active state when transition condition is satisfied,
+
+Below actions to be performed:
+1. Deactivate all Tx PDUs except EAPC_ST_CD
+2. iLD Rx PDU Group Deactivation –All PDUs except EAPC_WUPM_LD_AC_CCS and EAPC_WUPM_LD_DC
+3. Send EAPC_ST_KL30_F = Nachlauf for only 4s. After 4s, deactivate Tx PDU EAPC_ST_CD
+4. Transition from iLD shutdown to iLD active or INIT if condition is set correctly
+5. NM timeout which would lead to CCU shutdown provided 4 sec nachlauf is elapsed
+
+Please refer SM, 
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/iLD/CCU-30989_ILD_SM_v3.pdf</br></li><li>7.2.1.34.1.0-6 Timing Requirements: 
+Nachlauf is sent for 4 seconds in iLD shutdown state.</br></li><li>7.2.1.34.1.0-7 Output data: 
+1. EAPC_ST_KL30_F is sent as nachlauf
+2. EAPC_ST_KL30_F is sent as active</br></li><li>7.2.1.34.1.0-8 Postconditions:
+none</br></li><li>7.2.1.34.1.0-9 Descriptions of exceptions: none</br></li><li>7.2.1.34.1.0-10 Dependencies and interactions: 
+CAN (private CAN, CAN FD), iLD, RTE, BswM, COM </br></li><li>7.2.1.34.2 Differences to CRS</br></li><li>7.2.1.34.2.0-1 xxx</br></li><li>7.2.1.34.3 Questions and Answers</br></li><li>7.2.1.34.3.0-1 xxx</br></li>

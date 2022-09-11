@@ -1,0 +1,27 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_450</h1></br><li>7.5.1.46 SYR_DIA_450: HV Active Control to switch FlashMode</br></li><li>7.5.1.46.1 Description</br></li><li>7.5.1.46.1.0-1 Brief description: 
+Diagnositc Job ENERGIESPARMODE 0x0F0C with argument "0x03-FlashMode" triggers HV ramp down and if HV is not ramped down till 9sec, negative Response shall be send and no mode switch shall be performed. In case of a positive response the requested mode shall be set.</br></li><li>7.5.1.46.1.0-2 Preconditions: PWF state = Prüfen_Analyse_Diagnos, engine speed = 0, speed < 6 km/h, RSU inactive, sessions = as per Zedis</br></li><li>7.5.1.46.1.0-3 Trigger: Execution of Diagnostic Job 0x31 01 0F0C 03</br></li><li>7.5.1.46.1.0-4 Input data: None</br></li><li>7.5.1.46.1.0-5 Description of behaviour:
+
+When Flash mode (0x03) is requested, apart from the given pre-conditions, HV must be checked. 
+
+For all other modes (Normal mode (0x00), Production mode (0x01), Transport mode (0x02) HV status is not relevant.
+
+If HV is active, then it is required to be shutdown and it shall stay deactivated until flash mode is exited. 
+
+[Delta --> Additional part related to CCU-25044: After sending request to ramp down HV]
+
+if HV DC is ramped to less than 60V, a positive response is sent and system shall switch to flash mode
+
+If HV is not ramped down, PENDING response shall be sent till 9sec and afterwards CCU shall send  a negative response.
+
+The currently activated energy saving mode shall be stored in the permanent memory, so that it is still retained, even after the tester is unplugged or the power supply is removed.(FL252 :10505691_02_LH_Fahrzeugprogrammierung)
+
+KLH requirement: 23966 - Flashmode has to be available if HV is deactivated (HV DC < 60V).
+
+For more details on the logic and SWC involved, refer to document https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Diag/HV_Ramp_Down_Flash_concept.pptx</br></li><li>7.5.1.46.1.0-6 Timing Requirements: 
+1. The request to shut down HV from Diag software component to BMW HV component shall be reset 200ms (default) - caliberable, after HV status is received as deactivated,
+2. Maximum waiting time for HV ramp down is 9 sec </br></li><li>7.5.1.46.1.0-7 Output data: If job is successful, 
+Positive response : 71 01 0F 0C
+Currently activated Energy mode shall be present in permanent memory (NVM)
+If job is is not successful, 
+Negative response : 7F 31 22</br></li><li>7.5.1.46.1.0-8 Postconditions: 
+CCU in Flash mode and DTC - 0x023A00, if positive response received</br></li><li>7.5.1.46.1.0-9 Descriptions of exceptions: none</br></li><li>7.5.1.46.1.0-10 Dependencies and interactions: None</br></li><li>7.5.1.46.2 Differences to CRS</br></li><li>7.5.1.46.2.0-1 none</br></li><li>7.5.1.46.3 Questions and Answers</br></li><li>7.5.1.46.3.0-1 none</br></li>

@@ -1,0 +1,11 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_270</h1></br><li>7.5.1.27 SYR_DIA_270: provide diagnostic service by which CCU shall send random traffic over PLC interface</br></li><li>7.5.1.27.1 Description</br></li><li>7.5.1.27.1.0-1 Brief description:
+For PSD measurement we need traffic for hardware analysis. This analysis shall be done for every car or new harness at BMW. So BMW need a diagnostic service which shall activate sending random packet with ethertype 0x88E1 (HPGP frames) at 20% of maximum date rate. 
+Frames to be send shall be defined in SYR_PLC_05</br></li><li>7.5.1.27.1.0-2 Preconditions: 
+- QCA chip shall be operable (QCA chip must have Firmware in it to run)
+- SPI interface shall work between QCA and micro controller.
+- CCU shall be able to send MME frames (ethertype 0x88E1) over PLC interface. </br></li><li>7.5.1.27.1.0-3 Trigger: diagnostic tester request</br></li><li>7.5.1.27.1.0-4 Input data: NA</br></li><li>7.5.1.27.1.0-5 Description of behaviour:
+Activation: CCU shall send packets over PLC interface
+Deactivation : CCU shall stop sending packet over PLC interface
+Status: On query from Diagnotic tester, CCU shall proivde current status of service like activated or deactivated or error.</br></li><li>7.5.1.27.1.0-6 Timing Requirements: none</br></li><li>7.5.1.27.1.0-7 Output data: random TCP/IPV6 frames</br></li><li>7.5.1.27.1.0-8 Postconditions: none</br></li><li>7.5.1.27.1.0-9 Descriptions of exceptions: none</br></li><li>7.5.1.27.1.0-10 Dependencies and interactions:
+LIM_C signal shall request for PLC interface.
+PLCCP shall provide function which generate PLC random traffic.</br></li><li>7.5.1.27.2 Differences to CRS</br></li><li>7.5.1.27.2.0-1 none</br></li><li>7.5.1.27.3 Questions and Answers</br></li><li>7.5.1.27.3.0-1 none</br></li>

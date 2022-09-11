@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PLC_17</h1></br><li>1.1.30.17 SYR_PLC_17: Provide MAC Address and Average Attenuation from EVSE to BMW SWC</br></li><li>1.1.30.17.1 Description</br></li><li>1.1.30.17.1.0-1 Brief description:
+Supplier shall provide MAC address and Average Attenuation from EVSE to BMW SWC over the RTE interfaces</br></li><li>1.1.30.17.1.0-2 Preconditions:PLC bootup successful (BMW_st_ActAvlPLCHwCcs == 1)</br></li><li>1.1.30.17.1.0-3 Trigger:Plug in, CP state change and BMW sets interface to establish datalink (SLAC matching process)</br></li><li>1.1.30.17.1.0-4 Input data:RTE signals (BMW_st_RqrtAcvnComCcs) & Sequence chart of HomePlug Green PHY matching process (ISO15118-3)</br></li><li>1.1.30.17.1.0-5 Description of behaviour:
+For extended charging functions in the vehicle it is necessary to get the MAC-address and Avg. Attenuation provided by EVSE via PLC.
+
+MAC address from EVSE:
+Supplier SW shall update the interface with MAC address when DLINK is ready (SLAC matched).
+In case SLAC process fails, supplier SW shall update the interface with MAC address corresponding to lowest avg. attentuation from EVSE profile entries. If profile entry data is not available, MAC interface remain set to default value i.e. 00.00...  
+Supplier SW shall reset the interface to default (00.00…) as soon as when DLINK is requested again for next SLAC session i.e. BMW_st_RqrtAcvnComCcs == 1.
+MAC interface qualifier is not required and shall remain set to 0 always.
+
+Avg. Attenuation from EVSE:
+Supplier SW shall update the interface with the lowest Avg. Attenuation selected from the available EVSE profile entries during the SLAC process. Otherwise, interface remain set to default value i.e. 255 dB.
+SW shall reset the interface to default (255 dB) as soon as when DLINK is requested again for next SLAC session i.e. BMW_st_RqrtAcvnComCcs == 1.
+
+Supplier SW shall provide the values to BMW SWC via RTE interface. 
+
+During the Charging Pause sequence, when charging is resumed again, interfaces are not updated and will be set to default values. </br></li><li>1.1.30.17.1.0-6 Timing Requirements:SLAC timings by ISO15118-3</br></li><li>1.1.30.17.1.0-7 Output data:RTE interfaces should be updated with MAC address and Avg. Attenuation values.</br></li><li>1.1.30.17.1.0-8 Postconditions: NA</br></li><li>1.1.30.17.1.0-9 Descriptions of exceptions:NA</br></li><li>1.1.30.17.1.0-10 Dependencies and interactions:BSW (SLAC, PLC), PANA Appl. SW, RTE interfaces</br></li><li>1.1.30.17.2 Differences to CRS</br></li><li>1.1.30.17.2.0-1 xxx</br></li><li>1.1.30.17.3 Questions and Answers</br></li><li>1.1.30.17.3.0-1 xxx</br></li>

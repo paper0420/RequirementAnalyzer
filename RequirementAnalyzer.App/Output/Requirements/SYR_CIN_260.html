@@ -1,0 +1,13 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_260</h1></br><li>8.1.30 SYR_CIN_260: Provide E/E support for Carsharing by coding parameter</br></li><li>8.1.30.1 Description</br></li><li>8.1.30.1.0-1 Brief description: CarSharing control unit CSM is not present in All Vehicle variants.
+Based on CODING Parameter for Carsharing the PDUs which are to be received from "CSM" (Car Sharing Module) has to be disabled or Enabledmin CCU.</br></li><li>8.1.30.1.0-2 Preconditions: NA</br></li><li>8.1.30.1.0-3 Trigger: NA</br></li><li>8.1.30.1.0-4 Input data: CAF , BMW NK</br></li><li>8.1.30.1.0-5 Description of behaviour: Based in Coding parameter CarSharingAvail having possible value "verbaut " or "nicht verbaut" the CSM will be present in the Vehicle.
+So Based on CODING Parameter monitoring of CSM related PDUs in CCU has to be enabled or Disabled.
+
+Acceptance : 
+- Coding accesible to SWC
+- No Timeout, CRC , Alive Error monitoring for PDUs from CSM when Carsharing is not Available
+- Timeout , CRC, Alive Monitoring and Siganal Values are provided to SWC when Carsharing is Available.</br></li><li>8.1.30.1.0-6 Timing Requirements: NA</br></li><li>8.1.30.1.0-7 Output data:NA</br></li><li>8.1.30.1.0-8 Postconditions:
+Acceptance : 
+- Coding accesible to SWC
+- No Timeout, CRC , Alive Error monitoring for PDUs from CSM when Carsharing is not Available
+- Timeout , CRC, Alive Monitoring and Siganal Values are provided to SWC when Carsharing is Available.</br></li><li>8.1.30.1.0-9 Descriptions of exceptions: NA</br></li><li>8.1.30.1.0-10 Dependencies and interactions:  The List of PDUs from CSM cannot be found out by CCU as CSM is routing the PDUs through BDC/ZGW.
+BMW is responsible for notifying Panasonic if a new Receive PDU for CSM is to be added for CCU.</br></li><li>8.1.30.2 Differences to CRS</br></li><li>8.1.30.2.0-1 xxx</br></li><li>8.1.30.3 Questions and Answers</br></li><li>8.1.30.3.0-1 xxx</br></li>

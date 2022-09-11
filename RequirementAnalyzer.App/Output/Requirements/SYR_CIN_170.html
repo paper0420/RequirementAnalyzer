@@ -1,0 +1,14 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CIN_170</h1></br><li>8.1.20 SYR_CIN_170: Set Vehicle Ethernet MAC Address from NVM stored in Delivery State of CCU</br></li><li>8.1.20.1 Description</br></li><li>8.1.20.1.0-1 Brief description:
+Configuration of CCU MAC address of Vehicle Ethernet controller. </br></li><li>8.1.20.1.0-2 Preconditions:
+Each CCU unit shall have 3 (three) individiual MAC-address required for setting-up Ethernet/PLC communication:
+1) PLC QCA-Chip (PIB-File).
+2) PLC-Application (Vector-SCC-Stack) / Host-Controller.
+3) OABR-Communication (Eth-MAC for in-vehicle communication). 
+These MAC-addresses shall be written in NVM memory at factory via Panasonic production executing diagnostic services routine.
+6 Byte for each MAC, Total 18 bytes are written in the NVM.
+
+The system has been initialized and started up successfully.</br></li><li>8.1.20.1.0-3 Trigger: system-startup</br></li><li>8.1.20.1.0-4 Input data: None</br></li><li>8.1.20.1.0-5 Description of behaviour:
+In order to establish ethernet communication via Vehicle Ethernet, the Source MAC address of CCU's Vehicle Ethernet Controller shall be configured during initialization. 
+
+The valid Source MAC address to be configured should be retrieved from the appropriate location of NVM memory. The retrieved Source MAC address should be validated before configuring the Vehicle Ethernet Controller. 
+</br></li><li>8.1.20.1.0-6 Timing Requirements: None</br></li><li>8.1.20.1.0-7 Output Data: </br></li><li>8.1.20.1.0-8 Postconditions: Valid MAC address for CCU shall be seen on ETH channel.</br></li><li>8.1.20.1.0-9 Descriptions of exceptions: none</br></li><li>8.1.20.1.0-10 Dependencies and interactions: none</br></li><li>8.1.20.2 Differences to CRS: none</br></li><li>8.1.20.3 Questions and Answers: none</br></li>

@@ -1,0 +1,21 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-13-0001-0007#</h1>
+[Charging],[14V_DCDC],[DCDC_Measurement_Accuracy]</br>Test Objective: LVDC output voltage check (5V - 24 V)<br>
+<h2>Requirements</h2><ul><li><strong>23930</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)SYIT (ENG.9)HWT (ENG.7/8)][Requirement]</div>The mean voltage value (over last 10ms) present on E_U_DCDC shall be sent over signal "LV_DCDC_U_Sig" with following accuracy
+
+LV_DCDC_U_Sig < 10V:   +/- 1V
+10V < LV_DCDC_U_Sig < 24V:   +/- 5% 
+
+Safe State : Respective Qualifier set to not valid, LV_DCDC_U_Sig_qi equal to "Invalid"
+FTT: 50ms</li>
+<li><strong>6115</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The 12V output voltage of the DCDC converter has to be set in the range from 11V to 15.5V with 0.05V steps</li>
+<li><strong>6506</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The object of development must work for an unlimited operation in the following operating range:</li>
+<li><strong>14506</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The subfunction "Zustandsmanagement" serves for managing the operating states of the "DC/DC" function: "Init", "Standby", "Buck", "Error" and "Crash". The respective active states are communicated to other functions. The respective operating mode adopted by the subfunction "Zustandsmanagement" corresponds with the operating mode of the "DC/DC" function. </li>
+<li><strong>14508</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Information]</div> </li>
+<li><strong>18238</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The functional logic and the software implementation shall ensure in cooperation with the actuated converter hardware that it is possible to set the low voltage in 0.1 volt increments.</li>
+<li><strong>18239</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>In addition to the requirements described here, the function "DC/DC" (DC/DC conversion) shall fulfill all the performance requirements from section 5.4.1. in the requirements specification "Hochvoltpowermanagement Client (HVPM)" [LH 1023 1491:V01] relevant for the DC/DC converter.
+</li>
+<li><strong>18240</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The value ranges and resolution of the sensor signals shall match the sensors used in the hardware so that the sensor value ranges and associated sensor resolutions are not reduced by the software.
+
+
+</li>
+</ul></html>

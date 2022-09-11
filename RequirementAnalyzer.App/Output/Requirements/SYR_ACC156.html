@@ -1,0 +1,19 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_ACC156</h1></br><li>2.1.18 SYR_ACC156: Component protection - PFC and LLC shutdown to mitigate internal overvoltage conditions </br></li><li>2.1.18.1 Description</br></li><li>2.1.18.1.0-1 Brief description:</br></li><li>2.1.18.1.0-2 PFC OVP early detection resulting in fast shutoff of all PFC- and LLC-stages
+PFC other errors resulting in fast shutoff of module-individual PFC-stage and all LLC-stages</br></li><li>2.1.18.1.0-3 Preconditions:</br></li><li>2.1.18.1.0-4 PFC enabled
+PFC and LLC enabled (Charging active)</br></li><li>2.1.18.1.0-5 Trigger:</br></li><li>2.1.18.1.0-6 • Detection of overvoltage condition on PFC output for charging module1, module2 or module3 
+• Detection of other errors:
+    - LVP_Lx
+    - Board_TSD (Temp) 
+    - SUB_EN_Lx
+    - AC_OCP_Lx
+    (x= 1,2,3)</br></li><li>2.1.18.1.0-7 Input data:</br></li><li>2.1.18.1.0-8  PIC_Error_Lx(PFC Over voltage error)</br></li><li>2.1.18.1.0-9 Description of behaviour:</br></li><li>2.1.18.1.0-10 • Fast shut-off of PFC-stages (M_Lx_PFC_EN = Disabled)
+    - All modules in case of OVP early detection
+    - Module individual in case of other errors 
+• Fast shut-off of all LLC-stages (M_DSP_CHG_EN = Disabled)
+    - Global shutoff of all 3 LLC-stages through DSP 
+• Initiate restart-sequence after wait time (300ms)</br></li><li>2.1.18.1.0-11 Timing Requirements:</br></li><li>2.1.18.1.0-12 see 'Description of behaviour'</br></li><li>2.1.18.1.0-13 Output Data:</br></li><li>2.1.18.1.0-14 M_Lx_PFC_EN (x =1,2,3)
+M_DSP_CHG_EN</br></li><li>2.1.18.1.0-15 Postconditions:</br></li><li>2.1.18.1.0-16 Restart PFC operation, see 'Description of behaviour'.</br></li><li>2.1.18.1.0-17 Descriptions of exceptions:</br></li><li>2.1.18.1.0-18 n/a</br></li><li>2.1.18.1.0-19 Dependencies and interactions:</br></li><li>2.1.18.1.0-20 Other components/modules
+Usecases: 
+Customer requirements:
+Safety requirements:
+EPIC: CCU-32627 (Clones: CCU-32859, CCU-32860, CCU-32861)</br></li><li>2.1.18.2 Differences to CRS</br></li><li>2.1.18.2.0-1 tbc</br></li><li>2.1.18.3 Questions and Answers</br></li><li></br></li>

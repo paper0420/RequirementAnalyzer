@@ -1,0 +1,42 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_101</h1></br><li>6.1.95 SYR_LvDCDC_101: Error notification via DTC 0x030FB8, in case LvDCDC output voltage exceeds the Target Voltage and DCDC converter is not switched off</br></li><li>6.1.95.1 Description</br></li><li>6.1.95.1.0-1 Brief description:
+Error notification via DTC 0x030FB8 shall be provided, in case LvDCDC output voltage exceeds the Target Voltage but DCDC converter is not switched off</br></li><li>6.1.95.1.0-2 Preconditions: 
+CCU is running </br></li><li>6.1.95.1.0-3 Trigger: None</br></li><li>6.1.95.1.0-4 Input data: 
+1) Target voltage set by DCDC converter:
+-g_dcdcinput_target_lv_voltage
+2) Measured LV Voltage
+-Measured_LV_Voltage 
+3)TargetVoltExceedMargin_RTE 
+ = 0.5 V
+4) TargetCurrExceedMargin = 10 A</br></li><li>6.1.95.1.0-5 Description of behaviour:
+DTC 0x030FB8 shall be set, in case  following error condition is satisfied for at least g_Calib_DebTimeFailTargetVoltExceed 1000 ms:
+(
+((Measured_LV_Voltage  - g_dcdcinput_target_lv_voltage ) > TargetVoltExceedMargin_RTE) 
+AND
+(LV_Current_ave > TargetCurrExceedMargin )
+)
+
+ 
+Starting from this condition, if following healing condition is fulfilled for at least g_Calib_DebTimePassTargetVoltExceed 1000 ms:
+NOT 
+(
+((Measured_LV_Voltage  - g_dcdcinput_target_lv_voltage ) > TargetVoltExceedMargin_RTE) 
+AND
+(LV_Current_ave > TargetCurrExceedMargin )
+)
+
+This DTC shall be inhibited in case any of the below errors exists:
+g_dcdcint_FDetect_Result_LV_Volt_Sensor_Before_Rep.plausibility_err
+g_dcdcint_FDetect_Result_LV_Volt_Sensor_Before_Rep.upper_range_main
+g_dcdcint_FDetect_Result_LV_Volt_Sensor_Before_Rep.upper_range_sub
+g_dcdcint_FDetect_Result_LV_Volt_Sensor_Before_Rep.lower_range_main
+g_dcdcint_FDetect_Result_LV_Volt_Sensor_Before_Rep.lower_range_sub
+g_dcdcint_FDetect_Result_Master_LV_Curr_Sensor_Before_Rep.upper_range
+g_dcdcint_FDetect_Result_Master_LV_Curr_Sensor_Before_Rep.upper_range_sub
+g_dcdcint_FDetect_Result_Master_LV_Curr_Sensor_Before_Rep.plausibility
+g_dcdcint_FDetect_Result_Slave_LV_Curr_Sensor_Before_Rep.overFlags
+
+</br></li><li>6.1.95.1.0-6 Timing Requirements: 
+DTC fail/pass conditions shall consider below timing parameters:
+g_Calib_DebTimeFailTargetVoltExceed = 1000 ms
+g_Calib_DebTimePassTargetVoltExceed = 1000ms</br></li><li>6.1.95.1.0-7 Output data: 
+1) g_dcdcint_FDetect_DCDC_Exceed_target_voltage</br></li><li>6.1.95.1.0-8 Postconditions: NA</br></li><li>6.1.95.1.0-9 Descriptions of exceptions: NA</br></li><li>6.1.95.1.0-10 Dependencies and interactions: NA</br></li><li>6.1.95.2 Differences to CRS</br></li><li>6.1.95.2.0-1 Waiting for CR to approve and update to be provided in KLH</br></li><li>6.1.95.3 Questions and Answers</br></li><li>6.1.95.3.0-1 NA</br></li>

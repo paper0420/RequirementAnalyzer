@@ -1,0 +1,25 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_230</h1></br><li>7.7.1.22 SYR_SEC_230: HSM flashing rollback prevention</br></li><li>7.7.1.22.1 Description</br></li><li>7.7.1.22.1.0-1 Brief description: Mechanism to prevent rollback from newer HSM versions (starting with 2.7.1.r2) to versions older or equal to v2.7.1.r0.</br></li><li>7.7.1.22.1.0-2 Preconditions: Existing HSM version 2.7.1.r2 or newer</br></li><li>7.7.1.22.1.0-3 Trigger: Flash request for HSM</br></li><li>7.7.1.22.1.0-4 Input data: PDX with HSM firmware</br></li><li>7.7.1.22.1.0-5 Description of behaviour:
+
+
+Due to the security issue related to the hsm_reset api present in HSM v2.7.1.r0, we must introduce a mechanism to prevent rollback from newer HSM versions (starting with 2.7.1.r2) to the old vulnerable one.
+
+The system shall implement an HSM rollback prevention mechanism, to not allow flashing an HSM firmware with an earlier version than 2.7.1.r2 (due to security vulnerability caused by Escrypt api).
+
+Corresponding design flowchart can be found in the "Catalog" sheet of SysRequirementsForSecurityEpics file.
+
+The system shall store the minimum allowed HSM version (2.7.1.r2) within BL.
+
+The system shall buffer the complete targeted HSM update firmware within RAM area, prior to establishing data transfer to HSM.
+
+The system shall verify the integrity and validity of the targeted HSM update firmware, in terms of Signature (BMW signature) and Version (must be greater or equal to 2.7.1.r2).
+
+In case either one of the Signature and Version checks is not successful, the system shall terminate the update process by discarding the HSM update package (without sending any data to HSM) and returning corresponding error code.
+
+Detailed information on the returned error codes can be found in the "Catalog" sheet of SysRequirementsForSecurityEpics file.
+
+In case of successful validation of both Signature and Version, the system shall proceed with initiating the HSM update process and transmitting the firmware data to HSM.
+
+At the end of the update process (in both successful and unsuccessful scenarios), the system shall trigger a full reset.
+
+Please refer to the sheet "Catalog" in the file:
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Documentation/Security/SysRequirementsForSecurityEpics.xlsx</br></li><li>7.7.1.22.1.0-6 Timing Requirements: none</br></li><li>7.7.1.22.1.0-7 Output data: HSM updated to target version only if target HSM version is newer or equal to v2.7.1.r2.</br></li><li>7.7.1.22.1.0-8 Postconditions: If HSM target version is newer or equal to v2.7.1.r2, the flashing process will be completed successfully. Otherwise, the flash process will be skipped. Either way, afterwards the system will be rebooted.</br></li><li>7.7.1.22.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.22.1.0-10 Dependencies and interactions: BTLD</br></li><li>7.7.1.22.2 Differences to CRS</br></li><li>7.7.1.22.2.0-1 xxx</br></li><li>7.7.1.22.3 Questions and Answers</br></li><li>7.7.1.22.3.0-1 xxx</br></li>

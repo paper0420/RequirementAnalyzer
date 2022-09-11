@@ -1,0 +1,71 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DIA_500</h1></br><li>7.5.1.51 SYR_DIA_500: Implementing UWBs 0x4012...0x401B</br></li><li>7.5.1.51.1 Description</br></li><li>7.5.1.51.1.0-1 Brief description: This UWB stores the content of the process Register 11...Register 20 along with Reset Information.</br></li><li>7.5.1.51.1.0-2 Preconditions:None</br></li><li>7.5.1.51.1.0-3 Trigger: When DTC 0xBA0023 is set</br></li><li>7.5.1.51.1.0-4 Input data: Reset register content from PMD module</br></li><li>7.5.1.51.1.0-5 Description of behaviour: 
+
+Freeze Frame DID Name: 0x4012 - SG_RESET_REGISTER_11
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_11
+
+Description: This UWB stores the content of the process Register 11 and the byte information of this register is as below.
+Byte 0: LastUnhandledIrq, 
+Byte 1: LastUnhandledExc, 
+Byte 2: wdg_ResetCounter
+Byte 3: Nm_Bus_Sleep_Flag
+
+Freeze Frame DID Name: 0x4013 - SG_RESET_REGISTER_12
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_12
+
+Description: This UWB stores the content of the process Register 12 and it provides XcpM_DebugCounter1s value.
+
+Freeze Frame DID Name: 0x4014 - SG_RESET_REGISTER_13
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_13
+
+Description: This UWB stores the content of the process Register 13 and it provides CCU_Cpu_Load_Core0 value
+
+Freeze Frame DID Name: 0x4015 - SG_RESET_REGISTER_14
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_14
+
+Description: This UWB stores the content of the process Register 14 and it provides CCU_Cpu_Load_Core1 value
+
+Freeze Frame DID Name: 0x4016 - SG_RESET_REGISTER_15
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_15
+
+Description: This UWB stores the content of the process Register 15 and it provides CCU_Cpu_Load_Core2 value
+
+Freeze Frame DID Name: 0x4017 - SG_RESET_REGISTER_16
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_16
+
+Description: This UWB stores the content of the process Register 16 and it provides BMW_ti_SeCntRel value
+
+Freeze Frame DID Name: 0x4018 - SG_RESET_REGISTER_17
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_17
+
+Description: This UWB stores the content of the process Register 17  and the byte information of this register is as below.
+Byte 0: Os_hookInfo
+Byte 1: XffResetCounter
+Byte 2, Byte 3: g_fsd_rst_resetid
+
+
+Freeze Frame DID Name: 
+0x4019 - SG_RESET_REGISTER_18
+0x401A - SG_RESET_REGISTER_19
+0x401B - SG_RESET_REGISTER_20
+Data Type: unsigned long.
+ODX_Gruppe: SWC_Panasonic
+Environment value: UWB_SG_RESET_REGISTER_18, UWB_SG_RESET_REGISTER_19, UWB_SG_RESET_REGISTER_20
+
+Description: This is reserved for future need and the default value for these UWBs is 0xFFFFFFFF
+
+All these UWBs are attached to the "DTC 0xBA0023 ECU Software Error". When the DTC 0xBA0023 is set, the UWB value will be saved inside the DTC information.
+</br></li><li>7.5.1.51.1.0-6 Timing Requirements: none</br></li><li>7.5.1.51.1.0-7 Output data: none</br></li><li>7.5.1.51.1.0-8 Postconditions: none</br></li><li>7.5.1.51.1.0-9 Descriptions and exceptions: none</br></li><li>7.5.1.51.1.0-10 Dependencies and interactions: Diag component shall use interface from PMD for the freeze frame data.</br></li><li>7.5.1.51.2 Differences to CRS</br></li><li>7.5.1.51.2.0-1 None</br></li><li>7.5.1.51.3 Questions and Answers</br></li><li>7.5.1.51.3.0-1 None</br></li>

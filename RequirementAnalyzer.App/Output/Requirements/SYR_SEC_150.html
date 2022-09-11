@@ -1,0 +1,14 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_150</h1></br><li>7.7.1.15 SYR_SEC_150: safety / security – permanent integrity check / static security design for I20</br></li><li>7.7.1.15.1 Description</br></li><li>7.7.1.15.1.0-1 Brief description: The TB Configurations shall be updatebale only in SW download or BLU sequence</br></li><li>7.7.1.15.1.0-2 Preconditions: none</br></li><li>7.7.1.15.1.0-3 Trigger: SW update request</br></li><li>7.7.1.15.1.0-4 Input data: SW binaries</br></li><li>7.7.1.15.1.0-5 Description of behaviour: 
+TB Configuration Update
+The btld shall update the TB Configuration in the end of the flashing sequence, before confirming the Validity Flag.
+The blu shall update the TB Configuration in the end of the blu sequence, before confirming the Validity Flag.
+
+The TB Configuration MODE shall be:
+1. Set btld Memory sections as  TB_BOOT_MODE_AUTHENTIC
+2. Set App Memory sections as  TB_BOOT_MODE_RTMD_CONT
+3. Set Cal  Memory sections as  TB_BOOT_MODE_RTMD_CONT
+4. Set Blu  Memory sections as  TB_BOOT_MODE_AUTHENTIC
+
+The TB Configurations MemoryRange shall be autonomously updateable to reflect the updated memorylayout via SW download sequence.</br></li><li>7.7.1.15.1.0-6 Timing Requirements: none</br></li><li>7.7.1.15.1.0-7 Output data: The TB Configurations is updated only in SW download or BLU sequence
+The btld updates the TB Configuration in the end of the flashing sequence, before confirming the Validity Flag.
+The blu updates the TB Configuration in the end of the blu sequence, before confirming the Validity Flag.</br></li><li>7.7.1.15.1.0-8 Postconditions: none</br></li><li>7.7.1.15.1.0-9 Descriptions of exceptions: none</br></li><li>7.7.1.15.1.0-10 Dependencies and interactions: none</br></li><li>7.7.1.15.2 Differences to CRS</br></li><li>7.7.1.15.2.0-1 xxx</br></li><li>7.7.1.15.3 Questions and Answers</br></li><li>7.7.1.15.3.0-1 xxx</br></li>

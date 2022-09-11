@@ -1,0 +1,74 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CHAOJI-1_01</h1></br><li>1.1.32.1 SYR_CHAOJI-1_01 : provide functionality in SW to control transmission based on "Send Trigger"</br></li><li>1.1.32.1.1 Description</br></li><li>1.1.32.1.1.0-1 Brief description: 
+Supplier-SW shall control PDU transmission (TX-messages from LIM-C) via "send trigger" interface and provide update to LIM-C on transmission state via "ACK status" interface.</br></li><li>1.1.32.1.1.0-2 Preconditions: Vehicle is coded as Chaoji vehicle (VehChrTypDC = 4).  BMW_nr_DcCanProtReq is set to 2 (Chaoji vehicle charges at chaoji-1 charger).</br></li><li>1.1.32.1.1.0-3 Trigger: Vehicle (CCU) is in transmission state
+Sendtrigger from APPL. </br></li><li>1.1.32.1.1.0-4 Input data: 
+RTE interface ("BMW_st_ComReqdxxx") between LIM-C and supplier-SW
+
+******
+(change for new draft CDV2)
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1/CCU-31198
+new DBC in sprint.2219
+https://asc-prod-ha-wig.bmw.com/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2219/BMW/Doc/NK/PATCH_v1_EADBN-1710_220324_DBC_EAPC_DC_CAN.dbc
+
+Note: new DBC is integrated in SW. 
+In accordance with new draft CDV2, there is change in values of CAN identifiers of all messages.
+a) change in CAN addresses for charger and CCU
+b) change in PDU format (PF) values for all message types
+
+*******</br></li><li>1.1.32.1.1.0-5 Description of behaviour:
+During Chaoji-1 charging sequence, in function module phase, vehicle (CCU) sends message to charger (which of type either LM, SM RM or URM). LIM-C shall provide the (write signals via record) data to COM Adapter via RTE and similarly. COM receives the data from COM Adapter. Also, “send-trigger from Appl. i.e. BMW_st_ComReqdxxx” SW inteface corresponding to TX-message shall be set to (SM RM : true for 100ms to trigger the frame and then set to false, URM: true until transmission is active as it is periodic, then set to false).
+
+ 
+
+SM_RM TX Messages (Event triggered) in accordance with new draft CDV2.
+
+Function Module	Contents of Parameter Group	Parameter Group Identification (PGI) (hex)	Message type	Message content (short)
+Public Message "Phase Acknowledgment"	Phase information message	0x01	SM_RM	CPA
+	Vehicle phase acknowledgment message	0x02	SM_RM	VPA
+“Suspension” message	“Charger Suspension” message	0x03	SM_RM	CSU
+	“Vehicle Suspension” message	0x04	SM_RM	VSU
+Public Message “End Message”	Charger end message	0x03	SM_RM	CEN
+	Vehicle end message	0x04	SM_RM	VEN
+Public Message “Contact Status Message”	Charger output contact status message	0x05	SM_RM	CCO
+	Vehicle charging contact status message	0x06	SM_RM	VCO
+Public Message “Locking Status Message”	Vehicle locking status message 	0x07	SM_RM	VLS
+Function Negotiation	Function code supported by the charger	0x11	LM	CSF
+	Vehicle function negotiation acknowledgment result message	0x12	SM_RM	VSF
+End Of Charging	Charger statistic message (FDC=1)	0x81	SM_RM	CSM
+	Vehicle statistic message (FDC=1)	0x82	SM_RM	VSM
+
+LM RM TX Messages (Event Triggered( in accordance with new draft CDV2
+Function Module	Contents of Parameter Group	Parameter Group Identification (PGI) (hex)	Message type	Message content (short)
+Parameter Negotiation	“Charger Charging Parameters” message	0x21	LM	CCP
+	“Vehicle Charging Parameters” message	0x22	LM	VCP
+End of charging	“Charger Statistics” message (FDC=1)	0x81	LM	CSM
+	“Vehicle Statistics” message (FDC=1)	0x82	LM	VSM
+
+Supplier-SW shall check the sendtrigger interfaces (for SM RM or LM RM) and if true (one at a time), it shall send the corresponding PGI signal to COM which then enables the transmission of complete message to lower layers and on DC-CAN. 
+
+Supplier-SW shall update LIM-C on the ACK status via RTE interface.
+SM_RM  - “2: Message Sent, No Acknowledgment yet” 
+LM - "1: Sending Started" 
+
+
+In URM TX-Message (cyclic, 100ms between URM messages of same type), 
+When send trigger is true for corresponding URM message, SW triggers the activation of corresponding TX-PDU via BSWM and triggers the transmission of data from COM to lower layers. 
+when send trigger is false, periodic transmission stops.
+
+URM TX-Message in accordance with new draft CDV2
+Function Module	Contents of Parameter Group	Parameter Group Identification (PGI) (hex)	Message type	Message content (short)
+Self-check of Charging System	“Charger Self-check Information” message (FDC=1)
+Charger self-check status message (FDC=1)	0x51	SM_URM	CSI CSS
+	“Vehicle Self-check Information” message (FDC=1)
+Charger self-check result message (FDC=1)	0x52	SM_URM
+SM_RM	VSI CSR
+Pre charge and Energy Transmission	“Charger Ready State” message (FDC=1)	0x71	SM_URM	CRS
+	“Vehicle Ready Status” message (FDC=1)	0x72	SM_URM	VRS
+	“Vehicle Charging Demand” message (FDC=1)	0x73	SM_URM	VCD
+	“Basic Information of Vehicle Charging” message (FDC=1)	0x74	SM_URM	VCI
+	“Charger Dynamic Output Capacity” message (FDC=1)	0x75	SM_URM
+SM_RM	CDO
+
+Additionally,
+Refer:
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1</br></li><li>1.1.32.1.1.0-6 Timing Requirements: Cylcle time of 100ms for URM message of same type. </br></li><li>1.1.32.1.1.0-7 Output data: Tx-message (SM RM, URM or LM RM) shall be on DC-CAN based on Send Trigger to true. ACK status interface is updated correctly.</br></li><li>1.1.32.1.1.0-8 Postconditions: NA		</br></li><li>1.1.32.1.1.0-9 Descriptions of exceptions: Send Trigger for "Version Negotiation" is not in scope.
+In standard, SM_URM cycle time is 100ms, however it is not specifying the tolerance for the deviation on the cycle time (for example : +-10%).</br></li><li>1.1.32.1.1.0-10 Dependencies and interactions: Supplier-SW (Chaoji-Adaptor), RTE, COM, Supplier-SW (Chaoji-TP), PduR, BSWM</br></li><li>1.1.32.1.2 Differences to CRS</br></li><li>1.1.32.1.2.0-1 xxx</br></li><li>1.1.32.1.3 Questions and Answers</br></li><li>1.1.32.1.3.0-1 xxx</br></li>

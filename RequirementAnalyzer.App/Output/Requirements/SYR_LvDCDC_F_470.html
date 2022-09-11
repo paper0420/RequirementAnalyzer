@@ -1,0 +1,28 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_LvDCDC_F_470</h1></br><li>6.1.62 SYR_LvDCDC_F_470: The LvDC/DC shall not consume more than 20A continuous HV-DC current</br></li><li>6.1.62.1 Description</br></li><li>6.1.62.1.0-1 Brief description:</br></li><li>6.1.62.1.0-2 The LvDCDC will not consume more than 20A continuous HV-DC current.</br></li><li>6.1.62.1.0-3 Preconditions:</br></li><li>6.1.62.1.0-4 LvDCDC current operating state=Buck,
+RUNLEVEL >= 30.</br></li><li>6.1.62.1.0-5 Trigger:</br></li><li>6.1.62.1.0-6 Target_Operating_State = Buck,
+Target_U_LV = 14V,
+Measured_U_HV = 200V
+Part 1
+The electronic DC load  power is adjusted  to 4050 W
+The electronic DC load current is adjusted to 289 A
+The electronic DC load  voltage is adjusted to 14V
+Test time = 10s,
+Part 2
+The electronic DC load  power is adjusted  to 3450 W
+The electronic DC load current is adjusted to 246 A
+The electronic DC load  voltage is adjusted to 14V
+Test time = 50s,</br></li><li>6.1.62.1.0-7 Input data:</br></li><li>6.1.62.1.0-8 Target_Operating_State  = Buck,
+Target_U_LV = 14V,
+Measured_U_LV = 13,9V
+Measured_U_HV = 430,
+Min_Permitted_HV_Voltage = 200V,
+Max_Permitted_HV_Power = 4500 W,
+p_DCDC_CONTINUOUS_I_LV = 282A,
+p_DCDC_CONTINUOUS_P_LV = 3945 W,
+Coolant temperature = 35°C and lower.
+Coolant volume = 6 L/min</br></li><li>6.1.62.1.0-9 Description of behaviour:</br></li><li>6.1.62.1.0-10 The LvDCDC shall assure by SW regulation or by hardware, that the HV-DC current consumption is not higher than 20A continuously. Based on a efficiency of the LvDCDC of 90 percent, the 20A can be fulfilled for the continuous amount of power of (3550W / 0,9 ) at 199V. The expected peak power of (4050W/0,9) for 10s will increase the current up to 22,6A for 10s. But together with the pause time of 50s granted by the CCU KLH specification, a mean value of 20A and lower can be fulfilled in the normal operating range for HV down to 200V.</br></li><li>6.1.62.1.0-11 Timing Requirements:</br></li><li>6.1.62.1.0-12 Output Data:</br></li><li>6.1.62.1.0-13 Currrents, voltages and states according to input</br></li><li>6.1.62.1.0-14 Postconditions:</br></li><li>6.1.62.1.0-15 No heat.</br></li><li>6.1.62.1.0-16 Descriptions of exceptions:</br></li><li>6.1.62.1.0-17 The expected peak power of (4050W/0,9) for 10s will increase the current up to 22,6A for 10s.The peak current </br></li><li>6.1.62.1.0-18 Dependencies and interactions:</br></li><li>6.1.62.1.0-19 Other components/modules
+Customer requirements 14132, 14133, 23505 
+EPIC CCU-1207 TASK  META 1733
+Usecases 
+Safety requirements ASIL-QM(B)
+Technical Safety requirements</br></li><li>6.1.62.2 Differences to CRS</br></li><li>6.1.62.2-1 The LvDCDC shall deliver peak power of 4050W for 10s. With respect of a minimum efficiency of 90% the input peak power is about 4500W. And at 199V HV voltage the input current will be 22,6A for 10s. And there would be no problem at the worst case condition, at least for 11KW variant for short period of time. For understanding, the 20A is calculated based on the continuous amount of power of (3550W / 0,9 ) at 199V.</br></li><li>6.1.62.3 Questions and Answers</br></li>

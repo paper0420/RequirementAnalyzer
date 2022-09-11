@@ -1,0 +1,16 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SUP_110</h1></br><li>7.4.2.12 SYR_SUP_110: Transfer data to CCU</br></li><li>7.4.2.12.1 Description</br></li><li>7.4.2.12.1.0-1 Brief description:</br></li><li>7.4.2.12.1.0-2 This Use-case will use UDS-conform data transfer of data to be flashed. Before transfer the authentication phase has to be completed successfully.
+There is no difference between software- and data-transfer in conceptual meaning.
+
+The transfer will also include, the mandatory provision of storage resources (memory) and checking of validity of content to be flashed (target addresses, size).
+All received data will be decrypted/flashed on the fly, there is not latching designed.
+
+
+
+- RoutineControl EraseMemory
+- RoutineControl CheckProgrammingDependencies
+- RequestDownload
+- RequestTransferExit
+- TransferData
+- WriteDataByIdentifier Fingerprint
+- WriteDataByIdentifier VIN  (Vehicle Identification Number)
+</br></li><li>7.4.2.12.1.0-3 Preconditions: none</br></li><li>7.4.2.12.1.0-4 Trigger: sw of CCU shall be updated via EDIABAS / RSU</br></li><li>7.4.2.12.1.0-5 Input data: data frame to be transfered to CCU</br></li><li>7.4.2.12.1.0-6 Description of behaviour: data-frame will be transfered to CCU</br></li><li>7.4.2.12.1.0-7 Timing Requirements: timing will be negotiated while communication-setup </br></li><li>7.4.2.12.1.0-8 Output data: none</br></li><li>7.4.2.12.1.0-9 Postconditions: none</br></li><li>7.4.2.12.1.0-10 Descriptions of exceptions: none</br></li><li>7.4.2.12.1.0-11 Dependencies and interactions: none </br></li><li>7.4.2.12.2 Differences to CRS</br></li><li>7.4.2.12.2.0-1 none</br></li><li>7.4.2.12.3 Questions and Answers</br></li><li>7.4.2.12.3.0-1 none</br></li>

@@ -1,0 +1,36 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CHAOJI-1_07</h1></br><li>1.1.32.7 SYR_CHAOJI-1_07 : provide functionality in SW for handling timeout, re-transmission and abort situations during LM reception </br></li><li>1.1.32.7.1 Description</br></li><li>1.1.32.7.1.0-1 Brief description: 
+While LM reception, new supplier SW (at TP layer) shall handle situations when certain timeout happens, when re-transmission of frame is required and when connection abort is required. </br></li><li>1.1.32.7.1.0-2 Preconditions: Vehicle is coded as Chaoji vehicle (VehChrTypDC = 4).  BMW_nr_DcCanProtReq is set to 2 (Chaoji vehicle charges at chaoji-1 charger).</br></li><li>1.1.32.7.1.0-3 Trigger: Reception of Connection Establishment Frame</br></li><li>1.1.32.7.1.0-4 Input data: SN0 and SNn frames received.
+
+
+******
+(change for new draft CDV2)
+https://ccu-svn.microfuzzy.com/CCU_G26/SP21/SP21_SOP_2207/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Charging_Interface/ChaoJi-1/CCU-31198
+new DBC in sprint.2219
+https://asc-prod-ha-wig.bmw.com/svn/asc271/Projects/CCUP_BEV21/branches/CCUBEV21_2219/BMW/Doc/NK/PATCH_v1_EADBN-1710_220324_DBC_EAPC_DC_CAN.dbc
+
+Note: new DBC is integrated in SW. 
+In accordance with new draft CDV2, there is change in values of CAN identifiers of all messages.
+a) change in CAN addresses for charger and CCU
+b) change in PDU format (PF) values for all message types
+
+*******</br></li><li>1.1.32.7.1.0-5 Description of behaviour:
+This SYR describes the situations that shall be handled at supplier transport layer for ChaoJi-1 charging communication.
+1. Timeout Handling
+a) After control frame ACK (for SN0 connection establishment) is sent out, if first data-frame is not received within T2 timeout (configured as 100ms), ACK is resent by CCU (TP-SW) and timer is restarted.
+b) If there is no new data-frame received within T2 timeout since last received valid data-frame, ACK (control frame) shall be sent out after timeout, specifiying the start of frame and total frame requested. below (i) and (ii) are also applied when happens within T2 timer.
+      i ) If new data-frame is received, having sequence number greater than expected sequence, CCU (TP-SW) shall discard this frame and send an ACK specifying correct sequence number and total frames. T2 timer shall be restarted and monitored again until next new data-frame is received.
+      ii) if new data-frame is received with sequence number less than expected, Received Frame shall be ignored. Timer T2 shall continue to run and SW shall wait for next new data-frame within T2 expiry. 
+c)  If overall timer i.e. T3 (configured as 10 sec) for LM Message Sequence is expired, connection shall be terminated after sending out control frame NACK.
+2. Re-Transmission when timeout
+Whenever T2 timer is expired and retransmission of control frame ACK is triggered by CCU (TP-SW), retry count shall be increased. If retry count reaches 3 which means consecutive three timeouts, then connection shall be aborted by sending out NACK frame.  
+
+3. Connection Abort & No Response Behavior
+When SN0 frame is received and if total no. of bytes are not correct, CCU TP SW gives no response since Connection is not established yet.
+
+Connection shall be aborted whenever control frame NACK is sent out or received. At CCU (TP-SW) shall implement a mechanism to judge the conditions in which NACK shall be sent out. This conditions are Total no. frames in SN0, PGI, Timeouts, Internal incorrect states, Buffer not available etc.</br></li><li>1.1.32.7.1.0-6 Timing Requirements: Timeouts LMS T2 and LMS T3 are applicable.	</br></li><li>1.1.32.7.1.0-7 Output data:
+ACK (for SN0) shall be seen on bus when retransmission happens.
+ACK (for SNn) shall be seen on bus when data-frame is not arrived.
+ACK (for SNn) shall be seen when discontinous frame arrived.
+NACK (control frame) shall be seen on bus when connection is aborted.
+
+BUF NOK or Incorrect internal states scenario not in system test scope.</br></li><li>1.1.32.7.1.0-8 Postconditions: NA		</br></li><li>1.1.32.7.1.0-9 Descriptions of exceptions: NA	 </br></li><li>1.1.32.7.1.0-10 Dependencies and interactions: Supplier-SWC (Chaoji-Adaptor), RTE, COM, CAN IF, Supplier-TP (ChaojiTp), BSWM</br></li><li>1.1.32.7.2 Differences to CRS</br></li><li>1.1.32.7.2.0-1 xxx</br></li><li>1.1.32.7.3 Questions and Answers</br></li><li>1.1.32.7.3.0-1 xxx</br></li>

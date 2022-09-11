@@ -1,0 +1,23 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_HMG_117</h1></br><li>3.1.54 SYR_HMG_117: [S5, WJ] Inhibition of WJ and S5 Plausibility Errors</br></li><li>3.1.54.1 Description</br></li><li>3.1.54.1.0-1 Brief description:
+The error condtitions which trigger DTC 0xBA0008 (“Component cooling, temperature sensor: plausibility fault”) shall be inhibited in case of range- or plausibility-errors of the S5 or WJ temperature sensors.</br></li><li>3.1.54.1.0-2 Preconditions:
+Kl15 ON.</br></li><li>3.1.54.1.0-3 Trigger:
+ECU Startup.</br></li><li>3.1.54.1.0-4 Input data:
+See desccription of behavior.</br></li><li>3.1.54.1.0-5 Description of behaviour:
+Info: Error-condition (1) or Error-condition(2) may trigger the DTC 0xBA0008.
+- Error-condition (1) ‘WJ SW vs. HW Plausibility’ shall be inhibited by: WJ_OOR_high, WJ_OOR_low
+- Error-condition (2) ‘WJ vs. S5 Plausibility’ shall be inhibited/reset by: WJ_OOR_high, WJ_OOR_low, S5_OOR_high, S5_OOR_low, S5_plausi_error
+
+Releated DTCs for reference:
+0xBA0006 (WJ_OOR_high)
+0xBA0007 (WJ_OOR_low)
+0x2241C0 (S5_OOR_high)
+0x2241C1 (S5_OOR_low)
+0x2241C4 (S5_plausi_error)</br></li><li>3.1.54.1.0-6 Timing Requirements: 
+ See description of behaviour.</br></li><li>3.1.54.1.0-7 Output data:
+Error-condition (1): g_cmnmeasint_Error_Pack_Coolant_Temp_Sensor.plausibility_err
+Error-condition(2): g_thmgmtint_Error_Pack_S5Temp.plausibility_coolant</br></li><li>3.1.54.1.0-8 Postconditions:
+NA</br></li><li>3.1.54.1.0-9 Descriptions of exceptions:
+NA</br></li><li>3.1.54.1.0-10 Dependencies and interactions:
+tbd
+
+Related Epics: CCU-29220</br></li><li>3.1.54.2 Differences to CRS</br></li><li>3.1.54.2.0-1 xxx</br></li><li>3.1.54.3 Questions and Answers</br></li><li>3.1.54.3.0-1 xxx</br></li>

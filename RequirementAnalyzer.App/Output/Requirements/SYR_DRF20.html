@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DRF20</h1></br><li>4.2.1.1 SYR_DRF20: Measure 'acceleration pedal' sensor signals</br></li><li>4.2.1.1.1 Description</br></li><li>4.2.1.1.1.0-1 Brief description:</br></li><li>4.2.1.1.1.0-2 Epic# - CCU_820
+The CCU shall sense/measure the analog Pedal Sensor 1 (M_ACCEL1_ADC) and 2 (M_ACCEL2_ADC) position signals at CCU MCU.</br></li><li>4.2.1.1.1.0-3 Preconditions:</br></li><li>4.2.1.1.1.0-4 Ignition key (KL15) is ON </br></li><li>4.2.1.1.1.0-5 Trigger:</br></li><li>4.2.1.1.1.0-6 always</br></li><li>4.2.1.1.1.0-7 Input data:</br></li><li>4.2.1.1.1.0-8 Hardware signals Pedal sensor 1 - M_ACCEL1_ADC
+Pedal sensor 2 - M_ACCEL2_ADC</br></li><li>4.2.1.1.1.0-9 Description of behaviour:</br></li><li>4.2.1.1.1.0-10 The CCU shall sense the analog signal from acceleration pedal sensor 1 and 2. The signals shall be measured at the CCU MCU input pins
+46 --> M_ACCEL1_ADC
+45 --> M_ACCEL2_ADC</br></li><li>4.2.1.1.1.0-11 Timing Requirements:</br></li><li>4.2.1.1.1.0-12 10ms</br></li><li>4.2.1.1.1.0-13 Output Data:</br></li><li>4.2.1.1.1.0-14 BMW_u_AccrSnsr1
+BMW_u_AccrSnsr2</br></li><li>4.2.1.1.1.0-15 Postconditions:</br></li><li>4.2.1.1.1.0-16 ASIL-C integrity</br></li><li>4.2.1.1.1.0-17 Descriptions of exceptions:</br></li><li>4.2.1.1.1.0-18 B-sample implementation:
+[Martin.MA.Meys] [03.05.2017] : Pre-condition of KL15 switch status cannot be achieved in B-sample implementation.
+Hence expectation is Start the measurement and the powersupply of acceleration pedal after wake up
+And stop before ccu goes sleep
+For C-sample:
+A Signal from BMW (FuSi-SW) shall be provided to turn off the supply of acceleration pedal.</br></li><li>4.2.1.1.1.0-19 Dependencies and interactions:</br></li><li>4.2.1.1.1.0-20 The Panasonic SW shall provide Output interfaces to BMW SW through the RTE</br></li><li>4.2.1.1.2 Differences to CRS</br></li><li>4.2.1.1.3 Questions and Answers</br></li><li>4.2.1.1.3.0-1 Kiyosawa-san [19.04.2017] : Does precondition "Ignition is ON (CCU is powered up)" which defined in your Eng2 document mean "ECU active" ? 
+Our SW doesn’t know Ignition status. 
+Should we handle this condition ? 
+
+Lokesh Devaraj [19.04.2017] : My expectation of the pre-condition "Ignition is ON (CCU is powered up)" is "Ignition switch ON (Terminal 15 is ON) " of the vehicle. This means ECU is powered and is active. 
+If CCU-ECU is not ON --> No possibility of powering / reading from the acceleration pedal sensors. 
+
+Whether our sw does not identify the Terminal 15 ON status? 
+
+Kiyosawa-san [19.04.2017] : In my understanding, "Ignition is ON" is not completely equal to "ECU is powered and is active". 
+Because generally Charger doesn’t require the Ignition is ON when charging. 
+Could you clarify this point with BMW ? 
+
+Lokesh Devaraj [19.04.2017] : 
+Yes, I agree with you. CCU-ECU is powered by KL-30. 
+Charger, doesn't need Ignition ON (KL15) status when charging. But for Acceleration pedal function, the sensor position values makes sense only when Terminal 15 (KL15) switch status is ON. Only upon Ignition switch (KL-15) ON, driver can trigger a torque demand via acceleration pedal. 
+
+Do you know, whether the KL15 switch status information is available in our sw? If the KL15 status is responsibility from BMW application, I shall check this with BMW. 
+
+Kiyosawa-san [20.04.2017] : Sorry I don’t know that KL15 is available or not in our SW.
+</br></li>

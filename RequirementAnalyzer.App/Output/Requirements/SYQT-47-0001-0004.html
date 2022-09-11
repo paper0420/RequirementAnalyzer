@@ -1,0 +1,20 @@
+<html><head><style>div {color: grey;}</style></head><a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>#SYQT-47-0001-0004#</h1>
+[Charging],[Mode_Management],[Operating_Mode]</br>Test Objective: Charger transition confirmation
+  INIT -> Crash
+  Standby -> Crash
+  Precharge -> Crash
+  Precharge Ready -> Crash
+  Charge -> Crash
+  Interrupt -> Crash
+  Derating -> Crash
+  Error -> Crash
+  Crash -> INIT<br>
+<h2>Requirements</h2><ul><li><strong>22046</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)Review][Information]</div>Figure: State transitions with conditions</li>
+<li><strong>11159</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Information]</div>The following operating states are target operating states and are specified by the function "Ladekoordinator":
+·	Standby
+·	Precharge
+·	Charge</li>
+<li><strong>23347</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>During a charging interruption, the charging electronics shall automatically continue charging as soon as the charging interruption reasons are no longer present.</li>
+<li><strong>11180</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Error" operating state shall have the second highest priority after the "Crash" operating state.</li>
+<li><strong>11184</strong> - <div>[Not Changed][accepted][SYQT (ENG.10)][Requirement]</div>The "Betriebsartmangement_Ladegerät_AC/DC" subfunction shall change from any operating mode to the "Crash" operating mode if a "crash" is reported (via terminal 30C).</li>
+</ul></html>

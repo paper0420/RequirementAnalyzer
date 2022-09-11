@@ -1,0 +1,17 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_PLC_12</h1></br><li>1.1.30.14 SYR_PLC_12: PLC diagnostic Freeze Frames</br></li><li>1.1.30.14.1 Description</br></li><li>1.1.30.14.1.0-1 Brief description: FreezeFrames information is present in Zedis and must be implemented.</br></li><li>1.1.30.14.1.0-2 Preconditions: Refer to Zedis document</br></li><li>1.1.30.14.1.0-3 Trigger: Refer to Zedis document</br></li><li>1.1.30.14.1.0-4 Input data: Reference Zedis SVN: 
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Diag/Zedis_Export/
+
+DID data shall be present in ZEDIS v25.3. </br></li><li>1.1.30.14.1.0-5 Description of behaviour: 
+In BEV21/G26, new PLC Secondary DTCs [0x031BB9, 0x031BB8] need to use the freeze frames as defined in Zedisv25.3. Use the Zedis document for detail information on each FF.
+
+FFs (or UWBs) shall be implemented in SW and must be captured when there is error entry/DTC reported for SLAC failure or V2G charging protocol failure. 
+
+DTC	Description	UWBs
+0x03194A	Power line communication: communication to modem disturbed	No PLC specific Freeze Frame to be implemented
+0x031BB8	Power line communication: protocol fault	0x1768, 0x1769, 0x4020, 0x4021, 0x4022, 0x4023, 0x70AB
+0x031BB9	Power line communication: connection fault, charging station	0x1768, 0x1769, 0x4024
+
+
+Agreed deviations as information:
+Seconday DTCs: UWBs [0x70AF, 0x70B0, 0x70B1, 0x70B2] They will remain in zedis due to backward compatibility. However, in SW, for unconnected/unwanted FFs it is accepted to send garbage or zeros.
+Primary DTC: 0x03194A : UWBs [0x70A9 and 0x70AA] They should be disabled in Software and should not be captured. But UWBs will remain in Zedis to not break compability issue. So when the DTC is logged, these information will not be shown and this is expected behavior.</br></li><li>1.1.30.14.1.0-6 Timing Requirements: Whenever SLAC error or V2G SCC error is reported, DTC shall be reported in fault memory.</br></li><li>1.1.30.14.1.0-7 Output data: When DTCs are captured, UWBs shall also captured for Secondary DTCs.</br></li><li>1.1.30.14.1.0-8 Postconditions: PANA Appl reports to BMW SWC on Slac Error or V2G error through interfaces. Control of state machine is by BMW SWC.</br></li><li>1.1.30.14.1.0-9 Descriptions of exceptions: Unwanted/Unconnected UWBs will be sent as garbage or zeroes value. </br></li><li>1.1.30.14.1.0-10 Dependencies and interactions: DEM, PLCCP, SCC Adaptor, SLAC, ETH, SPI</br></li><li>1.1.30.14.2 Differences to CRS</br></li><li>1.1.30.14.2.0-1 xxx</br></li><li>1.1.30.14.3 Questions and Answers</br></li><li>1.1.30.14.3.0-1 xxx</br></li>

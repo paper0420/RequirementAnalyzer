@@ -1,0 +1,31 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_CCS_01</h1></br><li>1.1.31.1 SYR_CCS_01: provide status and error notification via software interface for respective protocol sequence between EVSE and CCU</br></li><li>1.1.31.1.1 Description</br></li><li>1.1.31.1.1.0-1 Brief description:
+Panasonic software should provide the status and error notification via software signals. Different protocol sequence would be supported by CCU.
+DIN DC protocol
+- DIN DC Protocol signal will provide the status and error of sequence between EVSE and CCU. 
+ISO AC protocol
+- ISO DC Protocol signal will provide the status and error of sequence between EVSE and CCU. 
+ISO DC protocol
+- ISO DC Protocol signal will provide the status and error of sequence between EVSE and CCU. 
+Priority:
+ 	Pro 1: ISO ED2
+    	Pro 2: ISO ED1
+    	Pro 3: DIN
+    	Pro 4: reserved.
+
+Note: The signal discription is tbd, it should be received from BMW.
+refer SYR_PLC_03 for figure.</br></li><li>1.1.31.1.1.0-2 Preconditions: 
+PLC Dlink = link, all value received is valid.
+PLC DLink = no link, all the interface values should be considered as invalid. Possible we should receive init values.</br></li><li>1.1.31.1.1.0-3 Trigger: BMW Software (LIM-C) will provide trigger over signals (sigHLCStart = Active)</br></li><li>1.1.31.1.1.0-4 Input data: information via Vector callbacks/callouts</br></li><li>1.1.31.1.1.0-5 Description of behaviour:
+at present vector deliver (or any other vendor) SCC package receive information via callbacks. BMW LIM-C SWC will receive information via RTE signals. The Panasonic software should collect all the information from vector callbacks and provide in BMW Signal format as defined in signal description file (tbd).
+This function should be as stateless as possible.</br></li><li>1.1.31.1.1.0-6 Timing Requirements:</br></li><li>1.1.31.1.1.0-7 Output data: RTE signals to BMW LIM-C</br></li><li>1.1.31.1.1.0-8 Postconditions:</br></li><li>1.1.31.1.1.0-9 Descriptions of exceptions:
+In G08, only DIN DC is implemented.
+In I20, ISO AC is implemented</br></li><li>1.1.31.1.1.0-10 Dependencies and interactions:
+- signal discreption from customer</br></li><li>1.1.31.1.2 Differences to CRS</br></li><li>1.1.31.1.2.0-1 NA</br></li><li>1.1.31.1.3 Questions and Answers</br></li><li>1.1.31.1.3.0-1 Priority for message set?
+CCU-6859:
+Discuss the priorities for the different schemas with the OEM. [Solved]
+    Pro 1: ISO ED2
+    Pro 2: ISO ED1
+    Pro 3: DIN
+    Pro 4: reserved.
+        BMW Ext. ISO - Not need any more.
+</br></li>

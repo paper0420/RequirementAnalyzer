@@ -1,0 +1,64 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SEC_190</h1></br><li>7.7.1.18 SYR_SEC_190: HSM Error Logging and Reporting</br></li><li>7.7.1.18.1 Description</br></li><li>7.7.1.18.1.0-1 Brief description: 
+The HSM errors shall be logged in all HSM user SW modules.
+The HSM errors shall be stored in HSM Dflash.
+Incase of failure to retrive the HSM error log from HSM's Dflash, a default failure value shall be reported to indicate this state.
+The Error logging shall follow the format in: "HSM Error Log".
+
+ 
+
+Please refer to the sheet "catalog" in the file 
+
+ 
+https://svn-bmw03-pais.eu.panasonic.com/BMW03_CCU_DOC/Common/WorkSpace/ENG.02_SystemRequirementsAnalysis/ENG.02_SystemRequirementSpecification/AdditionalDocuments/Documentation/Security/SysRequirementsForSecurityEpics.xlsx</br></li><li>7.7.1.18.1.0-2 Preconditions:None.</br></li><li>7.7.1.18.1.0-3 Trigger: DID: 0xAC16</br></li><li>7.7.1.18.1.0-4 Input data:None.</br></li><li>7.7.1.18.1.0-5 Description of behaviour:
+Byte Count	Byte 1	Byte 2	Byte 3	Byte 4	Byte 5	Byte 6	Byte 7	Byte 8	Byte 9	Byte 10	Byte 11	Byte 12	Byte 13	Byte 14	Byte 15	Byte 16	Byte 17	Byte 18	Byte 19	Byte 20
+Contents	vMaj	vMin-Sqnce	Time 1.1	Time 1.2	Time 1.3	error 1.1	error 1.2	error 1.3	error 1.4	Time2.1	Time2.2	Time 3.1	Time 3.2	Time 3.3	error 2.1	error 2.2	error 2.3	error 2.4	Time4.1	Time4.2
+																				
+			First Error Frame	 								Second Error Frame	 							
+										Queue Buffer	 									
+																				
+
+Error Encounters	debug signal	 		description						SWC	SequnenceCoverage	 
+	bm_init_WaitForBooted_done  	 	 	init sequence	 					Bmgr	01,10,11	
+	bm_init_Hsm_release_done        	 	 	init sequence	 					Bmgr	01,10,11	
+	bm_init_WaitForMode_done            	 	 	init sequence	 					Bmgr	01,10,11	
+	bm_blu_verification	 		blu cmac verification before jumping to blu	 	 	 			Bmgr	01,10,11	
+	bm_crit_func_dis    	bm_crit_func_dis    	 	disable security critical function before application jump	 	 	 	 		Bmgr	01,10,11	
+	bm_end_boot_chain   	 		before leaving BM to app	 	 				Bmgr	01,10,11	
+	bm_read_temp_token  	 		reading token status from HSM dflash	 	 	 			Bmgr	01,10,11	
+	bm_read_perm_token  	 		reading token status from HSM dflash	 	 	 			Bmgr	01,10,11	
+	bm_write_data       	 		writing token status from HSM dflash	 	 	 			Bmgr	01,10,11	
+	bm_bl_verification  	 		bl verification before jumping to bl	 	 	 			Bmgr	01,10,11	
+	bm_reserved	 		reserved for future	 					Bmgr	01,10,11	
+	bm_reserved	 		reserved for future	 					Bmgr	01,10,11	
+	bl_suspend_hsm      	 		suspend hsm before start of flash operation on host	 	 	 	 		Btld	01	
+	bl_hsm_mode_read	 		lifecycle of hsm read	 					Btld	01	
+	bl_hsm_mode_write	 		lifecycle of hsm write	 					Btld	01	
+	bl_tbrt_init        	 		tbrt table creation	 					Btld	01	
+	bl_tbrt_update      	 		tbrt table creation	 					Btld	01	
+	bl_tbrt_finish      	 		tbrt table creation	 					Btld	01	
+	bl_tbrt_finalize    	 		tbrt table creation	 					Btld	01	
+	bl_suspend_keep             	 	 	suspend hsm before start of flash operation on host	 	 	 	 		Btld	01	
+	bl_suspend_leave            	 	 	suspend hsm before start of flash operation on host	 	 	 	 		Btld	01	
+	bl_Pflash_unlockReqFail	 		pflash unlocking request failed	 	 				Btld	01	
+	bl_reserved	 		reserved for future	 					Btld	01	
+	bl_reserved	 		reserved for future	 					Btld	01	
+	blu_tbrt_init        	 		tbrt table creation	 					Blu	10	
+	blu_tbrt_update      	 		tbrt table creation	 					Blu	10	
+	blu_tbrt_finish      	 		tbrt table creation	 					Blu	10	
+	blu_tbrt_finalize    	 		tbrt table creation	 					Blu	10	
+	blu_reserved	 		reserved for future	 					Blu	10	
+	blu_reserved	 		reserved for future	 					Blu	10	
+	app_secoc_macGen	 		mac generation for secoc Tx messages	 	 	 			App	11	
+	app_secoc_macVerify	 		mac verify for secoc Rx messages	 	 				App	11	
+	app_keypack_write	 		Keypack write in HSM dflash	 	 				App	11	
+	app_keyEmpty	 		no secoc keys available	 	 				App	11	
+	app_injectKey	 		inject default key	 					App	11	
+
+Time bytes	Entitiy	Max Val	bit	byte	
+					
+	Year	15	1-4	Timex.1	
+	Month	12	5-8	Timex.1	
+	Day	31	10-14	Timex.2	
+	Hour 	24	16-20	Timex.2,Timex.3	 
+	Min	60	21-24	Timex.3	
+</br></li><li>7.7.1.18.1.0-6 Timing Requirements:None.</br></li><li>7.7.1.18.1.0-7 Output data:See Frame Breakdown above.</br></li><li>7.7.1.18.1.0-8 Postconditions:None.</br></li><li>7.7.1.18.1.0-9 Descriptions of exceptions:None.</br></li><li>7.7.1.18.1.0-10 Dependencies and interactions:None.</br></li><li>7.7.1.18.2 Differences to CRS</br></li><li>7.7.1.18.2.0-1 xxx</br></li><li>7.7.1.18.3 Questions and Answers</br></li><li>7.7.1.18.3.0-1 xxx</br></li>

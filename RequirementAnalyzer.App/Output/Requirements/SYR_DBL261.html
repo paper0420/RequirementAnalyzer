@@ -1,0 +1,29 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_DBL261</h1></br><li>7.6.1.27 SYR_DBL261: provide Post Mortem Debugging</br></li><li>7.6.1.27.1 Description</br></li><li>7.6.1.27.1.0-1 Brief description:
+The CCU shall provide means for post mortem debugging. Post mortem debugging allows retrieval of status information at the time an error occured even if the error leads to a system restart.Typically a system restart is enforced as a consequent action in the context of hardware/software exception handling or in the context of activating CCU safe state by functional safety monitors. 
+
+Basic requirements:
+
+Post mortem debugging data collection must not load the CPU during normal operation
+Post mortem debugging data must survive a device reset
+Post mortem debugging data shall be stored isolated for later retrieval without any risk that this data is lost if the system restarts.
+If post mortem debugging data has been collected the system may enter an idle state for collection the post mortem debugging data.
+Post mortem data shall be stored persistently in NVM.
+Post mortem data to be collected:
+
+E/E domain: BSW and OS
+Stack mirror or stack backtrace data
+Software State information at the time an error occured; details to be defined by SW development
+Hardware State information, e.g. FCCU error information, reset reason
+Power Management state information, e.g. NM status
+Vehicle  state information
+System time
+Applicaition domain Component Level (Pana APP SW)
+to be defined by JP APP team
+Application domain Strategic Level (BMW APP SW)
+to be defined by BMW APP team
+
+PMD shall store HSM bridge register values incase of HSM is not in application mode.
+
+Implementation Hint
+
+Function domains provde a service for post mortem debug data collection. The service shall be called by a central post mortem debugging software instance which is also responsible for data storage.</br></li><li>7.6.1.27.1.0-2 Preconditions: NA</br></li><li>7.6.1.27.1.0-3 Trigger: hardware/software exception handling ir context to activate safe state</br></li><li>7.6.1.27.1.0-4 Input data:NA</br></li><li>7.6.1.27.1.0-5 Description of behaviour: describe in above</br></li><li>7.6.1.27.1.0-6 Timing Requirements: NA</br></li><li>7.6.1.27.1.0-7 Output data: NA</br></li><li>7.6.1.27.1.0-8 Postconditions: is case of CCU stop operating, postmorten dump should be accessable for debuging</br></li><li>7.6.1.27.1.0-9 Descriptions of exceptions:NA</br></li><li>7.6.1.27.1.0-10 Dependencies and interactions: NA</br></li><li>7.6.1.27.2 Differences to CRS</br></li><li>7.6.1.27.2.0-1 NA</br></li><li>7.6.1.27.3 Questions and Answers</br></li><li>7.6.1.27.3.0-1 NA</br></li>

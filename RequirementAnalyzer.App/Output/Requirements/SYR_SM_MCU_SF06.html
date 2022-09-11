@@ -1,0 +1,16 @@
+<a href='D:\Code_Projects\RequirementAnalyzer\RequirementAnalyzer.App\Output\Index.html'>Home</a><h1>SYR_SM_MCU_SF06</h1></br><li>7.11.2.3 SYR_SM_MCU_SF06 [E/E] FuSa Implementation - Core Monitoring for ASIL-C/B/A</br></li><li>7.11.2.3.1 Description</br></li><li>7.11.2.3.1.0-1 Brief description: 
+The following core monitoring mechnisum to be implemented 
+
+Additionally Core test LIB should be executed core test lib in every trip time (48 hours )
+ASIL-B/A code requires either Lock-step (HW monitoring) or SW monitoring by a core monitoring library provided by ST Micro.
+ASIL-B/A code shall execute from lock-step supported monitoring core or normal core with core test LIB
+In case ASIL-B/A application running on lock-step core,  CST LIB should be executed in every trip time additionally  (48 hours )
+n case ASIL-B application running on normal core without lock step, CST LIB should be executed in every FTTI 
+Core 2 of the ST MCU can be activated as Lock-Step Core. This allows to move ComAdapter to an ASIL-C compatible CPU core. 
+</br></li><li>7.11.2.3.1.0-2 Preconditions: NA</br></li><li>7.11.2.3.1.0-3 Trigger: NA</br></li><li>7.11.2.3.1.0-4 Input data: NA</br></li><li>7.11.2.3.1.0-5 Description of behaviour: 
+
+In case of core failure detcted(lock-step/), immediate reset is the safe state. 
+</br></li><li>7.11.2.3.1.0-6 Timing Requirements: 
+1) Core test LIB should be executed in lock-step core in every trip time  (48 hours )
+
+2) In non-lock step core if ASIL-B/A application is running case CST LIB should be executed in every FTTI </br></li><li>7.11.2.3.1.0-7 Output data:</br></li><li>7.11.2.3.1.0-8 Postconditions:</br></li><li>7.11.2.3.1.0-9 Descriptions of exceptions: NA</br></li><li>7.11.2.3.1.0-10 Dependencies and interactions:</br></li><li>7.11.2.3.2 Differences to CRS</br></li><li>7.11.2.3.2.0-1 xxx</br></li><li>7.11.2.3.3 Questions and Answers</br></li><li>7.11.2.3.3.0-1 xxx</br></li>
