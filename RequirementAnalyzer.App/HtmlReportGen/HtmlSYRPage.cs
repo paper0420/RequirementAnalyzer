@@ -14,7 +14,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string syrID = "";
             string reqDetail = "";
             var reqCheck = new HashSet<string>();
-            string navbar = $"<a href='{FileNames.IndexPath}'>Home</a>";
+            string navbar = $"<a href='..\\Index.html'>Home</a>";
 
             foreach (var req in spec.SYRs)
             {
@@ -42,9 +42,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             {
                 if(syr.ID == syrID)
                 {
-                    reqObjective += $"<li>" +
-                        $"{syr.Objective}</br>" +
-                        $"</li>";
+                    reqObjective += $"{syr.Objective}</br>";
                 }
             }
             return syr_ID+reqObjective;

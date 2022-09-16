@@ -14,13 +14,15 @@ namespace RequirementsAndTestcasesAnalyzer
             List<SYR> syrs = null,
             List<DeltaSYR> deltaSyrs = null,
             List<Requirement> klh = null,
-            List<SYR> originalSYRs = null)
+            List<SYR> originalSYRs = null,
+            List<EPIC> epics = null)
         {
             this.TestCases = testCases; 
             this.SYRs = syrs;
             this.DeltaSYRs = deltaSyrs;
             this.KLHs = klh;
             this.OriginalSYRs = originalSYRs;
+            this.EPICs = epics;
 
         }
         public List<ENG10Testcase> TestCases { get; set; }
@@ -29,5 +31,6 @@ namespace RequirementsAndTestcasesAnalyzer
         public List<Requirement> KLHs { get; set; }
 
         public List<SYR> OriginalSYRs { get; set; }
+        public List<EPIC> EPICs { get; set; }
     }
 }

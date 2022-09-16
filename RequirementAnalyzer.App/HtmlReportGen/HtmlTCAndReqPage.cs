@@ -46,7 +46,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string end = "</html>";
 
             string testCaseDetail =
-                $"<a href='{FileNames.IndexPath}'>Home</a>" +
+                $"<a href='..\\Index.html'>Home</a>" +
                 $"<h1>{testCase.ID}</h1>\n" +
                 $"[{testCase.ItemClass1}],[{testCase.ItemClass2}],[{testCase.ItemClass3}]" +
                 $"</br>" +

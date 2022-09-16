@@ -15,6 +15,8 @@ var executedTestcases = ExcelTableReader
     .Cast<ENG10Testcase>()
     .ToList();
 
+var epics = ExcelTableReader.ReadFile(FileNames.EPIC, "Sheet1", (t, y) => EPIC.CreateOrNull(t, y)).DataRows;
+
 var deltaSYRs = ExcelTableReader.ReadFile(FileNames.DeltaSYR, "Sheet1", (t, y) => DeltaSYR.CreateOrNull(t, y)).DataRows;
 
 var completeSYRs = DataPreparation.GetSYRandKLHlinked(syrs).ToList();
@@ -72,12 +74,14 @@ var spec = new SpecForCheckingBaseline(
     syrs: completeSYRs,
     deltaSyrs: completeDeltaSYRs,
     klh: currentKLHs,
-    originalSYRs: syrs);
+    originalSYRs: syrs,
+    epics:epics);
 
 
 HtmlIndexPage.GenerateTraceAbilityPage(spec);
 HtmlTCAndReqPage.GenerateTestCaseAndRequirementPage(spec);
 HtmlSYRPage.GenerateSYR(spec);
+HtmlEPICPage.GenerateEPIC(spec);
 
 
 
