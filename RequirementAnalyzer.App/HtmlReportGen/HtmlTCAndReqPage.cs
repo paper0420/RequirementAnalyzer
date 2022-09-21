@@ -13,6 +13,14 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
     {       
         public static void GenerateTestCaseAndRequirementPage(SpecForCheckingBaseline spec)
         {
+            string header = $"<html>" +
+                   $"<head>" +
+                   $"<style>" +
+                   $".klh {{color: grey;}}" +
+                   $"</style>" +
+                   $"</head>";
+
+            string end = "</html>";
 
             foreach (var testCase in spec.TestCases)
             {
@@ -23,7 +31,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                     var tcPath = Path.GetFullPath($"{testCase.ID.Replace("#", "")}.html", FileNames.RequirementsFolder);
                     File.WriteAllText(
                         tcPath,
-                        testCaseDetail);
+                        header+testCaseDetail+end);
                 }
             }
 
@@ -35,15 +43,10 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string requirementsHtml = GenerateRequirementsHtml(
                 spec,
                 testCase);
+            string tsrRequirementsHtml = GenerateTSRRequirementsHtml(
+             spec,
+             testCase);
 
-            string header = $"<html>" +
-                            $"<head>" +
-                            $"<style>" +
-                            $"div {{color: grey;}}" +
-                            $"</style>" +
-                            $"</head>";
-
-            string end = "</html>";
 
             string testCaseDetail =
                 $"<a href='..\\Index.html'>Home</a>" +
@@ -52,8 +55,9 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 $"</br>" +
                 $"Test Objective: {testCase.Objective}<br>\n" +
                 $"<h2>Requirements</h2>" +
-                $"{requirementsHtml}";
-            return header+testCaseDetail+end;
+                $"{requirementsHtml}" +
+                $"{tsrRequirementsHtml}";
+            return testCaseDetail;
 
         }
 
@@ -74,8 +78,28 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 requirementsHtml +=
                     $"<li>" +
                     $"<strong>{requirement.ID}</strong> - " +
-                    $"<div>[{requirement.changeStatus}][{requirement.panaStatus}][{requirement.VerificationMeasure}][{requirement.Type}]</div>" +
+                    $"<div class='klh'>[{requirement.changeStatus}][{requirement.panaStatus}][{requirement.VerificationMeasure}][{requirement.Type}]</div>" +
                     $"{requirement.Objective}" +
+                    $"</li>";
+            }
+
+            requirementsHtml += "</ul>";
+
+            return requirementsHtml;
+        }
+
+
+        private static string GenerateTSRRequirementsHtml(SpecForCheckingBaseline spec, ENG10Testcase testCase)
+        {
+            string requirementsHtml = "<ul>";
+            foreach (var tsrId in testCase.TSRIDs)
+            {
+                var tsr = spec.TSRsByID.ContainsKey(tsrId) ? spec.TSRsByID[tsrId] : null;
+
+                requirementsHtml +=
+                    $"<li>" +
+                    $"<strong>{tsrId}</strong> - " +
+                    $"<div>{tsr.Objective}<div>" +
                     $"</li>\n";
             }
 

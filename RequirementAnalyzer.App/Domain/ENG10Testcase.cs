@@ -124,6 +124,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         public string? TestCatFull { get; private set; }
 
         public HashSet<string>? SYRIDs { get; set; } = new HashSet<string>();
+        public List<string>? TSRIDs { get; set; } = new List<string>();
 
 
     }

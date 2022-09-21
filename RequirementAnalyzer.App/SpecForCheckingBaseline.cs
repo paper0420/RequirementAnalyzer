@@ -15,7 +15,9 @@ namespace RequirementsAndTestcasesAnalyzer
             List<DeltaSYR> deltaSyrs = null,
             List<Requirement> klh = null,
             List<SYR> originalSYRs = null,
-            List<EPIC> epics = null)
+            List<EPIC> epics = null,
+            List<SafetyConcept> scs = null,
+            Dictionary<string,TSR> tsrsByID = null)
         {
             this.TestCases = testCases; 
             this.SYRs = syrs;
@@ -23,6 +25,8 @@ namespace RequirementsAndTestcasesAnalyzer
             this.KLHs = klh;
             this.OriginalSYRs = originalSYRs;
             this.EPICs = epics;
+            this.SCs = scs;
+            this.TSRsByID = tsrsByID;
 
         }
         public List<ENG10Testcase> TestCases { get; set; }
@@ -32,5 +36,7 @@ namespace RequirementsAndTestcasesAnalyzer
 
         public List<SYR> OriginalSYRs { get; set; }
         public List<EPIC> EPICs { get; set; }
+        public List<SafetyConcept> SCs { get; set; }
+        public Dictionary<string, TSR> TSRsByID { get; set; }
     }
 }

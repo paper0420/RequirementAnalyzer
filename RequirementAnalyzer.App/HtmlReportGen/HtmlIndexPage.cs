@@ -27,7 +27,13 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string version = $"<table class=\"version\">" +
                 $"<tr>" +
                 $"<td>KPIT</br>Date:{now.ToString("dddd, dd MMMM yyyy")}</td>" +
-                $"<td>{FileNames.TestSpecFileName}</br>{FileNames.KLHFileName}</br>{FileNames.SYRName}</br>{FileNames.EPICName}</td>" +
+                $"<td>{FileNames.TestSpecFileName}" +
+                $"</br>{FileNames.KLHFileName}" +
+                $"</br>{FileNames.SYRName}" +
+                $"</br>{FileNames.EPICName}" +
+                $"</br>{FileNames.SCName}" +
+                $"</br>{FileNames.TSRName}" +
+                $"</td>" +
                 $"</tr>" +
                 $"</table>";
             string column = $"<table style=\"width:50%\">" +
@@ -35,51 +41,64 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 $"<th>ENG10HV Test Case ID</th>" +
                 $"<th>KLH IDs</th>" +
                 $"<th>SYR IDs</th>" +
+                $"<th>TSR IDs</th>" +
                 $"</tr>";
 
             string end = "</table></html>";
             foreach (var testCase in spec.TestCases)
             {
-                if (testCase.Result != null)
+                var syrHtml = "";
+                var reqHtml = "";
+                var tsrHtml = "";
+
+                if (testCase.SYRIDs.Count > 0)
                 {
-                    var syrHtml = "";
-                    var reqHtml = "";
-
-                    if (testCase.SYRIDs.Count > 0)
-                    {
-                        syrHtml = GetSYRsHtml(testCase,spec);
-
-                    }
-
-                    //if (testCase.RequirementIDs.Contains("CCU-"))
-                    {
-                        reqHtml = GetReqsHtml(testCase, spec);
-                    }
-
-
-                    var tcPath = $".\\Requirements\\{testCase.ID.Replace("#", "")}.html";
-                    testcaseDetail += $"<tr>" +
-                        $"<td style=\"width:40%\"><a href='{tcPath}'>{testCase.ID}</a></td>" +
-                        $"<td style=\"width:30%\">{reqHtml}</td>" +
-                        $"<td style=\"width:30%\">{syrHtml}</td>" +
-                        $"</tr>";
-
+                    syrHtml = GetSYRsHtml(testCase, spec);
 
                 }
+
+                reqHtml = GetReqsHtml(testCase, spec);
+
+                if (testCase.TSRIDs.Count > 0)
+                {
+                    tsrHtml = GetTSRsHtml(testCase, spec);
+                }
+
+                var tcPath = $".\\Requirements\\{testCase.ID.Replace("#", "")}.html";
+                testcaseDetail += $"<tr>" +
+                    $"<td style=\"width:40%\"><a href='{tcPath}'>{testCase.ID}</a></td>" +
+                    $"<td style=\"width:20%\">{reqHtml}</td>" +
+                    $"<td style=\"width:20%\">{syrHtml}</td>" +
+                    $"<td style=\"width:20%\">{tsrHtml}</td>" +
+                    $"</tr>";
+
             }
-            string html = header+version + column + testcaseDetail + end;
+            string html = header + version + column + testcaseDetail + end;
 
             File.WriteAllText(FileNames.IndexPath, html);
 
         }
 
-        private static string GetSYRsHtml(ENG10Testcase testcase, SpecForCheckingBaseline spec)
+        private static string GetTSRsHtml(ENG10Testcase testCase, SpecForCheckingBaseline spec)
         {
             var html = "";
-            foreach(var syr in testcase.SYRIDs)
+            foreach (var tsr in testCase.TSRIDs)
+            {
+                var tsrPath = $".\\Requirements\\{tsr}.html";
+                html += $"<a>{tsr}</a>" +
+                        "</br>";
+            }
+            return html;
+
+        }
+
+        private static string GetSYRsHtml(ENG10Testcase testCase, SpecForCheckingBaseline spec)
+        {
+            var html = "";
+            foreach (var syr in testCase.SYRIDs)
             {
                 var syrPath = $".\\Requirements\\{syr}.html";
-                html += $"<a href='{syrPath}'>{syr}</a>"+
+                html += $"<a href='{syrPath}'>{syr}</a>" +
                         "</br>";
             }
             return html;

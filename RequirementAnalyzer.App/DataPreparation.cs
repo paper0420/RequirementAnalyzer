@@ -13,6 +13,7 @@ namespace RequirementsAndTestcasesAnalyzer
         {
             var syr_ID = "";
             var syrReqs = new List<string>();
+
             foreach (var syr in syrs)
             {
                 if (syr.A_ObjectType != "Requirement")
@@ -46,15 +47,15 @@ namespace RequirementsAndTestcasesAnalyzer
 
         }
 
-        public static IEnumerable<DeltaSYR> GetSYRlinkedtoDelta(List<SYR> syrs, List<DeltaSYR> deltaSYRs)
+        public static IEnumerable<DeltaSYR> GetSYRlinkedtoDelta(Dictionary<string,SYR> syrs, List<DeltaSYR> deltaSYRs)
         {
             foreach (var item in deltaSYRs)
             {
-                string syr_ID = syrs.First(syr => syr.ObjectIdentifier == item.ObjectIdentifier).ID;
+                var syr_ID = syrs.ContainsKey(item.ObjectIdentifier) ? syrs[item.ObjectIdentifier] : null;
                 if (syr_ID != null)
                 {
                     DeltaSYR data = new DeltaSYR();
-                    data.SYRID = syr_ID;
+                    data.SYRID = syr_ID.ID;
                     data.ObjectIdentifier = item.ObjectIdentifier;
                     data.Objective = item.Objective;
 
@@ -63,7 +64,7 @@ namespace RequirementsAndTestcasesAnalyzer
                 else
                 {
                     DeltaSYR data = new DeltaSYR();
-                    data.SYRID = syr_ID;
+                    data.SYRID = syr_ID.ID;
                     data.ObjectIdentifier = item.ObjectIdentifier;
                     data.Objective = item.Objective;
 
@@ -73,11 +74,13 @@ namespace RequirementsAndTestcasesAnalyzer
             }
         }
 
-        public static IEnumerable<ENG10Testcase> GetSYRLinkedtoTestcases(List<SYR> syrs, List<ENG10Testcase> executedTestcases)
+        public static IEnumerable<ENG10Testcase> GetSYRLinkedtoTestcases(List<SYR> syrs, List<ENG10Testcase> executedTestcases, List<SafetyConcept> scs)
         {
             foreach (var testcase in executedTestcases)
             {
                 var linkedSYR = new HashSet<string>();
+                var linkedTSR= new List<string>();
+                var linkedTSRNoDup = new List<string>();
                 string syrID = "";
 
                 if (testcase.RequirementIDs.Count > 0)
@@ -92,7 +95,20 @@ namespace RequirementsAndTestcasesAnalyzer
                                 linkedSYR.Add(syr.ID);
                             }
                         }
+
+                        foreach (var sc in scs)
+                        {
+                            var isReqLinked = sc.RequirementIDs.Any(scReq => scReq == req);
+                            if (isReqLinked)
+                            {
+                                linkedTSR.AddRange(sc.TSRRequirementIDs);
+                            }
+                        }
+
+                        linkedTSRNoDup = linkedTSR.Distinct().ToList();
+
                     }
+                    
                     ENG10Testcase data = new ENG10Testcase();
                     data.ID = testcase.ID;
                     data.RequirementIDs = testcase.RequirementIDs;
@@ -102,8 +118,9 @@ namespace RequirementsAndTestcasesAnalyzer
                     data.ItemClass1 = testcase.ItemClass1;
                     data.ItemClass2 = testcase.ItemClass2;
                     data.ItemClass3 = testcase.ItemClass3;
+                    data.TSRIDs = linkedTSRNoDup;
 
-                    //Console.WriteLine($"{data.ID} {string.Join(" ", data.RequirementIDs)} {string.Join(" ", data.SYRIDs)}");
+                    //Console.WriteLine($"{data.ID} {string.Join(" ", data.RequirementIDs)} {string.Join(" ", data.TSRIDs)}");
 
                     yield return data;
 
@@ -119,6 +136,7 @@ namespace RequirementsAndTestcasesAnalyzer
                     data.ItemClass1 = testcase.ItemClass1;
                     data.ItemClass2 = testcase.ItemClass2;
                     data.ItemClass3 = testcase.ItemClass3;
+                    data.TSRIDs = new List<string>();
                     //Console.WriteLine($"{data.ID} {string.Join(" ", data.RequirementIDs)} {string.Join(" ", data.SYRIDs)}");
 
                     yield return data;

@@ -18,12 +18,19 @@ var executedTestcases = ExcelTableReader
 var epics = ExcelTableReader.ReadFile(FileNames.EPIC, "Sheet1", (t, y) => EPIC.CreateOrNull(t, y)).DataRows;
 
 var deltaSYRs = ExcelTableReader.ReadFile(FileNames.DeltaSYR, "Sheet1", (t, y) => DeltaSYR.CreateOrNull(t, y)).DataRows;
+var scs = ExcelTableReader.ReadFile(FileNames.SC, "Sheet1", (t, y) => SafetyConcept.CreateOrNull(t, y)).DataRows;
+var tsrs = ExcelTableReader.ReadFile(FileNames.TSR, "Sheet1", (t, y) => TSR.CreateOrNull(t, y)).DataRows;
+
+var tsrsByID = new Dictionary<string, TSR>();
+tsrsByID = tsrs.Where(t => t.ID != null).DistinctBy(t => t.ID).ToDictionary(t => t.ID);
 
 var completeSYRs = DataPreparation.GetSYRandKLHlinked(syrs).ToList();
+var syrsByObjectID = new Dictionary<string, SYR>();
+syrsByObjectID = completeSYRs.Where(t => t.ObjectIdentifier != null).DistinctBy(t => t.ObjectIdentifier).ToDictionary(t => t.ObjectIdentifier);
 
-var completeDeltaSYRs = DataPreparation.GetSYRlinkedtoDelta(syrs, deltaSYRs).ToList();
+var completeDeltaSYRs = DataPreparation.GetSYRlinkedtoDelta(syrsByObjectID, deltaSYRs).ToList();
 
-var completeExecutedTCs = DataPreparation.GetSYRLinkedtoTestcases(syrs, executedTestcases).ToList();
+var completeExecutedTCs = DataPreparation.GetSYRLinkedtoTestcases(syrs, executedTestcases, scs).ToList();
 
 var affectedSyr = completeDeltaSYRs
     .Where(t => !string.IsNullOrWhiteSpace(t?.SYRID))
@@ -75,13 +82,15 @@ var spec = new SpecForCheckingBaseline(
     deltaSyrs: completeDeltaSYRs,
     klh: currentKLHs,
     originalSYRs: syrs,
-    epics:epics);
+    epics:epics,
+    scs:scs,
+    tsrsByID:tsrsByID);
 
 
 HtmlIndexPage.GenerateTraceAbilityPage(spec);
 HtmlTCAndReqPage.GenerateTestCaseAndRequirementPage(spec);
-HtmlSYRPage.GenerateSYR(spec);
-HtmlEPICPage.GenerateEPIC(spec);
+//HtmlSYRPage.GenerateSYR(spec);
+//HtmlEPICPage.GenerateEPIC(spec);
 
 
 
