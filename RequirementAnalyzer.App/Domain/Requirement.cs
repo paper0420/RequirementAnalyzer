@@ -14,7 +14,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         public static Requirement? CreateOrNull(IExcelDataReader reader, Header header)
         {
             var idColumn = header.GetColumnIndex("Object ID from Original");
-            var id = reader.GetValue(idColumn)?.ToString();
+            var id = reader.GetStringOrNull(idColumn)?.ToString();
 
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -23,13 +23,20 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
 
             Requirement requirement = new Requirement(id);
 
-            requirement.changeStatus = reader.GetString(header.GetColumnIndex("A_Change Status"));
-            requirement.panaStatus = reader.GetString(header.GetColumnIndex("A_Pana Status"));
-            requirement.VerificationSpecStatus = reader.GetValue(header.GetColumnIndex("A_Verification_Specification_Status"))?.ToString();
-            requirement.FusaType = reader.GetValue(header.GetColumnIndex("EAS_ASIL"))?.ToString();
-            requirement.Objective = reader.GetString(header.GetColumnIndex("Englisch"));
-            requirement.VerificationMeasure = reader.GetValue(header.GetColumnIndex("A_Verification_Measure"))?.ToString()?.Replace("\n", "");
-            requirement.Type = reader.GetValue(header.GetColumnIndex("A_ItemType"))?.ToString();
+            var columnIndex = header.GetColumnIndex("A_Change Status");
+            requirement.changeStatus = columnIndex != null 
+                ? reader.GetString(columnIndex.Value)
+                : null;
+
+
+            requirement.panaStatus = reader.GetStringOrNull(header.GetColumnIndex("A_Pana Status"));
+
+
+            requirement.VerificationSpecStatus = reader.GetStringOrNull(header.GetColumnIndex("A_Verification_Specification_Status"))?.ToString();
+            requirement.FusaType = reader.GetStringOrNull(header.GetColumnIndex("EAS_ASIL"))?.ToString();
+            requirement.Objective = reader.GetStringOrNull(header.GetColumnIndex("Englisch"));
+            requirement.VerificationMeasure = reader.GetStringOrNull(header.GetColumnIndex("A_Verification_Measure"))?.ToString()?.Replace("\n", "");
+            requirement.Type = reader.GetStringOrNull(header.GetColumnIndex("A_ItemType"))?.ToString();
 
             return requirement;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RequirementsAndTestcasesAnalyzer
+namespace RequirementsAndTestcasesAnalyzer.SpecParams
 {
     public class SpecForCheckingBaseline
     {
@@ -17,16 +17,16 @@ namespace RequirementsAndTestcasesAnalyzer
             List<SYR> originalSYRs = null,
             List<EPIC> epics = null,
             List<SafetyConcept> scs = null,
-            Dictionary<string,TSR> tsrsByID = null)
+            Dictionary<string, TSR> tsrsByID = null)
         {
-            this.TestCases = testCases; 
-            this.SYRs = syrs;
-            this.DeltaSYRs = deltaSyrs;
-            this.KLHs = klh;
-            this.OriginalSYRs = originalSYRs;
-            this.EPICs = epics;
-            this.SCs = scs;
-            this.TSRsByID = tsrsByID;
+            TestCases = testCases;
+            SYRs = syrs;
+            DeltaSYRs = deltaSyrs;
+            KLHs = klh;
+            OriginalSYRs = originalSYRs;
+            EPICs = epics;
+            SCs = scs;
+            TSRsByID = tsrsByID;
 
         }
         public List<ENG10Testcase> TestCases { get; set; }

@@ -11,13 +11,13 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         internal static SYR? CreateOrNull(IExcelDataReader reader, Header header)
         {
             var result = new SYR();
-            result.ObjectIdentifier = reader.GetValue(header.GetColumnIndex("ID"))?.ToString();
-            result.A_ObjectType = reader.GetValue(header.GetColumnIndex("A_Object Type"))?.ToString();
-            var id = reader.GetValue(header.GetColumnIndex("A_SYR-ID"))?.ToString().Trim();
+            result.ObjectIdentifier = reader.GetStringOrNull(header.GetColumnIndex("ID"))?.ToString();
+            result.A_ObjectType = reader.GetStringOrNull(header.GetColumnIndex("A_Object Type"))?.ToString();
+            var id = reader.GetStringOrNull(header.GetColumnIndex("A_SYR-ID"))?.ToString().Trim();
 
             result.ID = id;
-            result.Objective = reader.GetString(header.GetColumnIndex("Objective"));
-            var idsAsString = reader.GetValue(header.GetColumnIndex("Object ID from Original"))?
+            result.Objective = reader.GetStringOrNull(header.GetColumnIndex("Objective"));
+            var idsAsString = reader.GetStringOrNull(header.GetColumnIndex("Object ID from Original"))?
                 .ToString()?
                 .Split('\n') ?? new string[0];
 

@@ -11,11 +11,11 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         internal static SafetyConcept? CreateOrNull(IExcelDataReader reader, Header header)
         {
             var result = new SafetyConcept();
-            result.ObjectIdentifier = reader.GetValue(header.GetColumnIndex("ID"))?.ToString();
-            result.Objective = reader.GetValue(header.GetColumnIndex("Safety Goals"))?.ToString();
-            result.SCID = reader.GetValue(header.GetColumnIndex("A_FuSa"))?.ToString().Trim();
+            result.ObjectIdentifier = reader.GetStringOrNull(header.GetColumnIndex("ID"))?.ToString();
+            result.Objective = reader.GetStringOrNull(header.GetColumnIndex("Safety Goals"))?.ToString();
+            result.SCID = reader.GetStringOrNull(header.GetColumnIndex("A_FuSa"))?.ToString().Trim();
 
-            var klhIDs = reader.GetValue(header.GetColumnIndex("KLH"))?
+            var klhIDs = reader.GetStringOrNull(header.GetColumnIndex("KLH"))?
                 .ToString()?
                 .Split('\n') ?? new string[0];
 
@@ -32,7 +32,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
 
             result.RequirementIDs = requirementIds;
 
-            var tsrIDs = reader.GetValue(header.GetColumnIndex("TSR"))?
+            var tsrIDs = reader.GetStringOrNull(header.GetColumnIndex("TSR"))?
               .ToString()?
               .Split('\n') ?? new string[0];
 

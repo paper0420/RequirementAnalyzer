@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,13 @@ namespace RequirementsAndTestcasesAnalyzer
             }
 
             return input;
+        }
+
+        public static string? GetStringOrNull(this IExcelDataReader reader, int? columnIndex)
+        {
+            return columnIndex == null 
+                ? null
+                : reader.GetValue(columnIndex.Value)?.ToString();
         }
     }
 }

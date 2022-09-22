@@ -13,8 +13,8 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         internal static DeltaSYR? CreateOrNull(IExcelDataReader reader, Header header)
         {
             var result = new DeltaSYR();
-            result.ObjectIdentifier = reader.GetValue(header.GetColumnIndex("Object Identifier"))?.ToString();
-            result.Objective = reader.GetValue(header.GetColumnIndex("Requirements"))?.ToString();
+            result.ObjectIdentifier = reader.GetStringOrNull(header.GetColumnIndex("Object Identifier"))?.ToString();
+            result.Objective = reader.GetStringOrNull(header.GetColumnIndex("Requirements"))?.ToString();
 
 
             return result;

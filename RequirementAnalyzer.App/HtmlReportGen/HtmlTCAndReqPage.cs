@@ -1,5 +1,6 @@
 ﻿using RequirementsAndTestcasesAnalyzer.App;
 using RequirementsAndTestcasesAnalyzer.Domain;
+using RequirementsAndTestcasesAnalyzer.SpecParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;

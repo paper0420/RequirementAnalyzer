@@ -18,7 +18,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
                 var carLineColumnName = $"#{carLineName}#";
                 var columnIndex = header.GetColumnIndex(carLineColumnName);
             
-                var contains = reader.GetValue(columnIndex)?.ToString()?.Contains("X") == true;
+                var contains = reader.GetStringOrNull(columnIndex)?.ToString()?.Contains("X") == true;
 
                 if (contains)
                 {
@@ -29,7 +29,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
 
         internal static ENG10Testcase? CreateOrNull(IExcelDataReader reader, Header header)
         {
-            var id = reader.GetValue(header.GetColumnIndex("Test Case ID"))?.ToString();
+            var id = reader.GetStringOrNull(header.GetColumnIndex("Test Case ID"))?.ToString();
 
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -39,8 +39,8 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
             var result = new ENG10Testcase();
 
             result.ID = id;
-            result.Objective = reader.GetString(header.GetColumnIndex("Test objective"));
-            var idsAsString = reader.GetValue(header.GetColumnIndex("Current KLH"))?
+            result.Objective = reader.GetStringOrNull(header.GetColumnIndex("Test objective"));
+            var idsAsString = reader.GetStringOrNull(header.GetColumnIndex("Current KLH"))?
                 .ToString()?
                 .Split('\n') ?? new string[0];
 
@@ -86,21 +86,21 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
                     CarLineNames.carLineNames)
                 .ToList();
 
-            result.Type = reader.GetValue(header.GetColumnIndex("Type"))?.ToString();
-            result.Result = reader.GetValue(header.GetColumnIndex("Result"))?.ToString()?.Replace("\n", " ");
+            result.Type = reader.GetStringOrNull(header.GetColumnIndex("Type"))?.ToString();
+            result.Result = reader.GetStringOrNull(header.GetColumnIndex("Result"))?.ToString()?.Replace("\n", " ");
 
-            result.ItemClass1 = reader.GetString(header.GetColumnIndex("Class1"));
-            result.ItemClass2 = reader.GetString(header.GetColumnIndex("Class2"));
-            result.ItemClass3 = reader.GetString(header.GetColumnIndex("Class3"));
+            result.ItemClass1 = reader.GetStringOrNull(header.GetColumnIndex("Class1"));
+            result.ItemClass2 = reader.GetStringOrNull(header.GetColumnIndex("Class2"));
+            result.ItemClass3 = reader.GetStringOrNull(header.GetColumnIndex("Class3"));
 
-            result.Comment = reader.GetValue(header.GetColumnIndex("Comment"))?.ToString();
+            result.Comment = reader.GetStringOrNull(header.GetColumnIndex("Comment"))?.ToString();
 
-            result.VerificationMethod = reader.GetValue(header.GetColumnIndex("Verification Method"))?.ToString();
-            result.TestCatHV = reader.GetValue(header.GetColumnIndex("TestCat-HV"))?.ToString();
-            result.TestCatBasic = reader.GetValue(header.GetColumnIndex("TestCat-HV"))?.ToString();
-            result.TestCatFusa = reader.GetValue(header.GetColumnIndex("TestCat-Fusa"))?.ToString();
-            result.TestCatFunc = reader.GetValue(header.GetColumnIndex("TestCat-Func"))?.ToString();
-            result.TestCatFull = reader.GetValue(header.GetColumnIndex("TestCat-Full"))?.ToString();
+            result.VerificationMethod = reader.GetStringOrNull(header.GetColumnIndex("Verification Method"))?.ToString();
+            result.TestCatHV = reader.GetStringOrNull(header.GetColumnIndex("TestCat-HV"))?.ToString();
+            result.TestCatBasic = reader.GetStringOrNull(header.GetColumnIndex("TestCat-HV"))?.ToString();
+            result.TestCatFusa = reader.GetStringOrNull(header.GetColumnIndex("TestCat-Fusa"))?.ToString();
+            result.TestCatFunc = reader.GetStringOrNull(header.GetColumnIndex("TestCat-Func"))?.ToString();
+            result.TestCatFull = reader.GetStringOrNull(header.GetColumnIndex("TestCat-Full"))?.ToString();
 
             return result;
         }

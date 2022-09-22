@@ -5,7 +5,7 @@ public class Header
     private Dictionary<string,Column>? columnsById;
     public List<Column> Columns { get; } = new();
     
-    public int GetColumnIndex(string name)
+    public int? GetColumnIndex(string name)
     {
         if (this.columnsById == null)
         {
@@ -19,6 +19,6 @@ public class Header
             return this.columnsById[name].Index;    
         }
 
-        throw new Exception($"Cannot find column `{name}`.");
+        return null;
     }
 }

@@ -13,9 +13,9 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         internal static EPIC? CreateOrNull(IExcelDataReader reader, Header header)
         {
             var result = new EPIC();
-            result.JiraTicketNumber = reader.GetValue(header.GetColumnIndex("A_JIRA Ticket Number"))?.ToString().Trim();
-            result.Objective = reader.GetValue(header.GetColumnIndex("Objective"))?.ToString();
-            result.Description = reader.GetValue(header.GetColumnIndex("A_Description"))?.ToString();
+            result.JiraTicketNumber = reader.GetStringOrNull(header.GetColumnIndex("A_JIRA Ticket Number"))?.ToString().Trim();
+            result.Objective = reader.GetStringOrNull(header.GetColumnIndex("Objective"))?.ToString();
+            result.Description = reader.GetStringOrNull(header.GetColumnIndex("A_Description"))?.ToString();
 
 
 
