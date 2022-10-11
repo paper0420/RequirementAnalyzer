@@ -5,7 +5,12 @@ public class Header
     private Dictionary<string,Column>? columnsById;
     public List<Column> Columns { get; } = new();
     
-    public int? GetColumnIndex(string name)
+    /// <summary>
+    /// get a column index by name.
+    /// </summary>
+    /// <param name="names">possible names of column</param>
+    /// <returns></returns>
+    public int? GetColumnIndex(params string[] names)
     {
         if (this.columnsById == null)
         {
@@ -14,10 +19,14 @@ public class Header
                 .ToDictionary(t => t.Name!);
         }
 
-        if (this.columnsById.ContainsKey(name))
+        foreach(var name in names)
         {
-            return this.columnsById[name].Index;    
-        }
+            if (this.columnsById.ContainsKey(name))
+            {
+                return this.columnsById[name].Index;
+            }
+        } 
+        
 
         return null;
     }

@@ -6,8 +6,11 @@ using RequirementsAndTestcasesAnalyzer.HtmlReportGen;
 using RequirementsAndTestcasesAnalyzer.App;
 using System.ComponentModel.DataAnnotations;
 using RequirementsAndTestcasesAnalyzer.SpecParams;
+using RequirementsAndTestcasesAnalyzer.ENG9TestSpec;
 
 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+ENG9App.ReadTestSpec();
+return;
 
 //var currentKLHs = ExcelTableReader.ReadFile(FileNames.TestSpecFile, "KLH", (t, y) => Requirement.CreateOrNull(t, y)).DataRows;
 var syrs = ExcelTableReader.ReadFile(FileNames.SYR, "Sheet1", (t, y) => SYR.CreateOrNull(t, y)).DataRows;

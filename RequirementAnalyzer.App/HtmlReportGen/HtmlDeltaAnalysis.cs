@@ -20,10 +20,12 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string header = $"<html>" +
                 $"<head>" +
                 $"<style>" +
-                $"table,th,td {{border: 1px solid black;}}" +
+                $"table,th,td {{border: 1px solid black;" +
+                $"border-collapse: collapse;}}" +
                 $"table.version {{border: 1px solid white;" +
                 $"color:grey;" +
                 $"width: 50%}}" +
+                $".null {{text-align:center}}" +
                 $"</style>" +
                 $"</head>";
             string version = $"<table class=\"version\">" +
@@ -40,55 +42,71 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
             foreach (string file in Directory.GetFiles(FileNames.SWReqFolder, "*.xlsx"))
             {
-                var deltaDiagJP = ExcelTableReader.ReadFile(file, "Sheet1", (t, y) => SR.CreateOrNull(t, y)).DataRows;
-                Console.WriteLine($"--------------------{Path.GetFileName(file)}----------------------------");
-
-                testcaseDetail += $"<p>{Path.GetFileName(file)}</p>" +
-                    $"<table style=\"width:50%\">" +
-                    $"<tr>" +
-                    $"<th style=\"width:30%\">Modified/New SR ID</th>" +
-                    $"<th style=\"width:30%\">Affected KLH IDs</th>" +
-                    $"<th style=\"width:40%\">Affected TestCase IDs</th>" +
-                    $"</tr>"+
-                    $"</table>";
-
-                var klhIds = new HashSet<string>();
-                foreach (var sr in deltaDiagJP)
+                var deltaContents = ExcelTableReader.ReadFile(file, "Sheet1", (t, y) => SR.CreateOrNull(t, y)).DataRows;
+                if (deltaContents.Count == 0)
                 {
+                    Console.WriteLine($"--------------------{Path.GetFileName(file)}----------------------------");
+                    testcaseDetail += $"<p>File : {Path.GetFileName(file)}</p>" +
+                        $"<table style=\"width:50%\">" +
+                        $"<tr>" +
+                        $"<td style=\"width:100%\">No linkage between SR & KLH</td>" +
+                        $"</tr>" +
+                        $"</table>";
 
-                    foreach (var rtmItem in spec.RTM_SR_KLHs)
+                }
+                else
+                {
+                    Console.WriteLine($"--------------------{Path.GetFileName(file)}----------------------------");
+
+                    testcaseDetail += $"<p>File : {Path.GetFileName(file)}</p>" +
+                        $"<table style=\"width:50%\">" +
+                        $"<tr>" +
+                        $"<th style=\"width:30%\">Modified/New SR ID</th>" +
+                        $"<th style=\"width:30%\">Affected KLH IDs</th>" +
+                        $"<th style=\"width:40%\">Affected TestCase IDs</th>" +
+                        $"</tr>" +
+                        $"</table>";
+
+                    var klhIds = new HashSet<string>();
+                    foreach (var sr in deltaContents)
                     {
-                        if (sr.ID == rtmItem.SRID)
+
+                        foreach (var rtmItem in spec.RTM_SR_KLHs)
                         {
-                            if (!klhIds.Contains(rtmItem.KLHID))
+                            if (sr.ID == rtmItem.SRID)
                             {
-                                foreach (var tc in spec.TestCases)
+                                if (!klhIds.Contains(rtmItem.KLHID))
                                 {
-                                    if (tc.Result != null)
+                                    foreach (var tc in spec.TestCases)
                                     {
-                                        foreach (var req in tc.RequirementIDs)
+                                        if (tc.Result != null)
                                         {
-                                            if (rtmItem.KLHID == req)
+                                            foreach (var req in tc.RequirementIDs)
                                             {
-                                                Console.WriteLine($"{sr.ID} {rtmItem.KLHID} {tc.ID}");
-                                                testcaseDetail += $"<table style=\"width:50%\">" +
-                                                $"<tr>" +
-                                                $"<td style=\"width:30%\">{sr.ID}</td>" +
-                                                $"<td style=\"width:30%\">{rtmItem.KLHID}</td>" +
-                                                $"<td style=\"width:40%\">{tc.ID}</td>" +
-                                                $"</tr>" +
-                                                $"</table>";
+                                                if (rtmItem.KLHID == req)
+                                                {
+                                                    Console.WriteLine($"{sr.ID} {rtmItem.KLHID} {tc.ID}");
+                                                    testcaseDetail += $"<table style=\"width:50%\">" +
+                                                    $"<tr>" +
+                                                    $"<td style=\"width:30%\">{sr.ID}</td>" +
+                                                    $"<td style=\"width:30%\">{rtmItem.KLHID}</td>" +
+                                                    $"<td style=\"width:40%\">{tc.ID}</td>" +
+                                                    $"</tr>" +
+                                                    $"</table>";
+                                                }
                                             }
+
                                         }
 
                                     }
-
+                                    klhIds.Add(rtmItem.KLHID);
                                 }
-                                klhIds.Add(rtmItem.KLHID);
                             }
                         }
                     }
+
                 }
+
 
             }
 
@@ -105,6 +123,8 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 .Select(t => t!.SYRID)
                 .Cast<string>()
                 .ToHashSet();
+
+
 
             var testCasesAffectedBySyr = completeExecutedTCs
                 .Where(t => affectedSyr.Overlaps(t.RequirementIDs))
@@ -127,9 +147,9 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                 .Where(t => affectedKlh.Overlaps(t.RequirementIDs))
                 .Where(t => t.Result != null)
                 .Select(t => t.ID)
-                .ToList();
+                .ToHashSet();
 
-            testcaseDetail += $"<p>{Path.GetFileName(FileNames.DeltaSYR)}</p>" +
+            testcaseDetail += $"<p>File : {Path.GetFileName(FileNames.DeltaSYR)}</p>" +
                 $"<table style=\"width:50%\">" +
                 $"<tr>" +
                 $"<th style=\"width:50%\">Modified/New SYR IDs</th>" +
@@ -139,8 +159,8 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
             testcaseDetail += $"<table style=\"width:50%\">" +
              $"<tr>" +
-             $"<td style=\"width:50%\">{string.Join("\n", affectedSyr)}</td>" +
-             $"<td style=\"width:50%\">{string.Join("\n", testCasesAffectedBySyr)}</td>" +
+             $"<td style=\"width:50%\">{Check(affectedSyr)}</td>" +
+             $"<td style=\"width:50%\">{Check(testCasesAffectedBySyr)}</td>" +
              $"</tr>" +
              $"</table>";
 
@@ -150,11 +170,11 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
               $"<th style=\"width:50%\">Affected TestCase IDs</th>" +
               $"</tr>" +
               $"</table>";
-
+           
             testcaseDetail += $"<table style=\"width:50%\">" +
                  $"<tr>" +
-                 $"<td style=\"width:50%\">{string.Join("\n", affectedKlh)}</td>" +
-                 $"<td style=\"width:50%\">{string.Join("\n", testCasesAffectedByKlh)}</td>" +
+                 $"<td style=\"width:50%\">{Check(affectedKlh)}</td>" +
+                 $"<td style=\"width:50%\">{Check(testCasesAffectedByKlh)}</td>" +
                  $"</tr>" +
                  $"</table>";
 
@@ -179,7 +199,20 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
         }
 
+        private static string Check(HashSet<string> item)
+        {
+            var itemAffected = "";
+            if (item.Count > 0)
+            {
+                itemAffected = string.Join("</br>", item);
+            }
+            else
+            {
+                itemAffected = "<div class='null'>-</div>";
+            }
 
+            return itemAffected;
+        }
     }
 }
 
