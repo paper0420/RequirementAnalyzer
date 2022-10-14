@@ -38,14 +38,42 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
             .Where(t => t != null)
             .ToList();
 
-            List<ENG9Testcase> eng9TestCases = new List<ENG9Testcase>();
-            eng9TestCases = g70TestcasesFusa.Concat(g70TestcasesFunctional)
+            List<ENG9Testcase> alleng9TestCases = new List<ENG9Testcase>();
+            alleng9TestCases = g70TestcasesFusa.Concat(g70TestcasesFunctional)
                 .Concat(g60TestcasesFusa).Concat(g60TestcasesFunctional).ToList();
-            
 
-            foreach(var tc in eng9TestCases)
+            var eng9TestCaseById = new Dictionary<string, ENG9Testcase>();
+    //        this.columnsById = this.Columns
+    //.Where(t => !string.IsNullOrWhiteSpace(t.Name))
+    //.ToDictionary(t => t.Name!);
+
+
+            foreach (var item in alleng9TestCases)
             {
-                Console.WriteLine(tc.ICSID.SelectMany(t=>t));
+                foreach(var tc in item.IDs)
+                {
+
+                    if (!eng9TestCaseById.ContainsKey(tc))
+                    {
+                        eng9TestCaseById.Add(tc, item);
+                    }
+                    else
+                    {
+                        var testCase = eng9TestCaseById[tc];
+                        testCase.REQID.AddRange(item.REQID);
+                    }
+                   
+                }
+               
+            }
+
+            foreach(var item in eng9TestCaseById)
+            {
+                Console.WriteLine(item.Key);
+                foreach(var req in item.Value.REQID)
+                {
+                    Console.WriteLine(req);
+                }
             }
 
         }

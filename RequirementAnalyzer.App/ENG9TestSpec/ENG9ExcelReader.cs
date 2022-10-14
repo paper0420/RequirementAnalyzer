@@ -41,11 +41,7 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
 
                             while (reader.Read())
                             {
-                                if(sheet == "Outline of FuSa Test Cases")
-                                {
-
-                                }
-                                var row = func(reader, worksheet.Header, "G70");
+                                var row = func(reader, worksheet.Header);
 
                                 if (row != null)
                                 {
