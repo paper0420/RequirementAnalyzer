@@ -1,4 +1,6 @@
 ﻿using ExcelDataReader;
+using System.Dynamic;
+using System.Linq;
 using TestCaseAnalyzer.App.FileReader;
 
 namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
@@ -9,7 +11,7 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
             string file,
             string sheet,
             int rowNo,
-            Func<IExcelDataReader, Header, T> func)
+            Func<IExcelDataReader, Header,string, T> func)
         {
             using (var stream = File.Open(file, FileMode.Open, FileAccess.Read))
             {
@@ -41,7 +43,8 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
 
                             while (reader.Read())
                             {
-                                var row = func(reader, worksheet.Header);
+                                var carLine = GetCarLine(file);
+                                var row = func(reader, worksheet.Header,carLine);
 
                                 if (row != null)
                                 {
@@ -55,6 +58,29 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
 
                 return worksheet;
             }
+        }
+    
+        private static string GetCarLine (string file)
+        {
+            var carLines = new string[] { "G70", "G60", "G26","I20","G28","G08LCI","U11" };
+            var result = CheckCarLine(carLines,file);
+
+            return result;
+        }
+
+        private static string CheckCarLine(string[] carLines,string file)
+        {
+            foreach(var carLine in carLines)
+            {
+                if (Path.GetFileNameWithoutExtension(file).Contains($"_{carLine}_"))
+                {
+                    return carLine;
+                }
+
+            }
+
+            return "No car line matched";
+            
         }
     }
 }

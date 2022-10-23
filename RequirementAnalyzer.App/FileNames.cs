@@ -8,6 +8,7 @@ namespace RequirementsAndTestcasesAnalyzer.App
         public static readonly string InputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Input");
         public static readonly string SWReqFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\SWReq");
         public static readonly string ENG9Folder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\ENG9");
+        public static readonly string ENG9SepFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\ENG9TestSpecDocs");
         public static readonly string OutputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TraceabilityTool");
         public static readonly string RequirementsFolder = Path.Combine(OutputFolder, @".\Requirements");
 

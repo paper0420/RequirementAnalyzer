@@ -9,7 +9,24 @@ using RequirementsAndTestcasesAnalyzer.SpecParams;
 using RequirementsAndTestcasesAnalyzer.ENG9TestSpec;
 
 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-ENG9App.ReadTestSpec();
+var eng9Testcases = ENG9App.ReadTestReport();
+var eng9TestCasesWithObjective = ENG9App.ReadTestSpec();
+
+foreach(var tc in eng9Testcases)
+{
+    if (eng9TestCasesWithObjective.ContainsKey(tc.Key))
+    {
+        tc.Value.Objective = eng9TestCasesWithObjective[tc.Key].Objective;
+    }
+
+}
+
+var spec = new SpecForENG9TestSpec(
+    testCases: eng9Testcases);
+
+TestSpecExcelGenerator.GenerateTestSpec(spec);
+
+
 return;
 
 //var currentKLHs = ExcelTableReader.ReadFile(FileNames.TestSpecFile, "KLH", (t, y) => Requirement.CreateOrNull(t, y)).DataRows;
