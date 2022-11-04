@@ -36,6 +36,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
                 .Trim()
                 .Replace("#","")
                 .Replace(" ","")
+                .Replace(",","\n")
                 .Split('\n')?
                 .ToList();
          
@@ -63,6 +64,15 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
 
             result.CarLines.Add(carLine);
 
+            result.RelatedTSRID = reader.GetStringOrNull(header.GetColumnIndex("Related TSR/SM/Sequence Chart ID"))?.ToString();
+            result.SafetyGoal = reader.GetStringOrNull(header.GetColumnIndex("Safety Goal"))?.ToString();
+            result.SubIDs = reader.GetStringOrNull(header.GetColumnIndex("Test ID"))?.ToString()?
+                   .Trim()
+                   .Split('\n')?
+                   .ToList();
+
+            result.FunctionCatagory = reader.GetStringOrNull(header.GetColumnIndex("Categories"))?.ToString();
+            result.ErrorFactor = reader.GetStringOrNull(header.GetColumnIndex("Error Factor"))?.ToString();
 
             return result;
         }
@@ -79,6 +89,11 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         public string FusaType { get; set; }
         public string Group { get; set; }
         public string ID { get; set; }
+        public string RelatedTSRID { get; set; }
+        public string SafetyGoal { get; set; }
+        public List<string> SubIDs { get; set; }
+        public string FunctionCatagory { get; set; }
+        public string ErrorFactor { get; set; }
 
 
     }

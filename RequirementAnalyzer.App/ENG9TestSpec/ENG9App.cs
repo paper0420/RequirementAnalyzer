@@ -18,7 +18,7 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
         {
             var testCaseFusa = GetTestCasesFromSheet(FileNames.ENG9Folder, FileNames.FusaSheet);
             var testCaseFunctional = GetTestCasesFromSheet(FileNames.ENG9Folder, FileNames.FunctionalSheet);
-            var testCaseFTT = GetTestCasesFromSheet(FileNames.ENG9Folder, FileNames.FTTSheet);
+            var testCaseFaultInjection = GetTestCasesFromSheet(FileNames.ENG9Folder, FileNames.FaultSheet);
             foreach(var tc in testCaseFusa)
             {
                 tc.Group = "Fusa";
@@ -27,15 +27,15 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
             {
                 tc.Group = "Functional";
             }
-            foreach (var tc in testCaseFTT)
+            foreach (var tc in testCaseFaultInjection)
             {
-                tc.Group = "FTT";
+                tc.Group = "FaultInjection";
             }
 
 
             List<ENG9Testcase> alleng9TestCases = new List<ENG9Testcase>();
             alleng9TestCases = testCaseFusa.Concat(testCaseFunctional)
-                .Concat(testCaseFTT).ToList();
+                .Concat(testCaseFaultInjection).ToList();
 
             var eng9TestCasesById = new Dictionary<string, ENG9Testcase>();
             var eng9TestCases = new List<ENG9Testcase>();
@@ -51,6 +51,11 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
                         eng9TC.REQID = item.REQID;
                         eng9TC.FusaType = GetGroupID(tc, item.REQID);
                         eng9TC.Group = item.Group;
+                        eng9TC.SubIDs = item.SubIDs;
+                        eng9TC.RelatedTSRID = item.RelatedTSRID;
+                        eng9TC.SafetyGoal = item.SafetyGoal;
+                        eng9TC.FunctionCatagory = item.FunctionCatagory;
+                        eng9TC.ErrorFactor = item.ErrorFactor;
                         //eng9TestCases.Add(eng9TC);
                         eng9TestCasesById.Add(tc, eng9TC);
                     }
@@ -61,6 +66,17 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
                         testCase.REQID = testCase.REQID.Distinct().ToList();
                         testCase.CarLines.AddRange(item.CarLines);
                         testCase.CarLines = testCase.CarLines.Distinct().ToList();
+                        if(testCase.Group != item.Group)
+                        {
+                            if(testCase.Group == "Fusa\nFault Injection")
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                testCase.Group = $"{testCase.Group}\n{item.Group}";
+                            }
+                        }
 
                     }
 

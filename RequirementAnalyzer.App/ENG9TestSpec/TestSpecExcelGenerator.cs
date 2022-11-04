@@ -38,6 +38,13 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
                 worksheet.Cell("O1").Value = "#G70#";
                 worksheet.Cell("P1").Value = "#I20#";
                 worksheet.Cell("Q1").Value = "#U11#";
+                worksheet.Cell("R1").Value = "Sub Test Case ID";
+                worksheet.Cell("S1").Value = "Safety Goal";
+                worksheet.Cell("T1").Value = "Related TSR";
+                worksheet.Cell("U1").Value = "Function Catagory";
+                worksheet.Cell("V1").Value = "Error Factor";
+
+
 
 
                 var currentRow = 2;
@@ -49,13 +56,19 @@ namespace RequirementsAndTestcasesAnalyzer.ENG9TestSpec
                     worksheet.Cell($"B{currentRow}").Value = item.Value.FusaType;
                     worksheet.Cell($"C{currentRow}").Value = item.Key;
                     worksheet.Cell($"D{currentRow}").Value = item.Value.Objective;
-                    worksheet.Cell($"E{currentRow}").Value = String.Join("\n", item.Value.REQID.ToArray());
-                    worksheet.Cell($"F{currentRow}").Value = String.Join("\n", item.Value.TSRID.ToArray());
-                    worksheet.Cell($"G{currentRow}").Value = String.Join("\n", item.Value.ICSID.ToArray());
-                    worksheet.Cell($"H{currentRow}").Value = String.Join("\n", item.Value.SYRID.ToArray());
-                    worksheet.Cell($"I{currentRow}").Value = String.Join("\n", item.Value.KLHID.ToArray());
-                    worksheet.Cell($"J{currentRow}").Value = String.Join("\n", item.Value.CarLines.ToArray());
+                    worksheet.Cell($"E{currentRow}").Value = String.Join("\n", item.Value.REQID);
+                    worksheet.Cell($"F{currentRow}").Value = String.Join("\n", item.Value.TSRID);
+                    worksheet.Cell($"G{currentRow}").Value = String.Join("\n", item.Value.ICSID);
+                    worksheet.Cell($"H{currentRow}").Value = String.Join("\n", item.Value.SYRID);
+                    worksheet.Cell($"I{currentRow}").Value = String.Join("\n", item.Value.KLHID);
+                    worksheet.Cell($"J{currentRow}").Value = String.Join("\n", item.Value.CarLines);
                     AddCarLine(currentRow, item, worksheet);
+
+                    worksheet.Cell($"R{currentRow}").Value = item.Value.SubIDs != null ?String.Join("\n", item.Value.SubIDs): null;
+                    worksheet.Cell($"S{currentRow}").Value = item.Value.SafetyGoal;
+                    worksheet.Cell($"T{currentRow}").Value = item.Value.RelatedTSRID;
+                    worksheet.Cell($"U{currentRow}").Value = item.Value.FunctionCatagory;
+                    worksheet.Cell($"V{currentRow}").Value = item.Value.ErrorFactor;
 
                     currentRow++;
 

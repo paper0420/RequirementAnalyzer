@@ -24,7 +24,7 @@ namespace RequirementsAndTestcasesAnalyzer.App
         public static readonly string G70 = Path.GetFullPath("BMW03_V15107D_SYI_TestReport_G70_2137.120_L3_Full.xlsx", ENG9Folder);
         public static readonly string G60 = Path.GetFullPath("BMW03_V15107D_SYI_TestReport_G60_2225.0_L3_Full.xlsx", ENG9Folder);
         public static readonly string FusaSheet = "Outline of FuSa Test Cases";
-        public static readonly string FTTSheet = "Outline of Fault Injection";
+        public static readonly string FaultSheet = "Outline of Fault Injection";
         public static readonly string FunctionalSheet = "Outline of Functional Test Case";
 
 
