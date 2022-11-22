@@ -9,6 +9,10 @@ using RequirementsAndTestcasesAnalyzer.SpecParams;
 using RequirementsAndTestcasesAnalyzer.ENG9TestSpec;
 
 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+/**Generate ENG9 test spec: Input- Test reports , Test spec 
+ * 
+ * 
 var eng9Testcases = ENG9App.ReadTestReport();
 var eng9TestCasesWithObjective = ENG9App.ReadTestSpec();
 
@@ -25,21 +29,28 @@ var spec = new SpecForENG9TestSpec(
     testCases: eng9Testcases);
 
 TestSpecExcelGenerator.GenerateTestSpec(spec);
+**/
 
-
-return;
 
 //var currentKLHs = ExcelTableReader.ReadFile(FileNames.TestSpecFile, "KLH", (t, y) => Requirement.CreateOrNull(t, y)).DataRows;
 var syrs = ExcelTableReader.ReadFile(FileNames.SYR, "Sheet1", (t, y) => SYR.CreateOrNull(t, y)).DataRows;
-var executedTestcases = ExcelTableReader
-    .ReadFile(FileNames.TestSpecFile, "Test_Item", (t, y) => ENG10Testcase.CreateOrNull(t, y))
+var eng10Tescases = ExcelTableReader
+    .ReadFile(FileNames.ENG10TestSpecFile, "Test_Item", (t, y) => ENG10Testcase.CreateOrNull(t, y))
     .DataRows
     .Where(t => t != null)
     .Cast<ENG10Testcase>()
     .ToList();
 
+var eng9Testcases = ExcelTableReader
+    .ReadFile(FileNames.ENG9TestSpecFile, "Test_Item", (t, y) => Testcase.CreateOrNull(t, y))
+    .DataRows
+    .Where(t => t != null)
+    .Cast<Testcase>()
+    .ToList();
+
 //var epics = ExcelTableReader.ReadFile(FileNames.EPIC, "Sheet1", (t, y) => EPIC.CreateOrNull(t, y)).DataRows;
-var deltaSYRs = ExcelTableReader.ReadFile(FileNames.DeltaSYR, "Sheet1", (t, y) => DeltaSYR.CreateOrNull(t, y)).DataRows;
+var deltaSYRs = ExcelTableReader.ReadFile(FileNames.DeltaSYR, "Sheet1", (t, y) => Delta.CreateOrNull(t, y)).DataRows;
+var deltaTSRs = ExcelTableReader.ReadFile(FileNames.DeltaTSR, "Sheet1", (t, y) => Delta.CreateOrNull(t, y)).DataRows;
 var scs = ExcelTableReader.ReadFile(FileNames.SC, "Sheet1", (t, y) => SafetyConcept.CreateOrNull(t, y)).DataRows;
 //var tsrs = ExcelTableReader.ReadFile(FileNames.TSR, "Sheet1", (t, y) => TSR.CreateOrNull(t, y)).DataRows;
 //var tsrsByID = new Dictionary<string, TSR>();
@@ -49,13 +60,18 @@ var rtm_SR_KLH = ExcelTableReader.ReadFile(FileNames.RTM, "RTM_SR_CRQ", (t, y) =
 //var rtm_SR_SYR = ExcelTableReader.ReadFile(FileNames.RTM, "RTM_SR_SYR", (t, y) => RTM_SR_SYR.CreateOrNull(t, y)).DataRows;
 
 var specDelta = new SpecForDeltaAnalysis(
-    testCases: executedTestcases,
+    eng10TestCases: eng10Tescases,
     syrs: syrs,
     deltaSyrs: deltaSYRs,
     scs: scs,
     rtm_SR_KLH: rtm_SR_KLH);
 
+var specENG9Delta = new SpecForDeltaAnalysis(
+    eng9TestCases: eng9Testcases,
+    deltaTsrs: deltaTSRs);
+
 HtmlDeltaAnalysis.GenerateDeltaAnalysisPage(specDelta);
+HtmlDeltaAnalysis.GenerateENG9DeltaAnalysisPage(specENG9Delta);
 
 //var spec = new SpecForCheckingBaseline(
 //    testCases: completeExecutedTCs,

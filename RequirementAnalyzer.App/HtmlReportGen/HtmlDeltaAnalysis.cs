@@ -77,7 +77,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
                             {
                                 if (!klhIds.Contains(rtmItem.KLHID))
                                 {
-                                    foreach (var tc in spec.TestCases)
+                                    foreach (var tc in spec.ENG10TestCases)
                                     {
                                         if (tc.Result != null)
                                         {
@@ -110,13 +110,13 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
             }
 
-            var completeSYRs = DataPreparation.GetSYRandKLHlinked(spec.SYRs).ToList();
+            var completeSYRs = DataPreparation.FixSYRFormatByAddingSYRIdAndKlhId(spec.SYRs).ToList();
             var syrsByObjectID = new Dictionary<string, SYR>();
             syrsByObjectID = completeSYRs.Where(t => t.ObjectIdentifier != null).DistinctBy(t => t.ObjectIdentifier).ToDictionary(t => t.ObjectIdentifier);
 
             var completeDeltaSYRs = DataPreparation.GetSYRlinkedtoDelta(syrsByObjectID, spec.DeltaSYRs).ToList();
 
-            var completeExecutedTCs = DataPreparation.GetSYRLinkedtoTestcases(spec.SYRs, spec.TestCases, spec.SCs).ToList();
+            var completeExecutedTCs = DataPreparation.GetSYRLinkedtoTestcases(spec.SYRs, spec.ENG10TestCases, spec.SCs).ToList();
 
             var affectedSyr = completeDeltaSYRs
                 .Where(t => !string.IsNullOrWhiteSpace(t?.SYRID))
@@ -195,7 +195,7 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
             string html = header + version + testcaseDetail + end;
 
-            File.WriteAllText(FileNames.DeltaPath, html);
+            File.WriteAllText(FileNames.ENG10DeltaPath, html);
 
         }
 
@@ -213,6 +213,137 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
 
             return itemAffected;
         }
+
+
+        public static void GenerateENG9DeltaAnalysisPage(SpecForDeltaAnalysis spec)
+        {
+            DateTime now = DateTime.Now;
+            string testcaseDetail = null;
+            string header = $"<html>" +
+                $"<head>" +
+                $"<style>" +
+                $"table,th,td {{border: 1px solid black;" +
+                $"border-collapse: collapse;}}" +
+                $"table.version {{border: 1px solid white;" +
+                $"color:grey;" +
+                $"width: 50%}}" +
+                $".null {{text-align:center}}" +
+                $"</style>" +
+                $"</head>";
+            string version = $"<table class=\"version\">" +
+                $"<tr>" +
+                $"<td>KPIT</br>Date:{now.ToString("dddd, dd MMMM yyyy")}</td>" +
+                $"<td>{Path.GetFileName(FileNames.ENG9TestSpecFile)}" +
+                $"</br>{Path.GetFileName(FileNames.DeltaTSR)}" +
+                $"</td>" +
+                $"</tr>" +
+                $"</table>";
+
+
+            string end = "</html>";
+
+            //var completeSYRs = DataPreparation.GetSYRandKLHlinked(spec.SYRs).ToList();
+            //var syrsByObjectID = new Dictionary<string, SYR>();
+            //syrsByObjectID = completeSYRs.Where(t => t.ObjectIdentifier != null).DistinctBy(t => t.ObjectIdentifier).ToDictionary(t => t.ObjectIdentifier);
+
+            //var completeDeltaSYRs = DataPreparation.GetSYRlinkedtoDelta(syrsByObjectID, spec.DeltaSYRs).ToList();
+
+            //var completeExecutedTCs = DataPreparation.GetSYRLinkedtoTestcases(spec.SYRs, spec.TestCases, spec.SCs).ToList();
+
+            //var affectedSyr = completeDeltaSYRs
+            //    .Where(t => !string.IsNullOrWhiteSpace(t?.SYRID))
+            //    .Select(t => t!.SYRID)
+            //    .Cast<string>()
+            //    .ToHashSet();
+            //var testCasesAffectedBySyr = completeExecutedTCs
+            //    .Where(t => affectedSyr.Overlaps(t.RequirementIDs))
+            //    .Select(t => t.ID)
+            //    .ToHashSet();
+
+            testcaseDetail += $"<p>File : {Path.GetFileName(FileNames.DeltaTSR)}</p>" +
+                $"<table style=\"width:50%\">" +
+                $"<tr>" +
+                $"<th style=\"width:20%\">Modified/New TSR IDs</th>" +
+                $"<th style=\"width:50%\">Requirements" +
+                $"<th style=\"width:30%\">Affected TestCase IDs</th>" +
+                $"</tr>" +
+                $"</table>";
+
+            var affectedTsr = spec.DeltaTSRs
+                .Where(t => !string.IsNullOrWhiteSpace(t?.TSRID))
+                .Select(t => t!.TSRID)
+                .Cast<string>()
+                .ToHashSet();
+
+            foreach(var item in spec.DeltaTSRs)
+            {
+                var testCasesAffectedByTsr = spec.ENG9TestCases
+                .Where(t => t.TSRID.Contains(item.TSRID))
+                .Select(t => t.ID)
+                .ToHashSet();
+
+                testcaseDetail += $"<table style=\"width:50%\">" +
+                 $"<tr>" +
+                 $"<td style=\"width:20%\">{item.TSRID}</td>" +
+                 $"<td style=\"width:50%\">{item.Objective}</td>" +
+                 $"<td style=\"width:30%\">{Check(testCasesAffectedByTsr)}</td>" +
+                 $"</tr>" +
+                 $"</table>";
+            }
+
+
+            //var testCasesAffectedByTsr = spec.ENG9TestCases
+            //    .Where(t => affectedTsr.Overlaps(t.TSRID))
+            //    .Select(t => t.ID)
+            //    .ToHashSet();
+
+
+
+            //var affectedKlh = completeDeltaSYRs
+            //    .Select(t => t?.Objective
+            //        .SubstringFrom("<ReqID>", inclusive: false)
+            //        .SubstringUpTo("</ReqID>")
+            //        .SubstringUpTo("<\\ReqID>"))
+            //    .Where(t => !string.IsNullOrWhiteSpace(t))
+            //    .SelectMany(t => t!.Split(';', ':', ' '))
+            //    .Where(t => !string.IsNullOrWhiteSpace(t))
+            //    .Select(t => t.Trim())
+            //    .Where(t => int.TryParse(t, out var _))
+            //    .ToHashSet();
+
+            //var testCasesAffectedByKlh = completeExecutedTCs
+            //    .Where(t => affectedKlh.Overlaps(t.RequirementIDs))
+            //    .Where(t => t.Result != null)
+            //    .Select(t => t.ID)
+            //    .ToHashSet();
+
+
+
+            //testcaseDetail += $"<table style=\"width:50%\">" +
+            // $"<tr>" +
+            // $"<td style=\"width:50%\">{Check(affectedTsr)}</td>" +
+            // $"<td style=\"width:50%\">{Check(testCasesAffectedByTsr)}</td>" +
+            // $"</tr>" +
+            // $"</table>";
+
+
+
+            //Console.WriteLine($"Modified/New  TSR:");
+            //Console.WriteLine();
+            //Console.WriteLine($"{string.Join("\n", affectedTsr)}");
+            //Console.WriteLine();
+            //Console.WriteLine($"Affected testcase by TSR:");
+            //Console.WriteLine($"{string.Join("\n", testCasesAffectedByTsr)}");
+            //Console.WriteLine("-----------------------------------------------");
+
+
+            string html = header + version + testcaseDetail + end;
+
+            File.WriteAllText(FileNames.ENG9DeltaPath, html);
+
+        }
+
+
     }
 }
 

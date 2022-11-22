@@ -9,7 +9,7 @@ namespace RequirementsAndTestcasesAnalyzer
 {
     public static class DataPreparation
     {
-        public static IEnumerable<SYR> GetSYRandKLHlinked(List<SYR> syrs)
+        public static IEnumerable<SYR> FixSYRFormatByAddingSYRIdAndKlhId(List<SYR> syrs)
         {
             var syr_ID = "";
             var syrReqs = new List<string>();
@@ -47,14 +47,14 @@ namespace RequirementsAndTestcasesAnalyzer
 
         }
 
-        public static IEnumerable<DeltaSYR> GetSYRlinkedtoDelta(Dictionary<string,SYR> syrs, List<DeltaSYR> deltaSYRs)
+        public static IEnumerable<Delta> GetSYRlinkedtoDelta(Dictionary<string,SYR> syrs, List<Delta> deltaSYRs)
         {
             foreach (var item in deltaSYRs)
             {
                 var syr_ID = syrs.ContainsKey(item.ObjectIdentifier) ? syrs[item.ObjectIdentifier] : null;
                 if (syr_ID != null)
                 {
-                    DeltaSYR data = new DeltaSYR();
+                    Delta data = new Delta();
                     data.SYRID = syr_ID.ID;
                     data.ObjectIdentifier = item.ObjectIdentifier;
                     data.Objective = item.Objective;
@@ -63,8 +63,8 @@ namespace RequirementsAndTestcasesAnalyzer
                 }
                 else
                 {
-                    DeltaSYR data = new DeltaSYR();
-                    data.SYRID = syr_ID.ID;
+                    Delta data = new Delta();
+                    data.SYRID = $"Item ObjectIdentifier: {item.ObjectIdentifier}";
                     data.ObjectIdentifier = item.ObjectIdentifier;
                     data.Objective = item.Objective;
 

@@ -13,7 +13,7 @@ namespace RequirementsAndTestcasesAnalyzer.SpecParams
             Dictionary<string,ENG9Testcase> testCases = null,
             Dictionary<string,ENG9Spec> eng9testCaseWithObjective = null,
             List<SYR> syrs = null,
-            List<DeltaSYR> deltaSyrs = null,
+            List<Delta> deltaSyrs = null,
             List<Requirement> klh = null,
             List<SYR> originalSYRs = null,
             List<EPIC> epics = null,

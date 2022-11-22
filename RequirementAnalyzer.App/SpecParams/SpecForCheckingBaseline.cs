@@ -12,7 +12,7 @@ namespace RequirementsAndTestcasesAnalyzer.SpecParams
         public SpecForCheckingBaseline(
             List<ENG10Testcase> testCases = null,
             List<SYR> syrs = null,
-            List<DeltaSYR> deltaSyrs = null,
+            List<Delta> deltaSyrs = null,
             List<Requirement> klh = null,
             List<SYR> originalSYRs = null,
             List<EPIC> epics = null,
@@ -31,7 +31,7 @@ namespace RequirementsAndTestcasesAnalyzer.SpecParams
         }
         public List<ENG10Testcase> TestCases { get; set; }
         public List<SYR> SYRs { get; set; }
-        public List<DeltaSYR> DeltaSYRs { get; set; }
+        public List<Delta> DeltaSYRs { get; set; }
         public List<Requirement> KLHs { get; set; }
 
         public List<SYR> OriginalSYRs { get; set; }

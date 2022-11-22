@@ -28,12 +28,11 @@ namespace RequirementsAndTestcasesAnalyzer.HtmlReportGen
             string version = $"<table class=\"version\">" +
                 $"<tr>" +
                 $"<td>KPIT</br>Date:{now.ToString("dddd, dd MMMM yyyy")}</td>" +
-                $"<td>{FileNames.TestSpecFileName}" +
+                $"<td>{Path.GetFileName(FileNames.ENG10TestSpecFile)}" +
                 $"</br>{FileNames.KLHFileName}" +
-                $"</br>{FileNames.SYRName}" +
-                $"</br>{FileNames.EPICName}" +
-                $"</br>{FileNames.SCName}" +
-                $"</br>{FileNames.TSRName}" +
+                $"</br>{Path.GetFileName(FileNames.SYR)}" +
+                $"</br>{Path.GetFileName(FileNames.EPIC)}" +
+                $"</br>{Path.GetFileName(FileNames.TSR)}" +
                 $"</td>" +
                 $"</tr>" +
                 $"</table>";
