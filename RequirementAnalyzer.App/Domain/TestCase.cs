@@ -31,6 +31,9 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
             var tsrIDs = reader.GetStringOrNull(header.GetColumnIndex("TSR ID"))?
                 .ToString()?
                 .Split('\n') ?? new string[0];
+            var icsIDs = reader.GetStringOrNull(header.GetColumnIndex("ICS ID"))?
+                .ToString()?
+                .Split('\n') ?? new string[0];
             var syrIDs = reader.GetStringOrNull(header.GetColumnIndex("SYR ID"))?
                 .ToString()?
                 .Split('\n') ?? new string[0];
@@ -42,7 +45,9 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
             result.KLHID = klhIDs.Where(t => t != null).ToList();
             result.TSRID = tsrIDs.Where(t => t != null).ToList();
             result.SYRID = syrIDs.Where(t => t != null).ToList();
+            result.ICSID = icsIDs.Where(t => t != null).ToList();
             result.CarLines = carLines.Where(t => t != null).ToList();
+            result.Catagory = reader.GetStringOrNull(header.GetColumnIndex("Catagory"));
 
 
 
@@ -58,7 +63,7 @@ namespace RequirementsAndTestcasesAnalyzer.Domain
         public string Objective { get; set; }
         public List<string> CarLines { get; set; } = new List<string> { };
         public string FusaType { get; set; }
-        public string Group { get; set; }
+        public string Catagory { get; set; }
         public string ID { get; set; }
         public string RelatedTSRID { get; set; }
         public string SafetyGoal { get; set; }
